@@ -41,8 +41,5 @@ public class TemporaryFile implements FileInformtion {
 	}
 
 
-	public void interupt() {
-		Thread.interrupted();
-		
-	}
+	
 }

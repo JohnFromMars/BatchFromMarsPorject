@@ -5,11 +5,9 @@ public interface FileInformtion {
 	String readFile();
 
 	void writeFile(String data);
-	
-    boolean isEmpty();
-    
-    void closeFile();
-    
-    void interupt();
+
+	boolean isEmpty();
+
+	void closeFile();
 
 }

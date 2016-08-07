@@ -105,7 +105,6 @@ public class PhysicalFile implements FileInformtion {
 	}
 
 
-	public void interupt() {
-	}
+	
 
 }
