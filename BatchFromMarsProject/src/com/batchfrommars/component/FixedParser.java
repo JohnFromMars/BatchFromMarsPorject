@@ -27,7 +27,7 @@ public abstract class FixedParser {
 				field.setAccessible(true);
 				Class<?> clazz = field.getType();
 				int length = entry.getValue();
-				Object value = Translate(input, clazz, length);
+				Object value = translate(input, clazz, length);
 				field.set(this, value);
 
 			} catch (Exception e) {
@@ -46,7 +46,7 @@ public abstract class FixedParser {
 	 * @param length
 	 * @return
 	 */
-	protected Object Translate(String input, Class<?> clazz, int length) {
+	protected Object translate(String input, Class<?> clazz, int length) {
 		Object result = null;
 		if (clazz.equals(String.class)) {
 			return result = translateToString(input, length);

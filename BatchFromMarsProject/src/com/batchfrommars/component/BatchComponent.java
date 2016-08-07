@@ -41,20 +41,6 @@ public abstract class BatchComponent extends Component {
 		}
 	}
 
-	public FileInformtion getInputFile() {
-		return inputFile;
-	}
-
-	public void setInputFile(FileInformtion inputFile) {
-		this.inputFile = inputFile;
-	}
-
-	public FileInformtion getOutputFile() {
-		return outputFile;
-	}
-
-	public void setOutputFile(FileInformtion outputFile) {
-		this.outputFile = outputFile;
-	}
+	
 
 }
