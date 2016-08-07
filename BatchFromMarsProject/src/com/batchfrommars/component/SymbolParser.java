@@ -7,10 +7,17 @@ public abstract class SymbolParser {
 	private String[] stringList;
 	private int count = 0;
 
+	/**
+	 * to get the separate symbol from children class
+	 * 
+	 * @return
+	 */
 	protected abstract String getSymbol();
 
-	protected abstract boolean isSymbolAtLast();
-
+	/**
+	 * to get the fields list from children class
+	 * @return
+	 */
 	protected abstract ArrayList<String> getFields();
 
 	/**
@@ -45,7 +52,7 @@ public abstract class SymbolParser {
 	 * @return
 	 */
 	protected Object translate(Class<?> clazz, int count) {
-		//different parse for different type
+		// different parse for different type
 		if (clazz.equals(String.class)) {
 			return translateToString(count);
 		} else if (clazz.equals(int.class)) {
@@ -61,7 +68,7 @@ public abstract class SymbolParser {
 	 * @return
 	 */
 	private String translateToString(int count) {
-		//parse to string
+		// parse to string
 		return stringList[count];
 	}
 
@@ -71,7 +78,7 @@ public abstract class SymbolParser {
 	 * @return
 	 */
 	private int translateToInteger(int count) {
-		//parse to int
+		// parse to int
 		return Integer.parseInt(stringList[count]);
 	}
 
