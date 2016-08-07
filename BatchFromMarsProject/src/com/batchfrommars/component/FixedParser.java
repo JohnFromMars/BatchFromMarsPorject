@@ -53,7 +53,7 @@ public abstract class FixedParser {
 	private String translateToString(String input, int length) {
 		String result = input.substring(index, index + length);
 		index += length;
-		return result;
+		return result.trim();
 	}
 	
 	private int translateToInteger(String input, int length){
