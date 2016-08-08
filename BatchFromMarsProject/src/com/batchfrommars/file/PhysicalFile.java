@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
-public class PhysicalFile implements FileInformtion {
+public class PhysicalFile implements FileInformation {
 	private String ioType;
 	private String filePath;
 	private String encoding;

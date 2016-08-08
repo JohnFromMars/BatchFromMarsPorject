@@ -1,10 +1,10 @@
 package com.batchfrommars.component;
 
-import com.batchfrommars.file.FileInformtion;
+import com.batchfrommars.file.FileInformation;
 
 public class Component extends Thread {
-	protected FileInformtion inputFile;
-	protected FileInformtion outputFile;
+	protected FileInformation inputFile;
+	protected FileInformation outputFile;
 	private Component lastComponent;
 
 
@@ -26,19 +26,19 @@ public class Component extends Thread {
 		
 	}
 
-	public FileInformtion getInputFile() {
+	public FileInformation getInputFile() {
 		return inputFile;
 	}
 
-	public void setInputFile(FileInformtion inputFile) {
+	public void setInputFile(FileInformation inputFile) {
 		this.inputFile = inputFile;
 	}
 
-	public FileInformtion getOutputFile() {
+	public FileInformation getOutputFile() {
 		return outputFile;
 	}
 
-	public void setOutputFile(FileInformtion outputFile) {
+	public void setOutputFile(FileInformation outputFile) {
 		this.outputFile = outputFile;
 	}
 

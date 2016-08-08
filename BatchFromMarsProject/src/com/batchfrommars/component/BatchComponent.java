@@ -1,6 +1,6 @@
 package com.batchfrommars.component;
 
-import com.batchfrommars.file.FileInformtion;
+import com.batchfrommars.file.FileInformation;
 
 public abstract class BatchComponent extends Component {
 
@@ -9,7 +9,7 @@ public abstract class BatchComponent extends Component {
 	public BatchComponent() {
 	}
 
-	public BatchComponent(FileInformtion inputFile, FileInformtion outputFile) {
+	public BatchComponent(FileInformation inputFile, FileInformation outputFile) {
 		this.inputFile = inputFile;
 		this.outputFile = outputFile;
 	}

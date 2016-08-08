@@ -1,6 +1,6 @@
 package com.batchfrommars.file;
 
-public interface FileInformtion {
+public interface FileInformation {
 
 	String readFile();
 

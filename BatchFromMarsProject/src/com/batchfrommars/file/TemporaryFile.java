@@ -4,7 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class TemporaryFile implements FileInformtion {
+public class TemporaryFile implements FileInformation {
 	private BlockingQueue<String> buffer;
 
 	public TemporaryFile(int allocate) {
