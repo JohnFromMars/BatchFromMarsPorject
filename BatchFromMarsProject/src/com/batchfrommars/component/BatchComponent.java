@@ -3,7 +3,8 @@ package com.batchfrommars.component;
 import com.batchfrommars.file.FileInformation;
 
 public abstract class BatchComponent extends Component {
-
+	protected FileInformation inputFile;
+	protected FileInformation outputFile;
 	protected abstract String excuteProcess(String data);
 
 	public BatchComponent() {
@@ -41,6 +42,22 @@ public abstract class BatchComponent extends Component {
 		}
 	}
 
+	public FileInformation getInputFile() {
+		return inputFile;
+	}
+
+	public void setInputFile(FileInformation inputFile) {
+		this.inputFile = inputFile;
+	}
+
+	public FileInformation getOutputFile() {
+		return outputFile;
+	}
+
+	public void setOutputFile(FileInformation outputFile) {
+		this.outputFile = outputFile;
+	}
+	
 	
 
 }
