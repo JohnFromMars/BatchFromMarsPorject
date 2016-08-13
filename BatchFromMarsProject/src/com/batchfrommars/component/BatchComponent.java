@@ -1,6 +1,7 @@
 package com.batchfrommars.component;
 
 import com.batchfrommars.file.FileInformation;
+
 /**
  * 
  * @author JohnFromMars
@@ -10,6 +11,7 @@ import com.batchfrommars.file.FileInformation;
 public abstract class BatchComponent extends ComponentII {
 	protected FileInformation inputFile;
 	protected FileInformation outputFile;
+
 	protected abstract String excuteProcess(String data);
 
 	public BatchComponent() {
@@ -39,14 +41,6 @@ public abstract class BatchComponent extends ComponentII {
 		System.out.println(this.getClass().getSimpleName() + " compeleted...");
 	}
 
-	public void run() {
-		try {
-			activate();
-		} catch (Exception e) {
-			System.out.println(this.getClass().getSimpleName() + " compeleted...");
-		}
-	}
-
 	public FileInformation getInputFile() {
 		return inputFile;
 	}
@@ -62,7 +56,5 @@ public abstract class BatchComponent extends ComponentII {
 	public void setOutputFile(FileInformation outputFile) {
 		this.outputFile = outputFile;
 	}
-	
-	
 
 }

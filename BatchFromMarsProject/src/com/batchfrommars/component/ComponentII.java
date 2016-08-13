@@ -8,8 +8,11 @@ import java.util.ArrayList;
  * @date 2016年8月13日
  * @remark 2016年8月13日
  */
-public class ComponentII extends Thread {
+public abstract class ComponentII extends Thread {
 	private ArrayList<ComponentII> lastComponentList = new ArrayList<ComponentII>();
+	
+	protected abstract void activate();
+	
 
 	public ArrayList<ComponentII> getLastComponentList() {
 		return this.lastComponentList;
@@ -34,6 +37,13 @@ public class ComponentII extends Thread {
 		}
 
 		return isRunnnig;
+	}
+	
+	/**
+	 * 
+	 */
+	public void run(){
+		this.activate();
 	}
 
 	/**

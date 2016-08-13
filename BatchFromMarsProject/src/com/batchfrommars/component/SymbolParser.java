@@ -3,7 +3,13 @@ package com.batchfrommars.component;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public abstract class SymbolParser {
+/**
+ * 
+ * @author JohnFromMars
+ * @date 2016年8月13日
+ * @remark 2016年8月13日
+ */
+public abstract class SymbolParser implements Parser {
 	private String[] stringList;
 	private int count = 0;
 
@@ -16,6 +22,7 @@ public abstract class SymbolParser {
 
 	/**
 	 * to get the fields list from children class
+	 * 
 	 * @return
 	 */
 	protected abstract ArrayList<String> getFields();

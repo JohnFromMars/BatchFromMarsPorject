@@ -5,21 +5,21 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 /**
- * @
- * @author Yj
- *
+ * 
+ * @author JohnFromMars
+ * @date 2016年8月13日
+ * @remark 2016年8月13日
  */
-public abstract class FixedParser {
-	// 欄位長度表
+public abstract class FixedParser implements Parser {
+	
 	abstract protected LinkedHashMap<String, Integer> getFields();
-
-	// 位置
+// 位置
 	private int index = 0;
 
-	/**
-	 * 
-	 * @param input
+	/* (non-Javadoc)
+	 * @see com.batchfrommars.component.Parser#parse(java.lang.String)
 	 */
+	@Override
 	public void parse(String input) {
 		for (Entry<String, Integer> entry : this.getFields().entrySet()) {
 			try {
