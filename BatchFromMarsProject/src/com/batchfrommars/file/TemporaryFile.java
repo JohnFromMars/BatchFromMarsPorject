@@ -18,7 +18,7 @@ public class TemporaryFile implements FileInformation {
 	public String readFile() {
 		String data = null;
 		try {
-			data = buffer.poll(1, TimeUnit.MILLISECONDS);
+			data = buffer.poll(5, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			System.out.println("interuptted");
 		}
@@ -26,10 +26,13 @@ public class TemporaryFile implements FileInformation {
 	}
 
 	public void writeFile(String data) {
-		try {
-			buffer.put(data);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (data != null) {
+			
+			try {
+				buffer.put(data);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -40,6 +43,4 @@ public class TemporaryFile implements FileInformation {
 	public void closeFile() {
 	}
 
-
-	
 }

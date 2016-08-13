@@ -39,16 +39,22 @@ public class PhysicalFile implements FileInformation {
 	}
 
 	public String readFile() {
-		String data = this.scanner.nextLine();
+		String data = null;
+		if (!isEmpty()) {
+			data = this.scanner.nextLine();
+		}
 		return data;
 	}
 
 	public void writeFile(String data) {
-		try {
-			this.bufferedWriter.write(data);
-			this.bufferedWriter.newLine();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (data != null) {
+			
+			try {
+				this.bufferedWriter.write(data);
+				this.bufferedWriter.newLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -103,8 +109,5 @@ public class PhysicalFile implements FileInformation {
 	public void setAppend(boolean append) {
 		this.append = append;
 	}
-
-
-	
 
 }
