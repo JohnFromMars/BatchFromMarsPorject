@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author Yj
- *
+ * @author JohnFromMars
+ * @date 2016年8月13日
+ * @remark 2016年8月13日
  */
 public class ComponentII extends Thread {
 	private ArrayList<ComponentII> lastComponentList = new ArrayList<ComponentII>();
@@ -16,10 +17,6 @@ public class ComponentII extends Thread {
 
 	public void setLastComponentList(ArrayList<ComponentII> lastComponentList) {
 		this.lastComponentList = lastComponentList;
-	}
-
-	public void addLastComponent(ComponentII component) {
-		lastComponentList.add(component);
 	}
 
 	/**
@@ -37,5 +34,62 @@ public class ComponentII extends Thread {
 		}
 
 		return isRunnnig;
+	}
+
+	/**
+	 * add componentII into last component list
+	 * 
+	 * @param component
+	 */
+	public void addLastComponent(ComponentII component) {
+		lastComponentList.add(component);
+	}
+
+	/**
+	 * add componentII into last component list
+	 * 
+	 * @param component
+	 */
+	public void addLastComponent(ComponentII component, ComponentII component2) {
+		lastComponentList.add(component);
+		lastComponentList.add(component2);
+	}
+
+	/**
+	 * add componentII into last component list
+	 * 
+	 * @param component
+	 */
+	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3) {
+		lastComponentList.add(component);
+		lastComponentList.add(component2);
+		lastComponentList.add(component3);
+	}
+
+	/**
+	 * add componentII into last component list
+	 * 
+	 * @param component
+	 */
+	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3,
+			ComponentII component4) {
+		lastComponentList.add(component);
+		lastComponentList.add(component2);
+		lastComponentList.add(component3);
+		lastComponentList.add(component4);
+	}
+
+	/**
+	 * add componentII into last component list
+	 * 
+	 * @param component
+	 */
+	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3,
+			ComponentII component4, ComponentII component5) {
+		lastComponentList.add(component);
+		lastComponentList.add(component2);
+		lastComponentList.add(component3);
+		lastComponentList.add(component4);
+		lastComponentList.add(component5);
 	}
 }
