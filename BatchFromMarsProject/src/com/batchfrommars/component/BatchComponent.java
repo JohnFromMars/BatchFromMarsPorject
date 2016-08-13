@@ -1,8 +1,13 @@
 package com.batchfrommars.component;
 
 import com.batchfrommars.file.FileInformation;
-
-public abstract class BatchComponent extends Component {
+/**
+ * 
+ * @author JohnFromMars
+ * @date 2016年8月13日
+ * @remark 2016年8月13日
+ */
+public abstract class BatchComponent extends ComponentII {
 	protected FileInformation inputFile;
 	protected FileInformation outputFile;
 	protected abstract String excuteProcess(String data);
@@ -19,7 +24,7 @@ public abstract class BatchComponent extends Component {
 
 		System.out.println(this.getClass().getSimpleName() + " started...");
 
-		while (!inputFile.isEmpty() || isLastComponentRunning()) {
+		while (!inputFile.isEmpty() || isLastComponentsRunning()) {
 			String input = (String) inputFile.readFile();
 			if (input != null) {
 				String output = this.excuteProcess(input);
