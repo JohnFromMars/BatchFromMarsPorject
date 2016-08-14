@@ -4,15 +4,21 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 
 /**
+ * input data should be sorted 
  * 
  * @author JohnFromMars
  * @date 2016年8月13日
  * @remark 2016年8月13日
  */
 public abstract class CompareComponent extends ComponentII {
-
+	// member area
 	private FileList inputFileList;
 	private FileList outputFileList;
+	// constant area
+	private final static int INPUT_1 = 0;
+	private final static int INPUT_2 = 1;
+	private final static int INPUT_SIZE = 2;
+	private final static int EQUAL = 0;
 
 	protected abstract String getKeyFromInput1(String inputData);
 
@@ -32,53 +38,55 @@ public abstract class CompareComponent extends ComponentII {
 	 */
 	public void activate() {
 
-		System.out.println(this.getClass().getSimpleName() + " started...");
-
 		String input1 = null;
 		String input2 = null;
 
-		if (!inputFileList.isEmpty(0) && !inputFileList.isEmpty(1)) {
-			input1 = inputFileList.readFile(0);
-			input2 = inputFileList.readFile(1);
+		System.out.println(this.getClass().getSimpleName() + START_MSG);
+
+		if (!inputFileList.isEmpty(INPUT_1) && !inputFileList.isEmpty(INPUT_2)) {
+			input1 = inputFileList.readFile(INPUT_1);
+			input2 = inputFileList.readFile(INPUT_2);
 		}
 
-		while (inputFileList.size() == 2) {
-			// compare two key
-			int compare = getKeyFromInput1(input1).compareTo(getKeyFromInput2(input2));
+		// it can only be 2 input
+		while (inputFileList.size() == INPUT_SIZE) {
 
-			if (compare == 0) {
-				// write out the data
-				outputFileList.writeToAllFile(this.getResultFormat(input1, input2));
-				// check if the file is not empty then read file
-				if (!inputFileList.isEmpty(0) && !inputFileList.isEmpty(1)) {
-					input1 = inputFileList.readFile(0);
-					input2 = inputFileList.readFile(1);
-				} else {
-					break;
+			if (input1 != null && input2 != null) {
+				// compare two key
+				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+
+				if (compare == EQUAL) {
+					// write out the data with the specified format
+					outputFileList.writeToAllFile(this.getResultFormat(input1, input2));
+					// if file is not empty then read the next data
+					if (!inputFileList.isEmpty(INPUT_1) && !inputFileList.isEmpty(INPUT_2)) {
+						input1 = inputFileList.readFile(INPUT_1);
+						input2 = inputFileList.readFile(INPUT_2);
+					} else {
+						break;
+					}
+				} else if (compare > EQUAL) {
+					// if file is not empty then read the next data
+					if (!inputFileList.isEmpty(INPUT_2)) {
+						input2 = inputFileList.readFile(INPUT_2);
+					} else {
+						break;
+					}
+
+				} else if (compare < EQUAL) {
+					// if file is not empty then read the next data
+					if (!inputFileList.isEmpty(INPUT_1)) {
+						input1 = inputFileList.readFile(INPUT_1);
+					} else {
+						break;
+					}
 				}
-
-			} else if (compare > 0) {
-				// check if the file is not empty then read file
-				if (!inputFileList.isEmpty(1)) {
-					input2 = inputFileList.readFile(1);
-				} else {
-					break;
-				}
-
-			} else if (compare < 0) {
-				// check if the file is not empty then read file
-				if (!inputFileList.isEmpty(0)) {
-					input1 = inputFileList.readFile(0);
-				} else {
-					break;
-				}
-
 			}
 		}
 		// close files
 		inputFileList.closeFile();
 		outputFileList.closeFile();
-		System.out.println(this.getClass().getSimpleName() + " compeleted...");
+		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 
 	}
 

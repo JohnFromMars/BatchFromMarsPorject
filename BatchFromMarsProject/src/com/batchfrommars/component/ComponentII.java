@@ -10,9 +10,18 @@ import java.util.ArrayList;
  */
 public abstract class ComponentII extends Thread {
 	private ArrayList<ComponentII> lastComponentList = new ArrayList<ComponentII>();
-	
+	// constant area for children class
+	protected final static String START_MSG = " started...";
+	protected final static String COMPELETE_MSG = " compeleted...";
+	//constant area
+	private final static int NO_COMPONENT = 0;
+
+	/**
+	 * 
+	 * @date 2016年8月14日
+	 * @remark
+	 */
 	protected abstract void activate();
-	
 
 	public ArrayList<ComponentII> getLastComponentList() {
 		return this.lastComponentList;
@@ -30,19 +39,18 @@ public abstract class ComponentII extends Thread {
 	public boolean isLastComponentsRunning() {
 		boolean isRunnnig = false;
 
-		if (lastComponentList.size() != 0) {
+		if (lastComponentList.size() != NO_COMPONENT) {
 			for (ComponentII item : lastComponentList) {
 				isRunnnig = isRunnnig || item.isAlive();
 			}
 		}
-
 		return isRunnnig;
 	}
-	
+
 	/**
 	 * 
 	 */
-	public void run(){
+	public void run() {
 		this.activate();
 	}
 

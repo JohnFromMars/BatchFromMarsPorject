@@ -10,13 +10,15 @@ import java.util.Map.Entry;
  * @date 2016年8月13日
  * @remark 2016年8月13日
  */
-public abstract class FixedParser implements Parser {
-	
-	abstract protected LinkedHashMap<String, Integer> getFields();
-// 位置
+public abstract class FixedParser extends Translation implements Parser {
+	// position
 	private int index = 0;
 
-	/* (non-Javadoc)
+	abstract protected LinkedHashMap<String, Integer> getFields();
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.batchfrommars.component.Parser#parse(java.lang.String)
 	 */
 	@Override
@@ -31,12 +33,9 @@ public abstract class FixedParser implements Parser {
 				field.set(this, value);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
-
 	}
 
 	/**
@@ -49,36 +48,16 @@ public abstract class FixedParser implements Parser {
 	protected Object translate(String input, Class<?> clazz, int length) {
 		Object result = null;
 		if (clazz.equals(String.class)) {
-			return result = translateToString(input, length);
+			result = translateToString(input.substring(index, index + length));
+			index += length;
+			return result;
 		} else if (clazz.equals(int.class)) {
-			return result = translateToInteger(input, length);
+			result = translateToInteger(input.substring(index, index + length));
+			index += length;
+			return result;
 		} else {
+			index += length;
 			return result;
 		}
-
 	}
-
-	/**
-	 * @param input
-	 * @param length
-	 * @return
-	 */
-	private String translateToString(String input, int length) {
-		String result = input.substring(index, index + length);
-		index += length;
-		return result.trim();
-	}
-
-	/**
-	 * 
-	 * @param input
-	 * @param length
-	 * @return
-	 */
-	private int translateToInteger(String input, int length) {
-		int result = Integer.parseInt(input.substring(index, index + length));
-		index += length;
-		return result;
-	}
-
 }

@@ -15,6 +15,13 @@ public abstract class BatchComponentII extends ComponentII {
 	// FileInformation list for input and output
 	private FileList inputFileList;
 	private FileList outputFileList;
+	// constant area
+	protected final static int INPUT_1 = 0;
+	protected final static int INPUT_2 = 1;
+	protected final static int INPUT_3 = 2;
+	protected final static int INPUT_4 = 4;
+	protected final static int INPUT_5 = 4;
+
 
 	/**
 	 * implement excuteProcess then you can activate or start your
@@ -37,7 +44,7 @@ public abstract class BatchComponentII extends ComponentII {
 	 */
 	public void activate() {
 
-		System.out.println(this.getClass().getSimpleName() + " started...");
+		System.out.println(this.getClass().getSimpleName() + START_MSG);
 
 		while (!inputFileList.isEmpty() || this.isLastComponentsRunning()) {
 			LinkedList<String> inputList = inputFileList.readFile();
@@ -52,7 +59,7 @@ public abstract class BatchComponentII extends ComponentII {
 
 		inputFileList.closeFile();
 		outputFileList.closeFile();
-		System.out.println(this.getClass().getSimpleName() + " compeleted...");
+		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 	}
 
 	/**

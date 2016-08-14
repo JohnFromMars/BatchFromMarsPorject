@@ -10,12 +10,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class PhysicalFile implements FileInformation {
+	// member area
 	private String ioType;
 	private String filePath;
 	private String encoding;
 	private boolean append;
 	private Scanner scanner;
 	private BufferedWriter bufferedWriter;
+
+	// constant area
+	private static String OUTPUT = "OUTPUT";
+	private static String INPUT = "INPUT";
 
 	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) {
 		this.ioType = ioType;
@@ -24,9 +29,9 @@ public class PhysicalFile implements FileInformation {
 		this.append = append;
 
 		try {
-			if (ioType.equals("INPUT")) {
+			if (ioType.equals(INPUT)) {
 				this.scanner = new Scanner(new FileInputStream(filePath), encoding);
-			} else if (ioType.equals("OUTPUT")) {
+			} else if (ioType.equals(OUTPUT)) {
 				this.bufferedWriter = new BufferedWriter(
 						new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
 			}
@@ -48,7 +53,7 @@ public class PhysicalFile implements FileInformation {
 
 	public void writeFile(String data) {
 		if (data != null) {
-			
+
 			try {
 				this.bufferedWriter.write(data);
 				this.bufferedWriter.newLine();
@@ -56,18 +61,16 @@ public class PhysicalFile implements FileInformation {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	public boolean isEmpty() {
-
 		return (!scanner.hasNextLine());
 	}
 
 	public void closeFile() {
-		if (this.ioType.equals("INPUT")) {
+		if (this.ioType.equals(INPUT)) {
 			this.scanner.close();
-		} else if (this.ioType.equals("OUTPUT")) {
+		} else if (this.ioType.equals(OUTPUT)) {
 			try {
 				this.bufferedWriter.flush();
 				this.bufferedWriter.close();

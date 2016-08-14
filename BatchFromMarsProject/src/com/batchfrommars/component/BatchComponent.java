@@ -9,6 +9,7 @@ import com.batchfrommars.file.FileInformation;
  * @remark 2016年8月13日
  */
 public abstract class BatchComponent extends ComponentII {
+	// member area
 	protected FileInformation inputFile;
 	protected FileInformation outputFile;
 
@@ -24,7 +25,7 @@ public abstract class BatchComponent extends ComponentII {
 
 	public void activate() {
 
-		System.out.println(this.getClass().getSimpleName() + " started...");
+		System.out.println(this.getClass().getSimpleName() + START_MSG);
 
 		while (!inputFile.isEmpty() || isLastComponentsRunning()) {
 			String input = (String) inputFile.readFile();
@@ -38,7 +39,7 @@ public abstract class BatchComponent extends ComponentII {
 
 		inputFile.closeFile();
 		outputFile.closeFile();
-		System.out.println(this.getClass().getSimpleName() + " compeleted...");
+		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 	}
 
 	public FileInformation getInputFile() {

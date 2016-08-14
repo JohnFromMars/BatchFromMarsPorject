@@ -11,7 +11,10 @@ import java.util.List;
  * @remark 2016年8月13日
  */
 public class FileList {
+	// member area
 	private ArrayList<FileInformation> fileInformationsList;
+	// constant area
+	private static String OUTPUT_NUMBER_MISMATCH_ERROR_MSG = "FileInformationList.writeFile.Output size is not equal to outputList";
 
 	public FileList(ArrayList<FileInformation> fileInformationsList) {
 		this.fileInformationsList = fileInformationsList;
@@ -71,12 +74,11 @@ public class FileList {
 	public void writeFile(List<String> outputList) {
 		if (outputList.size() == fileInformationsList.size()) {
 			for (int i = 0; i < outputList.size(); i++) {
-				// System.out.println(outputList.get(i));
-				// System.out.println(fileInformationsList.get(i));
+
 				fileInformationsList.get(i).writeFile(outputList.get(i));
 			}
 		} else {
-			System.err.println("FileInformationList.writeFile.Output size is not equal to output File information");
+			System.err.println(OUTPUT_NUMBER_MISMATCH_ERROR_MSG);
 		}
 	}
 
@@ -91,12 +93,12 @@ public class FileList {
 	public void writeFile(int i, String outputData) {
 		fileInformationsList.get(i).writeFile(outputData);
 	}
-	
+
 	/**
 	 * write the string to all elements in file list
 	 * 
 	 * @date 2016年8月13日
-	 * @remark 
+	 * @remark
 	 * @param outputData
 	 */
 	public void writeToAllFile(String outputData) {

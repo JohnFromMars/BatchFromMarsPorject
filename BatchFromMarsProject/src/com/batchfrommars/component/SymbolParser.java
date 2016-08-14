@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @date 2016年8月13日
  * @remark 2016年8月13日
  */
-public abstract class SymbolParser implements Parser {
+public abstract class SymbolParser extends Translation implements Parser {
 	private String[] stringList;
 	private int count = 0;
 
@@ -61,32 +61,16 @@ public abstract class SymbolParser implements Parser {
 	protected Object translate(Class<?> clazz, int count) {
 		// different parse for different type
 		if (clazz.equals(String.class)) {
-			return translateToString(count);
+			String result = translateToString(stringList[count]);
+			count++;
+			return result;
 		} else if (clazz.equals(int.class)) {
-			return translateToInteger(count);
+			int result= translateToInteger(stringList[count]);
+			count++;
+			return result;
 		} else {
+			count++;
 			return null;
 		}
 	}
-
-	/**
-	 * 
-	 * @param count
-	 * @return
-	 */
-	private String translateToString(int count) {
-		// parse to string
-		return stringList[count];
-	}
-
-	/**
-	 * 
-	 * @param count
-	 * @return
-	 */
-	private int translateToInteger(int count) {
-		// parse to int
-		return Integer.parseInt(stringList[count]);
-	}
-
 }
