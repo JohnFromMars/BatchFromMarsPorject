@@ -2,7 +2,6 @@ package com.batchfrommars.component;
 
 import java.util.LinkedList;
 
-import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 
 /**
@@ -12,16 +11,13 @@ import com.batchfrommars.file.FileList;
  *
  */
 public abstract class BatchComponentII extends ComponentII {
-	// FileInformation list for input and output
-	private FileList inputFileList;
-	private FileList outputFileList;
+
 	// constant area
 	protected final static int INPUT_1 = 0;
 	protected final static int INPUT_2 = 1;
 	protected final static int INPUT_3 = 2;
 	protected final static int INPUT_4 = 4;
 	protected final static int INPUT_5 = 4;
-
 
 	/**
 	 * implement excuteProcess then you can activate or start your
@@ -51,7 +47,7 @@ public abstract class BatchComponentII extends ComponentII {
 
 			if (!isNull(inputList)) {
 				LinkedList<String> outputList = this.excuteProcess(inputList);
-				if (!isNull(outputList) && outputFileList.size()!=0) {
+				if (!isNull(outputList) && outputFileList.size() != 0) {
 					outputFileList.writeFile(outputList);
 				}
 			}
@@ -76,137 +72,4 @@ public abstract class BatchComponentII extends ComponentII {
 		}
 		return isNull;
 	}
-
-	public FileList getInputFileList() {
-		return inputFileList;
-	}
-
-	public void setInputFileList(FileList inputFileList) {
-		this.inputFileList = inputFileList;
-	}
-
-	public FileList getOutputFileList() {
-		return outputFileList;
-	}
-
-	public void setOutputFileList(FileList outputFileList) {
-		this.outputFileList = outputFileList;
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation) {
-		this.inputFileList.addFileInformation(fileInformation);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-		this.inputFileList.addFileInformation(fileInformation4);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4, FileInformation fileInformation5) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-		this.inputFileList.addFileInformation(fileInformation4);
-		this.inputFileList.addFileInformation(fileInformation5);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation) {
-		this.outputFileList.addFileInformation(fileInformation);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4, FileInformation fileInformation5) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-		this.outputFileList.addFileInformation(fileInformation5);
-	}
-
 }
