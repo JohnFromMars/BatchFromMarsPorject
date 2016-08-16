@@ -137,12 +137,21 @@ public class FileList {
 	 * @remark
 	 * @return
 	 */
-	public boolean isEmpty() {
+	public boolean isAllEmpty() {
 		boolean isEmty = true;
 		for (FileInformation item : fileInformationsList) {
 			isEmty = isEmty && item.isEmpty();
 		}
 		return isEmty;
+	}
+	
+	public boolean isSomeEmpty(){
+		boolean isEmty = false;
+		for (FileInformation item : fileInformationsList) {
+			isEmty = isEmty || item.isEmpty();
+		}
+		return isEmty;
+		
 	}
 
 	/**

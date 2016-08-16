@@ -27,7 +27,7 @@ public abstract class BatchComponent extends ComponentII {
 
 		System.out.println(this.getClass().getSimpleName() + START_MSG);
 
-		while (!inputFile.isEmpty() || isLastComponentsRunning()) {
+		while (!inputFile.isEmpty() || isSomeLastComponentsRunning()) {
 			String input = (String) inputFile.readFile();
 			if (input != null) {
 				String output = this.excuteProcess(input);

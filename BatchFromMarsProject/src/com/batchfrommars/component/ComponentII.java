@@ -13,7 +13,7 @@ public abstract class ComponentII extends Thread {
 	// constant area for children class
 	protected final static String START_MSG = " started...";
 	protected final static String COMPELETE_MSG = " compeleted...";
-	//constant area
+	// constant area
 	private final static int NO_COMPONENT = 0;
 
 	/**
@@ -36,7 +36,7 @@ public abstract class ComponentII extends Thread {
 	 * 
 	 * @return
 	 */
-	public boolean isLastComponentsRunning() {
+	public boolean isSomeLastComponentsRunning() {
 		boolean isRunnnig = false;
 
 		if (lastComponentList.size() != NO_COMPONENT) {
@@ -45,6 +45,23 @@ public abstract class ComponentII extends Thread {
 			}
 		}
 		return isRunnnig;
+	}
+	
+	public boolean isAllLastComponentsRunning(){
+		
+		if (lastComponentList.size() != NO_COMPONENT) {
+			boolean isRunnnig = true;
+			for (ComponentII item : lastComponentList) {
+				isRunnnig = isRunnnig && item.isAlive();
+			}
+			return isRunnnig;
+		}else{
+			return false;
+		}	
+	}
+
+	public int getLastComponentsSize() {
+		return this.lastComponentList.size();
 	}
 
 	/**

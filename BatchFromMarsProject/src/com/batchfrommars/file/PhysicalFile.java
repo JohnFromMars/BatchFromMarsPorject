@@ -19,8 +19,8 @@ public class PhysicalFile implements FileInformation {
 	private BufferedWriter bufferedWriter;
 
 	// constant area
-	private static String OUTPUT = "OUTPUT";
-	private static String INPUT = "INPUT";
+	public static final String OUTPUT = "OUTPUT";
+	public static final String INPUT = "INPUT";
 
 	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) {
 		this.ioType = ioType;

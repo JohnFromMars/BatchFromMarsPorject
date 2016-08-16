@@ -46,12 +46,12 @@ public abstract class BatchComponentII extends ComponentII {
 
 		System.out.println(this.getClass().getSimpleName() + START_MSG);
 
-		while (!inputFileList.isEmpty() || this.isLastComponentsRunning()) {
+		while (!inputFileList.isAllEmpty() || this.isSomeLastComponentsRunning()) {
 			LinkedList<String> inputList = inputFileList.readFile();
 
 			if (!isNull(inputList)) {
 				LinkedList<String> outputList = this.excuteProcess(inputList);
-				if (!isNull(outputList) && outputList != null) {
+				if (!isNull(outputList) && outputFileList.size()!=0) {
 					outputFileList.writeFile(outputList);
 				}
 			}
