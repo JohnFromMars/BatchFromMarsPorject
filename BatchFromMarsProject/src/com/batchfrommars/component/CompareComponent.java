@@ -1,24 +1,26 @@
 package com.batchfrommars.component;
 
-import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 
 /**
- * input data should be sorted 
+ * input data should be sorted
  * 
  * @author JohnFromMars
  * @date 2016年8月13日
  * @remark 2016年8月13日
  */
 public abstract class CompareComponent extends ComponentII {
-	// member area
-	private FileList inputFileList;
-	private FileList outputFileList;
+
 	// constant area
 	private final static int INPUT_1 = 0;
 	private final static int INPUT_2 = 1;
 	private final static int INPUT_SIZE = 2;
 	private final static int EQUAL = 0;
+	private final static int ZERO = 0;
+	private final static int DEFAULT_MAX_EMPTY_TIME = 50;
+	private final static int NO_COMPONENT = 0;
+	private final static int ONE_COMPONENT = 1;
+	private final static int TWO_COMPONENTS = 2;
 
 	protected abstract String getKeyFromInput1(String inputData);
 
@@ -36,53 +38,29 @@ public abstract class CompareComponent extends ComponentII {
 	 * @date 2016年8月13日
 	 * @remark
 	 */
-	public void activate() {
+	protected void act() {
 
 		String input1 = null;
 		String input2 = null;
 
 		System.out.println(this.getClass().getSimpleName() + START_MSG);
+		// perform with 3 condition
+		// no last component
+		if (getLastComponentsSize() == NO_COMPONENT) {
 
-		if (!inputFileList.isEmpty(INPUT_1) && !inputFileList.isEmpty(INPUT_2)) {
-			input1 = inputFileList.readFile(INPUT_1);
-			input2 = inputFileList.readFile(INPUT_2);
+			compareNoLastComponent(input1, input2);
+
+			// one last component
+		} else if (getLastComponentsSize() == ONE_COMPONENT) {
+
+			compareOneLastComponent(input1, input2);
+
+			// two last component
+		} else if (getLastComponentsSize() == TWO_COMPONENTS) {
+
+			compareTwoLastComponent(input1, input2);
 		}
 
-		// it can only be 2 input
-		while (inputFileList.size() == INPUT_SIZE) {
-
-			if (input1 != null && input2 != null) {
-				// compare two key
-				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
-
-				if (compare == EQUAL) {
-					// write out the data with the specified format
-					outputFileList.writeToAllFile(this.getResultFormat(input1, input2));
-					// if file is not empty then read the next data
-					if (!inputFileList.isEmpty(INPUT_1) && !inputFileList.isEmpty(INPUT_2)) {
-						input1 = inputFileList.readFile(INPUT_1);
-						input2 = inputFileList.readFile(INPUT_2);
-					} else {
-						break;
-					}
-				} else if (compare > EQUAL) {
-					// if file is not empty then read the next data
-					if (!inputFileList.isEmpty(INPUT_2)) {
-						input2 = inputFileList.readFile(INPUT_2);
-					} else {
-						break;
-					}
-
-				} else if (compare < EQUAL) {
-					// if file is not empty then read the next data
-					if (!inputFileList.isEmpty(INPUT_1)) {
-						input1 = inputFileList.readFile(INPUT_1);
-					} else {
-						break;
-					}
-				}
-			}
-		}
 		// close files
 		inputFileList.closeFile();
 		outputFileList.closeFile();
@@ -90,80 +68,213 @@ public abstract class CompareComponent extends ComponentII {
 
 	}
 
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation) {
-		this.inputFileList.addFileInformation(fileInformation);
+	private void compareNoLastComponent(String input1, String input2) {
+		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty()) {
+			// no inut
+			if (input1 == null && input2 == null) {
+				input1 = inputFileList.readFile(INPUT_1);
+				input2 = inputFileList.readFile(INPUT_2);
+				System.out.println(inputFileList.isAllEmpty());
+
+			} else if (input1 != null && input2 == null) {
+				break;
+			} else if (input1 == null && input2 != null) {
+				break;
+			} else if (input1 != null && input2 != null) {
+
+				// compare two key
+				System.out.println("*before com" + input1 + "," + input2);
+
+				System.out.println("input 2 is " + input2 == null);
+
+				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+
+				if (compare == EQUAL) {
+					// write out the data with the specified format
+					String outputData = this.getResultFormat(input1, input2);
+
+					if (outputFileList.size() != ZERO) {
+						outputFileList.writeToAllFile(outputData);
+						System.out.println("write 1 2 " + input1 + "," + input2);
+					}
+
+					input1 = inputFileList.readFile(INPUT_1);
+					input2 = inputFileList.readFile(INPUT_2);
+				}
+
+				else if (compare > EQUAL) {
+
+					input2 = inputFileList.readFile(INPUT_2);
+					System.out.println("read 2 " + input2);
+
+				} else if (compare < EQUAL) {
+					// if file is not empty then read the next data
+					input1 = inputFileList.readFile(INPUT_1);
+					System.out.println("read 1 " + input1);
+				}
+
+			}
+		}
+
+		if (input1 != null && input2 != null) {
+			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+
+			if (compare == EQUAL) {
+				// write out the data with the specified format
+				String outputData = this.getResultFormat(input1, input2);
+				if (outputFileList.size() != ZERO) {
+					outputFileList.writeToAllFile(outputData);
+					System.out.println("write 1 2 " + input1 + "," + input2);
+				}
+			}
+		}
 	}
 
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
+	private void compareOneLastComponent(String input1, String input2) {
+		int emptyCount = ZERO;
+
+		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
+
+			if (input1 == null && input2 == null) {
+				input1 = inputFileList.readFile(INPUT_1);
+				input2 = inputFileList.readFile(INPUT_2);
+				System.out.println(inputFileList.isAllEmpty());
+
+			} else if (input1 != null && input2 == null) {
+				if (emptyCount < DEFAULT_MAX_EMPTY_TIME) {
+					input2 = inputFileList.readFile(INPUT_2);
+					emptyCount++;
+					System.out.println("count++");
+				} else {
+					input1 = inputFileList.readFile(INPUT_1);
+				}
+
+			} else if (input1 == null && input2 != null) {
+				if (emptyCount < DEFAULT_MAX_EMPTY_TIME) {
+					input1 = inputFileList.readFile(INPUT_1);
+					emptyCount++;
+					System.out.println("count++");
+				} else {
+					input2 = inputFileList.readFile(INPUT_2);
+				}
+
+			} else if (input1 != null && input2 != null) {
+
+				// compare two key
+				System.out.println("*before com" + input1 + "," + input2);
+
+				System.out.println("input 2 is " + input2 == null);
+
+				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+				emptyCount = ZERO;
+
+				if (compare == EQUAL) {
+
+					String outputData = this.getResultFormat(input1, input2);
+					if (outputFileList.size() != ZERO) {
+						outputFileList.writeToAllFile(outputData);
+						System.out.println("write 1 2 " + input1 + "," + input2);
+					}
+
+					input1 = inputFileList.readFile(INPUT_1);
+					input2 = inputFileList.readFile(INPUT_2);
+				}
+
+				else if (compare > EQUAL) {
+
+					input2 = inputFileList.readFile(INPUT_2);
+					System.out.println("read 2 " + input2);
+
+				} else if (compare < EQUAL) {
+					// if file is not empty then read the next data
+					input1 = inputFileList.readFile(INPUT_1);
+					System.out.println("read 1 " + input1);
+				}
+			}
+		}
+
+		if (input1 != null && input2 != null) {
+			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+
+			if (compare == EQUAL) {
+				// write out the data with the specified format
+				String outputData = this.getResultFormat(input1, input2);
+				if (outputFileList.size() != ZERO) {
+					outputFileList.writeToAllFile(outputData);
+					System.out.println("write 1 2 " + input1 + "," + input2);
+				}
+			}
+		}
+
 	}
 
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation) {
-		this.outputFileList.addFileInformation(fileInformation);
-	}
+	private void compareTwoLastComponent(String input1, String input2) {
+		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
+			if (input1 == null && input2 == null) {
+				input1 = inputFileList.readFile(INPUT_1);
+				input2 = inputFileList.readFile(INPUT_2);
+				System.out.println(inputFileList.isAllEmpty());
 
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-	}
+			} else if (input1 != null && input2 == null) {
+				if (isLastComponentRunning(INPUT_2)) {
+					input2 = inputFileList.readFile(INPUT_2);
+					System.out.println("input2 alive");
+				} else if (!isLastComponentRunning(INPUT_2)) {
+					input1 = inputFileList.readFile(INPUT_1);
+				}
 
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-	}
+			} else if (input1 == null && input2 != null) {
+				if (isLastComponentRunning(INPUT_1)) {
+					input1 = inputFileList.readFile(INPUT_1);
+					System.out.println("count++");
+				} else if (!isLastComponentRunning(INPUT_1)) {
+					input2 = inputFileList.readFile(INPUT_2);
+				}
 
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-	}
+			} else if (input1 != null && input2 != null) {
 
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4, FileInformation fileInformation5) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-		this.outputFileList.addFileInformation(fileInformation5);
+				// compare two key
+				System.out.println("*before com" + input1 + "," + input2);
+
+				System.out.println("input 2 is " + input2 == null);
+
+				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+
+				if (compare == EQUAL) {
+					// write out the data with the specified format
+					String outputData = this.getResultFormat(input1, input2);
+					if (outputFileList.size() != ZERO) {
+						outputFileList.writeToAllFile(outputData);
+						System.out.println("write 1 2 " + input1 + "," + input2);
+					}
+					input1 = inputFileList.readFile(INPUT_1);
+					input2 = inputFileList.readFile(INPUT_2);
+				}
+
+				else if (compare > EQUAL) {
+
+					input2 = inputFileList.readFile(INPUT_2);
+					System.out.println("read 2 " + input2);
+
+				} else if (compare < EQUAL) {
+					// if file is not empty then read the next data
+					input1 = inputFileList.readFile(INPUT_1);
+					System.out.println("read 1 " + input1);
+				}
+			}
+		}
+
+		if (input1 != null && input2 != null) {
+			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+			if (compare == EQUAL) {
+				// write out the data with the specified format
+				String outputData = this.getResultFormat(input1, input2);
+				if (outputFileList.size() != ZERO) {
+					outputFileList.writeToAllFile(outputData);
+					System.out.println("write 1 2 " + input1 + "," + input2);
+				}
+			}
+		}
+
 	}
 }

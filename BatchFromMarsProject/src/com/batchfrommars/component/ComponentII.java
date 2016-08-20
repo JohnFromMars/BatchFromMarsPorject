@@ -23,12 +23,17 @@ public abstract class ComponentII extends Thread {
 	protected final static String COMPELETE_MSG = " compeleted...";
 	private final static int NO_COMPONENT = 0;
 
+	public ComponentII() {
+		inputFileList = new FileList();
+		outputFileList = new FileList();
+	}
+
 	/**
 	 * 
 	 * @date 2016年8月14日
 	 * @remark
 	 */
-	protected abstract void activate();
+	protected abstract void act();
 
 	public ArrayList<ComponentII> getLastComponentList() {
 		return this.lastComponentList;
@@ -38,7 +43,16 @@ public abstract class ComponentII extends Thread {
 	 * implements for start
 	 */
 	public void run() {
-		this.activate();
+		this.act();
+	}
+	
+	/**
+	 * 
+	 * @date 2016年8月18日
+	 * @remark
+	 */
+	public void activate(){
+		this.act();
 	}
 
 	/**
@@ -85,6 +99,10 @@ public abstract class ComponentII extends Thread {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean isLastComponentRunning(int last){
+		return lastComponentList.get(last).isAlive();
 	}
 
 	/**

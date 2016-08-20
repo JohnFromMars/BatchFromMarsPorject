@@ -38,7 +38,7 @@ public abstract class BatchComponentII extends ComponentII {
 	 * excuteProcess method
 	 * 
 	 */
-	public void activate() {
+	protected void act() {
 
 		System.out.println(this.getClass().getSimpleName() + START_MSG);
 
