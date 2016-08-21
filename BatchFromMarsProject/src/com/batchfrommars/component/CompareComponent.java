@@ -17,7 +17,7 @@ public abstract class CompareComponent extends ComponentII {
 	private final static int INPUT_SIZE = 2;
 	private final static int EQUAL = 0;
 	private final static int ZERO = 0;
-	private final static int DEFAULT_MAX_EMPTY_TIME = 50;
+	private final static int DEFAULT_MAX_EMPTY_TIMES = 50;
 	private final static int NO_COMPONENT = 0;
 	private final static int ONE_COMPONENT = 1;
 	private final static int TWO_COMPONENTS = 2;
@@ -141,7 +141,7 @@ public abstract class CompareComponent extends ComponentII {
 				System.out.println(inputFileList.isAllEmpty());
 
 			} else if (input1 != null && input2 == null) {
-				if (emptyCount < DEFAULT_MAX_EMPTY_TIME) {
+				if (emptyCount < DEFAULT_MAX_EMPTY_TIMES) {
 					input2 = inputFileList.readFile(INPUT_2);
 					emptyCount++;
 					System.out.println("count++");
@@ -150,7 +150,7 @@ public abstract class CompareComponent extends ComponentII {
 				}
 
 			} else if (input1 == null && input2 != null) {
-				if (emptyCount < DEFAULT_MAX_EMPTY_TIME) {
+				if (emptyCount < DEFAULT_MAX_EMPTY_TIMES) {
 					input1 = inputFileList.readFile(INPUT_1);
 					emptyCount++;
 					System.out.println("count++");

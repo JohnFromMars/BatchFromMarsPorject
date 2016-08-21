@@ -176,6 +176,16 @@ public class FileList {
 	public int size() {
 		return fileInformationsList.size();
 	}
+	
+	
+
+	public ArrayList<FileInformation> getFileInformationsList() {
+		return fileInformationsList;
+	}
+
+	public void setFileInformationsList(ArrayList<FileInformation> fileInformationsList) {
+		this.fileInformationsList = fileInformationsList;
+	}
 
 	public String toString() {
 		return "FileList [fileInformationsList=" + fileInformationsList + "]";

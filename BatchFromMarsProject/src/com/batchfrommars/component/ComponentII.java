@@ -14,18 +14,21 @@ import com.batchfrommars.file.FileList;
  */
 public abstract class ComponentII extends Thread {
 	// last components list
-	private ArrayList<ComponentII> lastComponentList = new ArrayList<ComponentII>();
-	// input and output file information list
+	private ArrayList<ComponentII> lastComponentList;
+	// input , output and temp file information list
 	protected FileList inputFileList;
 	protected FileList outputFileList;
+	protected FileList tempFileList;
 	// constant area
 	protected final static String START_MSG = " started...";
 	protected final static String COMPELETE_MSG = " compeleted...";
 	private final static int NO_COMPONENT = 0;
 
 	public ComponentII() {
+		lastComponentList = new ArrayList<>();
 		inputFileList = new FileList();
 		outputFileList = new FileList();
+		tempFileList = new FileList();
 	}
 
 	/**
@@ -45,13 +48,13 @@ public abstract class ComponentII extends Thread {
 	public void run() {
 		this.act();
 	}
-	
+
 	/**
 	 * 
 	 * @date 2016年8月18日
 	 * @remark
 	 */
-	public void activate(){
+	public void activate() {
 		this.act();
 	}
 
@@ -100,8 +103,8 @@ public abstract class ComponentII extends Thread {
 			return false;
 		}
 	}
-	
-	public boolean isLastComponentRunning(int last){
+
+	public boolean isLastComponentRunning(int last) {
 		return lastComponentList.get(last).isAlive();
 	}
 
@@ -216,6 +219,18 @@ public abstract class ComponentII extends Thread {
 	public void setOutputFileList(FileList outputFileList) {
 		this.outputFileList = outputFileList;
 	}
+
+	/**
+	 * add FileInformation into tempFileList
+	 * 
+	 * @date 2016年8月20日
+	 * @remark 
+	 * @param fileInformation
+	 */
+	protected void addTempFileInformation(FileInformation fileInformation){
+		this.tempFileList.addFileInformation(fileInformation);
+	}
+	
 
 	/**
 	 * add FileInformation into inputFileList
