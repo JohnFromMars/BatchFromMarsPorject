@@ -61,8 +61,8 @@ public abstract class MergeSortComponent extends ComponentII {
 
 			if (compare == EQUAL) {
 				outputFileList.writeToAllFile(input1);
-				outputFileList.writeToAllFile(input2);
-				// System.out.println("write 1 2 " + input1 + " " + input2);
+//				outputFileList.writeToAllFile(input2);
+//				 System.out.println("write 1 2 " + input1 + " " + input2);
 
 				if (!inputFileList.isEmpty(INPUT_1)) {
 					input1 = inputFileList.readFile(INPUT_1);
@@ -70,16 +70,16 @@ public abstract class MergeSortComponent extends ComponentII {
 				} else {
 					input1 = null;
 				}
-				if (!inputFileList.isEmpty(INPUT_2)) {
-					input2 = inputFileList.readFile(INPUT_2);
-
-				} else {
-					input2 = null;
-				}
+//				if (!inputFileList.isEmpty(INPUT_2)) {
+//					input2 = inputFileList.readFile(INPUT_2);
+//
+//				} else {
+//					input2 = null;
+//				}
 
 			} else if (compare > EQUAL) {
 				outputFileList.writeToAllFile(input2);
-				// System.out.println("write 2 " + input2);
+//				 System.out.println("write 2 " + input2);
 				if (!inputFileList.isEmpty(INPUT_2)) {
 					input2 = inputFileList.readFile(INPUT_2);
 				} else {
@@ -88,7 +88,7 @@ public abstract class MergeSortComponent extends ComponentII {
 
 			} else if (compare < EQUAL) {
 				outputFileList.writeToAllFile(input1);
-				// System.out.println("write 1 " + input1);
+//				 System.out.println("write 1 " + input1);
 				if (!inputFileList.isEmpty(INPUT_1)) {
 					input1 = inputFileList.readFile(INPUT_1);
 				} else {
@@ -110,19 +110,19 @@ public abstract class MergeSortComponent extends ComponentII {
 
 				if (compare == EQUAL) {
 					outputFileList.writeToAllFile(input1);
-					outputFileList.writeToAllFile(input2);
-					// System.out.println("write 1 2 " + input1 + " " + input2);
+//					outputFileList.writeToAllFile(input2);
+//					 System.out.println(this.getClass().getSimpleName()+"write 1 2 " + input1 + " " + input2);
 					input1 = inputFileList.readFile(INPUT_1);
-					input2 = inputFileList.readFile(INPUT_2);
+//					input2 = inputFileList.readFile(INPUT_2);
 
 				} else if (compare > EQUAL) {
 					outputFileList.writeToAllFile(input2);
-					// System.out.println("write 2 " + input2);
+//					 System.out.println(this.getClass().getSimpleName()+"write 2 " + input2);
 					input2 = inputFileList.readFile(INPUT_2);
 
 				} else if (compare < EQUAL) {
 					outputFileList.writeToAllFile(input1);
-					// System.out.println("write 1 " + input1);
+//					 System.out.println(this.getClass().getSimpleName()+"write 1 " + input1);
 					input1 = inputFileList.readFile(INPUT_1);
 
 				}
@@ -158,9 +158,9 @@ public abstract class MergeSortComponent extends ComponentII {
 			if (compare == EQUAL) {
 				outputFileList.writeToAllFile(input1);
 				outputFileList.writeToAllFile(input2);
-				System.out.println("write 1 2 " + input1 + " " + input2);
-				input1 = inputFileList.readFile(INPUT_1);
-				input2 = inputFileList.readFile(INPUT_2);
+//				System.out.println("write 1 2 " + input1 + " " + input2);
+//				input1 = inputFileList.readFile(INPUT_1);
+//				input2 = inputFileList.readFile(INPUT_2);
 
 			} else if (compare > EQUAL) {
 				outputFileList.writeToAllFile(input2);
@@ -170,10 +170,12 @@ public abstract class MergeSortComponent extends ComponentII {
 				outputFileList.writeToAllFile(input1);
 				outputFileList.writeToAllFile(input2);
 			}
+		}else {
+			outputFileList.writeToAllFile(input1);
+			outputFileList.writeToAllFile(input2);
 		}
 		
-		outputFileList.writeToAllFile(input1);
-		outputFileList.writeToAllFile(input2);
+		
 
 	}
 
@@ -181,7 +183,7 @@ public abstract class MergeSortComponent extends ComponentII {
 		int emptyCount = 0;
 
 		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
-			System.out.println("input1 " + input1 + "," + "input2 " + input2);
+//			System.out.println("input1 " + input1 + "," + "input2 " + input2);
 
 			if (input1 != null && input2 != null) {
 				emptyCount = 0;
@@ -189,25 +191,25 @@ public abstract class MergeSortComponent extends ComponentII {
 
 				if (compare == EQUAL) {
 					outputFileList.writeToAllFile(input1);
-					outputFileList.writeToAllFile(input2);
-					System.out.println("write 1 2 " + input1 + " " + input2);
+//					outputFileList.writeToAllFile(input2);
+//					System.out.println("write 1 2 " + input1 + " " + input2);
 					input1 = inputFileList.readFile(INPUT_1);
-					input2 = inputFileList.readFile(INPUT_2);
+//					input2 = inputFileList.readFile(INPUT_2);
 
 				} else if (compare > EQUAL) {
 					outputFileList.writeToAllFile(input2);
-					System.out.println("write 2 " + input2);
+//					System.out.println("write 2 " + input2);
 					input2 = inputFileList.readFile(INPUT_2);
 
 				} else if (compare < EQUAL) {
 					outputFileList.writeToAllFile(input1);
-					System.out.println("write 1 " + input1);
+//					System.out.println("write 1 " + input1);
 					input1 = inputFileList.readFile(INPUT_1);
 
 				}
 
 			} else if (input1 != null && input2 == null) {
-				System.out.println(emptyCount);
+//				System.out.println(emptyCount);
 				if (emptyCount < 50) {
 					input2 = inputFileList.readFile(INPUT_2);
 					emptyCount++;
@@ -217,7 +219,7 @@ public abstract class MergeSortComponent extends ComponentII {
 				}
 
 			} else if (input1 == null && input2 != null) {
-				System.out.println(emptyCount);
+//				System.out.println(emptyCount);
 				if (emptyCount < 50) {
 					input1 = inputFileList.readFile(INPUT_1);
 					emptyCount++;
@@ -239,9 +241,9 @@ public abstract class MergeSortComponent extends ComponentII {
 			if (compare == EQUAL) {
 				outputFileList.writeToAllFile(input1);
 				outputFileList.writeToAllFile(input2);
-				System.out.println("write 1 2 " + input1 + " " + input2);
-				input1 = inputFileList.readFile(INPUT_1);
-				input2 = inputFileList.readFile(INPUT_2);
+//				System.out.println("write 1 2 " + input1 + " " + input2);
+//				input1 = inputFileList.readFile(INPUT_1);
+//				input2 = inputFileList.readFile(INPUT_2);
 
 			} else if (compare > EQUAL) {
 				outputFileList.writeToAllFile(input2);
@@ -252,10 +254,12 @@ public abstract class MergeSortComponent extends ComponentII {
 				outputFileList.writeToAllFile(input2);
 			}
 
+		}else {
+			outputFileList.writeToAllFile(input1);
+			outputFileList.writeToAllFile(input2);
 		}
 		
-		outputFileList.writeToAllFile(input1);
-		outputFileList.writeToAllFile(input2);
+		
 
 	}
 

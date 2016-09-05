@@ -144,14 +144,14 @@ public class FileList {
 		}
 		return isEmty;
 	}
-	
-	public boolean isSomeEmpty(){
+
+	public boolean isSomeEmpty() {
 		boolean isEmty = false;
 		for (FileInformation item : fileInformationsList) {
 			isEmty = isEmty || item.isEmpty();
 		}
 		return isEmty;
-		
+
 	}
 
 	/**
@@ -176,16 +176,27 @@ public class FileList {
 	public int size() {
 		return fileInformationsList.size();
 	}
-	
-	
 
-	public ArrayList<FileInformation> getFileInformationsList() {
-		return fileInformationsList;
+	public FileInformation get(int fileInformation) {
+		return this.fileInformationsList.get(fileInformation);
 	}
 
-	public void setFileInformationsList(ArrayList<FileInformation> fileInformationsList) {
-		this.fileInformationsList = fileInformationsList;
+	public FileInformation getLast() {
+		return fileInformationsList.get(fileInformationsList.size() - 1);
 	}
+
+	public void clear() {
+		this.fileInformationsList.clear();
+	}
+
+	// public ArrayList<FileInformation> getFileInformationsList() {
+	// return fileInformationsList;
+	// }
+	//
+	// public void setFileInformationsList(ArrayList<FileInformation>
+	// fileInformationsList) {
+	// this.fileInformationsList = fileInformationsList;
+	// }
 
 	public String toString() {
 		return "FileList [fileInformationsList=" + fileInformationsList + "]";
