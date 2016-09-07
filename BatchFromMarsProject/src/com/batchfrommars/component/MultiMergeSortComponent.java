@@ -20,7 +20,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 	private ArrayList<Object> ObjectList;
 	private ArrayList<MergeSortComponent> componentList;
 
-	protected abstract String getSortKey(String inputData);
+	protected abstract Object getSortKey(String inputData);
 
 	protected abstract int getMethod();
 
@@ -93,7 +93,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 			}
 
 			
-			protected String getKey(String data) {
+			protected Object getKey(String data) {
 				// TODO Auto-generated method stub
 				return getSortKey(data);
 			}

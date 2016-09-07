@@ -1,6 +1,7 @@
 package com.batchfrommars.component;
 
 import com.batchfrommars.file.FileList;
+import com.batchfrommars.util.CompareUtil;
 
 /**
  * input data should be sorted
@@ -22,9 +23,9 @@ public abstract class CompareComponent extends ComponentII {
 	private final static int ONE_COMPONENT = 1;
 	private final static int TWO_COMPONENTS = 2;
 
-	protected abstract String getKeyFromInput1(String inputData);
+	protected abstract Object getKeyFromInput1(String inputData);
 
-	protected abstract String getKeyFromInput2(String inputData);
+	protected abstract Object getKeyFromInput2(String inputData);
 
 	protected abstract String getResultFormat(String inputData1, String inputData2);
 
@@ -87,7 +88,7 @@ public abstract class CompareComponent extends ComponentII {
 
 				System.out.println("input 2 is " + input2 == null);
 
-				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 					// write out the data with the specified format
@@ -117,7 +118,7 @@ public abstract class CompareComponent extends ComponentII {
 		}
 
 		if (input1 != null && input2 != null) {
-			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 
 			if (compare == EQUAL) {
 				// write out the data with the specified format
@@ -165,7 +166,7 @@ public abstract class CompareComponent extends ComponentII {
 
 				System.out.println("input 2 is " + input2 == null);
 
-				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 				emptyCount = ZERO;
 
 				if (compare == EQUAL) {
@@ -194,7 +195,7 @@ public abstract class CompareComponent extends ComponentII {
 		}
 
 		if (input1 != null && input2 != null) {
-			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 
 			if (compare == EQUAL) {
 				// write out the data with the specified format
@@ -238,7 +239,7 @@ public abstract class CompareComponent extends ComponentII {
 
 				System.out.println("input 2 is " + input2 == null);
 
-				int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+				int compare =CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 					// write out the data with the specified format
@@ -265,7 +266,7 @@ public abstract class CompareComponent extends ComponentII {
 		}
 
 		if (input1 != null && input2 != null) {
-			int compare = this.getKeyFromInput1(input1).compareTo(this.getKeyFromInput2(input2));
+			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 			if (compare == EQUAL) {
 				// write out the data with the specified format
 				String outputData = this.getResultFormat(input1, input2);

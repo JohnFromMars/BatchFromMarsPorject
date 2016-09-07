@@ -7,6 +7,7 @@ import java.util.Comparator;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 import com.batchfrommars.file.PhysicalFile;
+import com.batchfrommars.util.CompareUtil;
 
 /**
  * 
@@ -31,7 +32,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @param data
 	 * @return
 	 */
-	protected abstract ArrayList<String> getInputKey(String inputData);
+	protected abstract ArrayList<Object> getInputKey(String inputData);
 
 	protected abstract ArrayList<Integer> getSortMethod();
 
@@ -60,7 +61,7 @@ public abstract class SortComponent extends ComponentII {
 					System.out.println("read input file");
 				} else {
 					input = tempFileList.readFile(INPUT_1);
-					System.out.println("read temp file  size :" + tempFileList.size()+"input ="+input);
+					System.out.println("read temp file  size :" + tempFileList.size() + "input =" + input);
 				}
 
 				if (input != null) {
@@ -118,7 +119,7 @@ public abstract class SortComponent extends ComponentII {
 								TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp.txt", "BIG5", false);
 						tempFileList.addFileInformation(tempInput);
 					}
-					
+
 					count = 0;
 					sortList.clear();
 
@@ -195,7 +196,7 @@ public abstract class SortComponent extends ComponentII {
 
 				}
 			}
-			
+
 			tempFileCount = 0;
 		}
 
@@ -226,7 +227,10 @@ public abstract class SortComponent extends ComponentII {
 		Collections.sort(sortList, new Comparator<String>() {
 			public int compare(String o1, String o2) {
 
-				return (getInputKey(o1).get(sortNo).compareTo(getInputKey(o2).get(sortNo)))
+				// return
+				// (getInputKey(o1).get(sortNo).compareTo(getInputKey(o2).get(sortNo)))
+				// * getSortMethod().get(sortNo);
+				return CompareUtil.compare(getInputKey(o1).get(sortNo), getInputKey(o2).get(sortNo))
 						* getSortMethod().get(sortNo);
 
 			}
@@ -254,7 +258,7 @@ public abstract class SortComponent extends ComponentII {
 			}
 
 			@Override
-			protected String getSortKey(String inputData) {
+			protected Object getSortKey(String inputData) {
 
 				// return getInputKey(inputData).get(sortNo);
 				return getInputKey(inputData).get(sortNo);
