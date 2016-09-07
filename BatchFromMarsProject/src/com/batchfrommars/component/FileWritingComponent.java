@@ -2,7 +2,6 @@ package com.batchfrommars.component;
 
 import java.util.ArrayList;
 
-
 /**
  * this component can only be used in sort component
  * 
@@ -16,7 +15,7 @@ public abstract class FileWritingComponent extends ComponentII {
 
 	@Override
 	protected void act() {
-		synchronized (COMPELETE_MSG) {
+		
 			ArrayList<String> dataList = new ArrayList<>();
 			dataList = getWritingData();
 
@@ -25,9 +24,9 @@ public abstract class FileWritingComponent extends ComponentII {
 			for (String item : dataList) {
 				outputFileList.writeToAllFile(item);
 			}
-
+			dataList.clear();
 			outputFileList.closeFile();
 		}
-	}
+	
 
 }
