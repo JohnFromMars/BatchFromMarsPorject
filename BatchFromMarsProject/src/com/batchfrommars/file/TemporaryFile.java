@@ -19,6 +19,7 @@ public class TemporaryFile implements FileInformation {
 		buffer = new ArrayBlockingQueue<String>(DEFAULT_ALLOCATE);
 	}
 
+	@Override
 	public String readFile() {
 		String data = null;
 		try {
@@ -29,6 +30,7 @@ public class TemporaryFile implements FileInformation {
 		return data;
 	}
 
+	@Override
 	public void writeFile(String data) {
 		if (data != null) {
 
@@ -40,13 +42,16 @@ public class TemporaryFile implements FileInformation {
 		}
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return buffer.isEmpty();
 	}
 
+	@Override
 	public void closeFile() {
 	}
 
+	@Override
 	public void deleteFile() {
 	}
 

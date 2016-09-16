@@ -8,8 +8,8 @@ import com.batchfrommars.file.TemporaryFile;
 
 /**
  * 
- * input can only be ordered physical files with any amount
- * output can be physical or temporary file with any amount
+ * input can only be ordered physical files with any amount output can be
+ * physical or temporary file with any amount
  * 
  * 
  * @author JohnFromMars
@@ -19,6 +19,7 @@ import com.batchfrommars.file.TemporaryFile;
 public abstract class MultiMergeSortComponent extends ComponentII {
 	private ArrayList<Object> ObjectList;
 	private ArrayList<MergeSortComponent> componentList;
+	private final static String WARNING_MSG="The input file type of MultiMergeSortComponent can only PhysicalFile.";
 
 	protected abstract Object getSortKey(String inputData);
 
@@ -30,13 +31,19 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 		componentList = new ArrayList<>();
 	}
 
+	@Override
 	protected void act() {
-		try {
-			mergeSortFile();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if(checkInputFileType()){
+			try {
+				mergeSortFile();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}else{
+			System.err.println(WARNING_MSG);
 		}
+		
 	}
 
 	private void mergeSortFile() throws InterruptedException {
@@ -55,22 +62,23 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 		}
 
 		if (inputFileList.size() % 2 != 0) {
-			System.out.println("ObjectList.add(inputFileList.getLast()");
+			// System.out.println("ObjectList.add(inputFileList.getLast()");
 			ObjectList.add(inputFileList.getLast());
 		}
 
 		while (ObjectList.size() > 1) {
-			System.out.println("objectlist " + ObjectList.size());
+			// System.out.println("objectlist " + ObjectList.size());
 			generateComponent(ObjectList.size());
 		}
 
 		componentList.get(componentList.size() - 1).setOutputFileList(this.outputFileList);
 
-		System.out.println("merge sort amount :" + componentList.size());
+		// System.out.println("merge sort amount :" + componentList.size());
 		for (MergeSortComponent item : componentList) {
-			System.out.println("input " + item.inputFileList);
-			System.out.println("output " + item.outputFileList);
-			System.out.println("last component " + item.getLastComponentList());
+			// System.out.println("input " + item.inputFileList);
+			// System.out.println("output " + item.outputFileList);
+			// System.out.println("last component " +
+			// item.getLastComponentList());
 			item.start();
 		}
 
@@ -85,14 +93,13 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 	private MergeSortComponent newMergeSortComponent() {
 
 		return new MergeSortComponent() {
-
-		
+			@Override
 			protected int getMergeSortMethod() {
 				// TODO Auto-generated method stub
 				return getMethod();
 			}
 
-			
+			@Override
 			protected Object getKey(String data) {
 				// TODO Auto-generated method stub
 				return getSortKey(data);
@@ -108,10 +115,10 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 		if (size % 2 != 0) {
 			tempSize--;
 		}
-		System.out.println(ObjectList.get(0).getClass().getGenericSuperclass());
-		System.out.println(ObjectList.get(1).getClass());
+		// System.out.println(ObjectList.get(0).getClass().getGenericSuperclass());
+		// System.out.println(ObjectList.get(1).getClass());
 		// System.out.println(ObjectList.get(2).getClass().getGenericSuperclass());
-		System.out.println(PhysicalFile.class);
+		// System.out.println(PhysicalFile.class);
 		for (int i = 0; i < tempSize; i += 2) {
 			if (ObjectList.get(i).getClass().getGenericSuperclass().equals(MergeSortComponent.class)
 					&& ObjectList.get(i + 1).getClass().getGenericSuperclass().equals(MergeSortComponent.class)) {
@@ -127,7 +134,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 				mergeSortComponent.addLastComponent(tempSorrt1, tempSorrt2);
 				tempObjectList.add(mergeSortComponent);
 				componentList.add(mergeSortComponent);
-				System.out.println("generate 1 merge type1");
+				// System.out.println("generate 1 merge type1");
 
 			} else if (ObjectList.get(i).getClass().getGenericSuperclass().equals(MergeSortComponent.class)
 					&& ObjectList.get(i + 1).getClass().equals(PhysicalFile.class)) {
@@ -141,7 +148,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 				mergeSortComponent.addLastComponent(tempSorrt1);
 				tempObjectList.add(mergeSortComponent);
 				componentList.add(mergeSortComponent);
-				System.out.println("generate 1 merge type2");
+				// System.out.println("generate 1 merge type2");
 
 			}
 		}
@@ -153,6 +160,16 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 		ObjectList.clear();
 		ObjectList = tempObjectList;
 
+	}
+
+	private boolean checkInputFileType() {
+		boolean result = true;
+		for (int i = 0; i < inputFileList.size(); i++) {
+//			System.out.println(inputFileList.get(i).getClass());
+//			System.out.println(PhysicalFile.class);
+			result = result && inputFileList.get(i).getClass().equals(PhysicalFile.class);
+		}
+		return result;
 	}
 
 }

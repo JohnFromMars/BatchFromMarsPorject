@@ -22,6 +22,7 @@ public abstract class CompareComponent extends ComponentII {
 	private final static int NO_COMPONENT = 0;
 	private final static int ONE_COMPONENT = 1;
 	private final static int TWO_COMPONENTS = 2;
+	private final static String WARNING_MSG = "The input number of CompareComponent can only be 2.";
 
 	protected abstract Object getKeyFromInput1(String inputData);
 
@@ -43,8 +44,12 @@ public abstract class CompareComponent extends ComponentII {
 
 		String input1 = null;
 		String input2 = null;
+		if (inputFileList.size() != INPUT_SIZE) {
+			System.err.println(WARNING_MSG);
+		} else {
+			System.out.println(this.getClass().getSimpleName() + START_MSG);
+		}
 
-		System.out.println(this.getClass().getSimpleName() + START_MSG);
 		// perform with 3 condition
 		// no last component
 		if (getLastComponentsSize() == NO_COMPONENT) {
@@ -65,7 +70,11 @@ public abstract class CompareComponent extends ComponentII {
 		// close files
 		inputFileList.closeFile();
 		outputFileList.closeFile();
-		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		
+		if(inputFileList.size()==INPUT_SIZE){
+			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		}
+		
 
 	}
 
@@ -239,7 +248,7 @@ public abstract class CompareComponent extends ComponentII {
 
 				System.out.println("input 2 is " + input2 == null);
 
-				int compare =CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 					// write out the data with the specified format

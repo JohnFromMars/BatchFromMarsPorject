@@ -19,7 +19,7 @@ public abstract class FileWritingComponent extends ComponentII {
 			ArrayList<String> dataList = new ArrayList<>();
 			dataList = getWritingData();
 
-			System.out.println("in file writing data list size :" + dataList.size());
+//			System.out.println("in file writing data list size :" + dataList.size());
 
 			for (String item : dataList) {
 				outputFileList.writeToAllFile(item);

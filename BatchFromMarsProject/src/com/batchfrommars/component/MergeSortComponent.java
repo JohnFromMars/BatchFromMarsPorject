@@ -16,6 +16,7 @@ public abstract class MergeSortComponent extends ComponentII {
 	private final static int INPUT_2 = 1;
 	private final static int INPUT_SIZE = 2;
 	private final static int EQUAL = 0;
+	private final static String WARNING_MSG = "The input number of MergeSortComponent can only be 2.";
 	protected final static int ACSENDING = 1;
 	protected final static int DECSENDING = -1;
 
@@ -23,11 +24,16 @@ public abstract class MergeSortComponent extends ComponentII {
 
 	protected abstract int getMergeSortMethod();
 
+	@Override
 	protected void act() {
 		String input1 = null;
 		String input2 = null;
 
-		System.out.println(this.getClass().getSimpleName() + START_MSG);
+		if (this.getClass().getSimpleName() != null && inputFileList.size() == INPUT_SIZE) {
+			System.out.println(this.getClass().getSimpleName() + START_MSG);
+		} else if (inputFileList.size() != INPUT_SIZE) {
+			System.err.println(WARNING_MSG);
+		}
 
 		input1 = inputFileList.readFile(INPUT_1);
 		input2 = inputFileList.readFile(INPUT_2);
@@ -40,9 +46,12 @@ public abstract class MergeSortComponent extends ComponentII {
 			sortTwoLastComponent(input1, input2);
 		}
 
-		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 		inputFileList.closeFile();
 		outputFileList.closeFile();
+
+		if (this.getClass().getSimpleName() != null && inputFileList.size() == INPUT_SIZE) {
+			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		}
 	}
 
 	private void sortNoLastComponent(String input1, String input2) {
@@ -108,7 +117,7 @@ public abstract class MergeSortComponent extends ComponentII {
 			int compare = 0;
 
 			if (input1 != null && input2 != null) {
-				compare =CompareUtil.compare(getKey(input1), getKey(input2)) * getMergeSortMethod();
+				compare = CompareUtil.compare(getKey(input1), getKey(input2)) * getMergeSortMethod();
 
 				if (compare == EQUAL) {
 					outputFileList.writeToAllFile(input1);

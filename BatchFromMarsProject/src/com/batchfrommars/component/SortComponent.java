@@ -20,8 +20,9 @@ public abstract class SortComponent extends ComponentII {
 	// number of data that can be sorted in memory
 	private final static int SINGLE_SORT_SIZE = 200000;
 	private final static int INPUT_1 = 0;
-	private final static String TEMP_FILE_PATH = "C://testIO/";
+	private final static String TEMP_FILE_PATH = "c://temp_sort/";
 	private final static String TEMP_FILE_ENCODING = "BIG5";
+	private final static String WARNING_MSG="The input number of Sort Component can only be 1.";
 	protected final static int ASCESNDING = 1;
 	protected final static int DESCESNDING = -1;
 
@@ -40,6 +41,7 @@ public abstract class SortComponent extends ComponentII {
 
 	}
 
+	@Override
 	protected void act() {
 		ArrayList<String> sortList = new ArrayList<>();// list to restore data
 		ArrayList<FileWritingComponent> writingFileList = new ArrayList<>();
@@ -48,23 +50,31 @@ public abstract class SortComponent extends ComponentII {
 		FileList tempFileList = new FileList();
 		int tempFileCount = 0;
 
+		if (inputFileList.size() != 1) {
+			System.err.println(WARNING_MSG);
+		} else {
+			System.out.println(this.getClass().getSimpleName() + START_MSG);
+		}
+
 		for (int i = 0; i < getSortMethod().size(); i++) {
-			System.out.println("round " + i + " not in loop");
-			System.out.println("tempfile list is empty " + tempFileList.isAllEmpty());
+			// System.out.println("round " + i + " not in loop");
+			// System.out.println("tempfile list is empty " +
+			// tempFileList.isAllEmpty());
 			//
 			while (inputFileList.size() == 1 && !inputFileList.isAllEmpty() || !tempFileList.isAllEmpty()
 					|| isAllLastComponentsRunning()) {
-				System.out.println("round " + i + " in loop");
+				// System.out.println("round " + i + " in loop");
 				String input = null;
 
 				// if it is first round read input file
 				if (i == 0) {
 					input = inputFileList.readFile(INPUT_1);
-					System.out.println("read input file");
-					// if not , read temporary file
+					// Syste
+					// if not , read 0temporary file
 				} else {
 					input = tempFileList.readFile(INPUT_1);
-					System.out.println("read temp file  size :" + tempFileList.size() + "input =" + input);
+					// System.out.println("read temp file size :" +
+					// tempFileList.size() + "input =" + input);
 				}
 
 				// add data to list if it is not null
@@ -77,12 +87,13 @@ public abstract class SortComponent extends ComponentII {
 				if (sortList.size() > SINGLE_SORT_SIZE) {
 					int sortNo = i;
 					ArrayList<String> tempSortList = new ArrayList<>();
-					System.out.println("sortNo " + sortNo);
-					System.out.println("tempFileCount" + tempFileCount);
+					// System.out.println("sortNo " + sortNo);
+					// System.out.println("tempFileCount" + tempFileCount);
 					// sort data and put them to another list to write out
 					sortData(sortList, sortNo);
 					tempSortList.addAll(sortList);
-					System.out.println("temp sort list size :" + tempSortList.size());
+					// System.out.println("temp sort list size :" +
+					// tempSortList.size());
 					FileInformation tempOutputFile = newOutputPhyscalFile(tempFileCount);
 					FileWritingComponent fileWritingComponent = newFileWritingComponent(tempSortList);
 					fileWritingComponent.addOutputFileInformation(tempOutputFile);
@@ -91,21 +102,21 @@ public abstract class SortComponent extends ComponentII {
 
 					tempFileCount++;
 					sortList.clear();
-					System.out.println("ort list size: " + sortList.size());
+					// System.out.println("ort list size: " + sortList.size());
 
 				}
 			}
 
-			if (sortList.size() <= SINGLE_SORT_SIZE ) {
+			if (sortList.size() <= SINGLE_SORT_SIZE) {
 				// if data no more than 200000
 				if (tempFileCount == 0) {
 					int sortNo = i;
 					// if it is last round, write data out to output file list
 					if (i == getSortMethod().size() - 1) {
-						System.out.println("sortNo " + sortNo);
+						// System.out.println("sortNo " + sortNo);
 
 						for (String item : sortData(sortList, sortNo)) {
-							System.out.println("write out " + item);
+							// System.out.println("write out " + item);
 							outputFileList.writeToAllFile(item);
 						}
 
@@ -136,7 +147,7 @@ public abstract class SortComponent extends ComponentII {
 					int sortNo = i;
 					ArrayList<String> tempSortList = new ArrayList<>();
 
-					System.out.println("sortNo " + sortNo);
+					// System.out.println("sortNo " + sortNo);
 					sortData(sortList, sortNo);
 					tempSortList.addAll(sortList);
 					FileInformation tempOutputFile = newOutputPhyscalFile(tempFileCount);
@@ -167,16 +178,17 @@ public abstract class SortComponent extends ComponentII {
 					// decide output list for next round
 					// if it is last round
 					if (i == getSortMethod().size() - 1) {
-						
+
 						tempFileList.closeFile();
 						multiMergeSortComponent.setOutputFileList(outputFileList);
 						multiMergeSortComponent.start();
-						System.out.println("merge write to output file list in round " + i);
+						// System.out.println("merge write to output file list
+						// in round " + i);
 
 						try {
 							multiMergeSortComponent.join();
 							roundFileList.closeFile();
-						
+
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -190,7 +202,8 @@ public abstract class SortComponent extends ComponentII {
 						tempFileList.addFileInformation(tempOutput);
 						multiMergeSortComponent.setOutputFileList(tempFileList);
 						multiMergeSortComponent.start();
-						System.out.println("merge write to temp file list in round " + i);
+						// System.out.println("merge write to temp file list in
+						// round " + i);
 
 						try {
 							multiMergeSortComponent.join();
@@ -212,10 +225,12 @@ public abstract class SortComponent extends ComponentII {
 			tempFileCount = 0;
 		}
 
+		if (inputFileList.size() == 1) {
+			tempFileList.deleteAllFile();
+			roundFileList.deleteAllFile();
+			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		}
 
-		tempFileList.deleteAllFile();
-		roundFileList.deleteAllFile();
-		
 	}
 
 	private FileInformation newOutputPhyscalFile(int tempFileCount) {

@@ -51,6 +51,7 @@ public class PhysicalFile implements FileInformation {
 
 	}
 
+	@Override
 	public String readFile() {
 		String data = null;
 		if (!isEmpty()) {
@@ -63,6 +64,7 @@ public class PhysicalFile implements FileInformation {
 		return data;
 	}
 
+	@Override
 	public void writeFile(String data) {
 		if (data != null) {
 
@@ -75,6 +77,7 @@ public class PhysicalFile implements FileInformation {
 		}
 	}
 
+	@Override
 	public boolean isEmpty() {
 		try {
 			return (!bufferedReader.ready());
@@ -85,6 +88,7 @@ public class PhysicalFile implements FileInformation {
 
 	}
 
+	@Override
 	public void closeFile() {
 		if (this.ioType.equals(INPUT)) {
 			try {
@@ -104,6 +108,7 @@ public class PhysicalFile implements FileInformation {
 		}
 	}
 
+	@Override
 	public void deleteFile() {
 		// System.out.println(filePath+" to delete");
 		// File file = new File(filePath);
@@ -149,5 +154,7 @@ public class PhysicalFile implements FileInformation {
 	public void setAppend(boolean append) {
 		this.append = append;
 	}
+
+	
 
 }
