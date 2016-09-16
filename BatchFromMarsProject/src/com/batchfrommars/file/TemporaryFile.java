@@ -5,9 +5,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class TemporaryFile implements FileInformation {
-	//queue buffer
+	// queue buffer
 	private BlockingQueue<String> buffer;
-	//constant area
+	// constant area
 	private static int DEFAULT_ALLOCATE = 2000;
 	private static int DEFAULT_WAITING_TIME = 5;
 
@@ -45,6 +45,9 @@ public class TemporaryFile implements FileInformation {
 	}
 
 	public void closeFile() {
+	}
+
+	public void deleteFile() {
 	}
 
 }

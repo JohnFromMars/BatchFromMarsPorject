@@ -18,7 +18,7 @@ public abstract class ComponentII extends Thread {
 	// input , output and temp file information list
 	protected FileList inputFileList;
 	protected FileList outputFileList;
-	protected FileList tempFileList;
+
 	// constant area
 	protected final static String START_MSG = " started...";
 	protected final static String COMPELETE_MSG = " compeleted...";
@@ -28,7 +28,6 @@ public abstract class ComponentII extends Thread {
 		lastComponentList = new ArrayList<>();
 		inputFileList = new FileList();
 		outputFileList = new FileList();
-		tempFileList = new FileList();
 	}
 
 	/**
@@ -124,56 +123,11 @@ public abstract class ComponentII extends Thread {
 	 * 
 	 * @param component
 	 */
-	public void addLastComponent(ComponentII component) {
-		lastComponentList.add(component);
-	}
+	public void addLastComponent(ComponentII... component) {
+		for (ComponentII c : component) {
+			lastComponentList.add(c);
+		}
 
-	/**
-	 * add componentII into last component list
-	 * 
-	 * @param component
-	 */
-	public void addLastComponent(ComponentII component, ComponentII component2) {
-		lastComponentList.add(component);
-		lastComponentList.add(component2);
-	}
-
-	/**
-	 * add componentII into last component list
-	 * 
-	 * @param component
-	 */
-	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3) {
-		lastComponentList.add(component);
-		lastComponentList.add(component2);
-		lastComponentList.add(component3);
-	}
-
-	/**
-	 * add componentII into last component list
-	 * 
-	 * @param component
-	 */
-	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3,
-			ComponentII component4) {
-		lastComponentList.add(component);
-		lastComponentList.add(component2);
-		lastComponentList.add(component3);
-		lastComponentList.add(component4);
-	}
-
-	/**
-	 * add componentII into last component list
-	 * 
-	 * @param component
-	 */
-	public void addLastComponent(ComponentII component, ComponentII component2, ComponentII component3,
-			ComponentII component4, ComponentII component5) {
-		lastComponentList.add(component);
-		lastComponentList.add(component2);
-		lastComponentList.add(component3);
-		lastComponentList.add(component4);
-		lastComponentList.add(component5);
 	}
 
 	/**
@@ -221,73 +175,15 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * add FileInformation into tempFileList
-	 * 
-	 * @date 2016年8月20日
-	 * @remark 
-	 * @param fileInformation
-	 */
-	protected void addTempFileInformation(FileInformation fileInformation){
-		this.tempFileList.addFileInformation(fileInformation);
-	}
-	
-
-	/**
 	 * add FileInformation into inputFileList
 	 * 
 	 * @param fileInformation
 	 */
-	public void addInputFileInformation(FileInformation fileInformation) {
-		this.inputFileList.addFileInformation(fileInformation);
-	}
+	public void addInputFileInformation(FileInformation... fileInformations) {
+		for (FileInformation f : fileInformations) {
+			this.inputFileList.addFileInformation(f);
+		}
 
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-		this.inputFileList.addFileInformation(fileInformation4);
-	}
-
-	/**
-	 * add FileInformation into inputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addInputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4, FileInformation fileInformation5) {
-		this.inputFileList.addFileInformation(fileInformation);
-		this.inputFileList.addFileInformation(fileInformation2);
-		this.inputFileList.addFileInformation(fileInformation3);
-		this.inputFileList.addFileInformation(fileInformation4);
-		this.inputFileList.addFileInformation(fileInformation5);
 	}
 
 	/**
@@ -295,57 +191,11 @@ public abstract class ComponentII extends Thread {
 	 * 
 	 * @param fileInformation
 	 */
-	public void addOutputFileInformation(FileInformation fileInformation) {
-		this.outputFileList.addFileInformation(fileInformation);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-	}
-
-	/**
-	 * add FileInformation into outputFileList
-	 * 
-	 * @param fileInformation
-	 */
-	public void addOutputFileInformation(FileInformation fileInformation, FileInformation fileInformation2,
-			FileInformation fileInformation3, FileInformation fileInformation4, FileInformation fileInformation5) {
-		this.outputFileList.addFileInformation(fileInformation);
-		this.outputFileList.addFileInformation(fileInformation2);
-		this.outputFileList.addFileInformation(fileInformation3);
-		this.outputFileList.addFileInformation(fileInformation4);
-		this.outputFileList.addFileInformation(fileInformation5);
+	public void addOutputFileInformation(FileInformation... fileInformations) {
+		for (FileInformation f : fileInformations) {
+			this.outputFileList.addFileInformation(f);
+		}
 
 	}
+
 }

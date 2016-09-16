@@ -1,13 +1,17 @@
 package com.batchfrommars.file;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class PhysicalFile implements FileInformation {
 	// member area
@@ -15,14 +19,16 @@ public class PhysicalFile implements FileInformation {
 	private String filePath;
 	private String encoding;
 	private boolean append;
-	private Scanner scanner;
+	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 
 	// constant area
 	public static final String OUTPUT = "OUTPUT";
 	public static final String INPUT = "INPUT";
+	public static final String OPERATE = "OPERATE";
 
 	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) {
+
 		this.ioType = ioType;
 		this.filePath = filePath;
 		this.encoding = encoding;
@@ -30,7 +36,9 @@ public class PhysicalFile implements FileInformation {
 
 		try {
 			if (ioType.equals(INPUT)) {
-				this.scanner = new Scanner(new FileInputStream(filePath), encoding);
+
+				this.bufferedReader = new BufferedReader(
+						new InputStreamReader(new FileInputStream(filePath), encoding));
 			} else if (ioType.equals(OUTPUT)) {
 				this.bufferedWriter = new BufferedWriter(
 						new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
@@ -46,7 +54,11 @@ public class PhysicalFile implements FileInformation {
 	public String readFile() {
 		String data = null;
 		if (!isEmpty()) {
-			data = this.scanner.nextLine();
+			try {
+				data = bufferedReader.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return data;
 	}
@@ -64,12 +76,23 @@ public class PhysicalFile implements FileInformation {
 	}
 
 	public boolean isEmpty() {
-		return (!scanner.hasNextLine());
+		try {
+			return (!bufferedReader.ready());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 	public void closeFile() {
 		if (this.ioType.equals(INPUT)) {
-			this.scanner.close();
+			try {
+				// this.scanner.close();
+				this.bufferedReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else if (this.ioType.equals(OUTPUT)) {
 			try {
 				this.bufferedWriter.flush();
@@ -78,6 +101,20 @@ public class PhysicalFile implements FileInformation {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public void deleteFile() {
+		// System.out.println(filePath+" to delete");
+		// File file = new File(filePath);
+		//
+		// System.out.println(file.delete());
+		Path path = Paths.get(filePath);
+		try {
+			Files.delete(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

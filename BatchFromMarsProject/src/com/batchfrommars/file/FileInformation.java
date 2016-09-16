@@ -14,5 +14,7 @@ public interface FileInformation {
 	boolean isEmpty();
 
 	void closeFile();
+	
+	void deleteFile();
 
 }

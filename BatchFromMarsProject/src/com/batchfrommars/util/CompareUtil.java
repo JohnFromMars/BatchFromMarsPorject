@@ -42,7 +42,7 @@ public class CompareUtil {
 	}
 
 	public static int compareDate(Date input1, Date input2) {
-		return input1.compareTo(input1);
+		return input1.compareTo(input2);
 	}
 
 	public static int compareBigDecimal(BigDecimal input1, BigDecimal input2) {

@@ -188,6 +188,16 @@ public class FileList {
 	public void clear() {
 		this.fileInformationsList.clear();
 	}
+	
+	public void deleteAllFile(){
+		for(FileInformation item:this.fileInformationsList){
+			item.deleteFile();
+		}
+	}
+	
+	public void deleteFile(int fileInformation){
+		this.fileInformationsList.get(fileInformation).deleteFile();
+	}
 
 	// public ArrayList<FileInformation> getFileInformationsList() {
 	// return fileInformationsList;
