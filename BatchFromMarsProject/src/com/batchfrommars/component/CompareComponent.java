@@ -4,11 +4,13 @@ import com.batchfrommars.file.FileList;
 import com.batchfrommars.util.CompareUtil;
 
 /**
- * input data should be sorted
+ * CompareComponent is designed for compare purpose. Extend CompareComponent and
+ * implement getKeyFromInput1, getKeyFromInput2 and getResultFormat, then you can
+ * easily create a compare process of two data. Notice that CompareComponent can
+ * has only two inputs and both inputs key should be sorted.
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public abstract class CompareComponent extends ComponentII {
 
@@ -35,11 +37,7 @@ public abstract class CompareComponent extends ComponentII {
 		outputFileList = new FileList();
 	}
 
-	/**
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
-	 */
+	
 	protected void act() {
 
 		String input1 = null;
@@ -70,11 +68,10 @@ public abstract class CompareComponent extends ComponentII {
 		// close files
 		inputFileList.closeFile();
 		outputFileList.closeFile();
-		
-		if(inputFileList.size()==INPUT_SIZE){
+
+		if (inputFileList.size() == INPUT_SIZE) {
 			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 		}
-		
 
 	}
 

@@ -12,8 +12,7 @@ import com.batchfrommars.util.CompareUtil;
 /**
  * 
  * @author JohnFromMars
- * @date 2016年8月16日
- * @remark 2016年8月16日
+ * @date 2016-09-17
  */
 public abstract class SortComponent extends ComponentII {
 	// constant area
@@ -26,13 +25,7 @@ public abstract class SortComponent extends ComponentII {
 	protected final static int ASCESNDING = 1;
 	protected final static int DESCESNDING = -1;
 
-	/**
-	 * 
-	 * @date 2016年8月17日
-	 * @remark
-	 * @param data
-	 * @return
-	 */
+	
 	protected abstract ArrayList<Object> getInputKey(String inputData);
 
 	protected abstract ArrayList<Integer> getSortMethod();

@@ -6,8 +6,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public abstract class SymbolParser extends Translation implements Parser {
 	private String[] stringList;

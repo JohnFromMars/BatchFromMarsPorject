@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public class FileList {
 	// member area
@@ -25,9 +24,8 @@ public class FileList {
 	}
 
 	/**
-	 * add FileInformation into FileList
 	 * 
-	 * @date 2016年8月13日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param fileInformation
 	 */
@@ -36,9 +34,8 @@ public class FileList {
 	}
 
 	/**
-	 * all element in file list read file
 	 * 
-	 * @date 2016年8月13日
+	 * @date 2016-09-17
 	 * @remark
 	 * @return
 	 */
@@ -51,9 +48,8 @@ public class FileList {
 	}
 
 	/**
-	 * specified element in file list read file
 	 * 
-	 * @date 2016年8月13日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param i
 	 * @return
@@ -67,7 +63,7 @@ public class FileList {
 	/**
 	 * all element in file list write file
 	 * 
-	 * @date 2016年8月13日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param outputList
 	 */
@@ -82,11 +78,12 @@ public class FileList {
 		}
 	}
 
+	
+	
 	/**
 	 * specified element in file list write file
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @param i
 	 * @param outputData
 	 */
@@ -94,11 +91,12 @@ public class FileList {
 		fileInformationsList.get(i).writeFile(outputData);
 	}
 
+	
+	
 	/**
 	 * write the string to all elements in file list
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @param outputData
 	 */
 	public void writeToAllFile(String outputData) {
@@ -107,10 +105,11 @@ public class FileList {
 		}
 	}
 
+	
+	
 	/**
 	 * all element in file list close file
-	 * 
-	 * @date 2016年8月13日
+	 * @date 2016-09-17
 	 * @remark
 	 */
 	public void closeFile() {
@@ -119,22 +118,24 @@ public class FileList {
 		}
 	}
 
+	
+	
 	/**
 	 * specified element in file list close file
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @param i
 	 */
 	public void closeFile(int i) {
 		fileInformationsList.get(i).closeFile();
 	}
 
+	
+	
 	/**
 	 * return true when all elements are empty
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @return
 	 */
 	public boolean isAllEmpty() {
@@ -145,6 +146,12 @@ public class FileList {
 		return isEmty;
 	}
 
+	/**
+	 * return true when some elements are empty
+	 * @date 2016-09-17
+	 * @remark 
+	 * @return
+	 */
 	public boolean isSomeEmpty() {
 		boolean isEmty = false;
 		for (FileInformation item : fileInformationsList) {
@@ -154,11 +161,12 @@ public class FileList {
 
 	}
 
+	
+	
 	/**
 	 * return specified element is empty or not
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @param i
 	 * @return
 	 */
@@ -166,11 +174,12 @@ public class FileList {
 		return fileInformationsList.get(i).isEmpty();
 	}
 
+	
+	
 	/**
 	 * return number of elements
-	 * 
-	 * @date 2016年8月13日
-	 * @remark
+	 * @date 2016-09-17
+	 * @remark 
 	 * @return
 	 */
 	public int size() {
@@ -188,14 +197,14 @@ public class FileList {
 	public void clear() {
 		this.fileInformationsList.clear();
 	}
-	
-	public void deleteAllFile(){
-		for(FileInformation item:this.fileInformationsList){
+
+	public void deleteAllFile() {
+		for (FileInformation item : this.fileInformationsList) {
 			item.deleteFile();
 		}
 	}
-	
-	public void deleteFile(int fileInformation){
+
+	public void deleteFile(int fileInformation) {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 

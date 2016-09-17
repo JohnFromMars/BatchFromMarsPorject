@@ -6,15 +6,14 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.file.TemporaryFile;
 
+
+
 /**
- * 
  * input can only be ordered physical files with any amount 
  * output can be physical or temporary file with any amount
- *
  * 
  * @author JohnFromMars
- * @date 2016年8月22日
- * @remark 2016年8月22日
+ * @date 2016-09-17
  */
 public abstract class MultiMergeSortComponent extends ComponentII {
 	private ArrayList<Object> ObjectList;
@@ -111,7 +110,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 
 		int tempSize = size;
 		ArrayList<Object> tempObjectList = new ArrayList<>();
-		// 用肌術偶數去分，肌術-1
+		
 		if (size % 2 != 0) {
 			tempSize--;
 		}

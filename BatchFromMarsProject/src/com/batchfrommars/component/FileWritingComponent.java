@@ -2,12 +2,13 @@ package com.batchfrommars.component;
 
 import java.util.ArrayList;
 
+
+
 /**
- * this component can only be used in sort component
+ * Notice that this component can only be used in sort component
  * 
  * @author JohnFromMars
- * @date 2016年8月27日
- * @remark 2016年8月27日
+ * @date 2016-09-17
  */
 public abstract class FileWritingComponent extends ComponentII {
 

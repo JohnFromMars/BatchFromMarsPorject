@@ -4,6 +4,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * 
+ * @author JohnFromMars
+ * @date 2016-09-17
+ */
 public class TemporaryFile implements FileInformation {
 	// queue buffer
 	private BlockingQueue<String> buffer;

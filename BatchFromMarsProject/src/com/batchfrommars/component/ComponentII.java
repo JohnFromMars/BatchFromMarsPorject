@@ -6,16 +6,19 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 
 /**
- * abstract class component , extend it to build your owner batch program
+ * ComponentII is parent class of every components in BatchFromMars. Every
+ * component has inputFileList, outputFileList and lastComponentList.
+ * ComponentII provide some method to access these member.Extend ComponentII and
+ * implement act method, then you can create a component in BatchFromMars
+ * system.
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public abstract class ComponentII extends Thread {
 	// last components list
 	private ArrayList<ComponentII> lastComponentList;
-	// input , output and temp file information list
+	// input , output file information list
 	protected FileList inputFileList;
 	protected FileList outputFileList;
 
@@ -30,11 +33,6 @@ public abstract class ComponentII extends Thread {
 		outputFileList = new FileList();
 	}
 
-	/**
-	 * 
-	 * @date 2016年8月14日
-	 * @remark
-	 */
 	protected abstract void act();
 
 	public ArrayList<ComponentII> getLastComponentList() {
@@ -42,15 +40,17 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * implements for start
+	 * 
 	 */
 	public void run() {
 		this.act();
 	}
 
 	/**
+	 * activate method would start the act method that children class implement
+	 * with single thread.
 	 * 
-	 * @date 2016年8月18日
+	 * @date 2016-09-17
 	 * @remark
 	 */
 	public void activate() {
@@ -58,8 +58,9 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * setLastComponentList aloud you set the property lastComponentList
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param lastComponentList
 	 */
@@ -68,8 +69,9 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * return all last components is alive
 	 * 
+	 * @date 2016-09-17
+	 * @remark
 	 * @return
 	 */
 	public boolean isSomeLastComponentsRunning() {
@@ -84,9 +86,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * return true if all components are alive
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @return
 	 */
@@ -103,14 +104,20 @@ public abstract class ComponentII extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @date 2016-09-17
+	 * @remark
+	 * @param last
+	 * @return
+	 */
 	public boolean isLastComponentRunning(int last) {
 		return lastComponentList.get(last).isAlive();
 	}
 
 	/**
-	 * return number of last components list
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @return
 	 */
@@ -119,8 +126,9 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * add componentII into last component list
 	 * 
+	 * @date 2016-09-17
+	 * @remark
 	 * @param component
 	 */
 	public void addLastComponent(ComponentII... component) {
@@ -131,9 +139,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * get input file list
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @return
 	 */
@@ -142,9 +149,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * set input file list
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param inputFileList
 	 */
@@ -153,9 +159,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * get output file list
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @return
 	 */
@@ -164,9 +169,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * set output file list
 	 * 
-	 * @date 2016年8月16日
+	 * @date 2016-09-17
 	 * @remark
 	 * @param outputFileList
 	 */
@@ -175,9 +179,10 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * add FileInformation into inputFileList
 	 * 
-	 * @param fileInformation
+	 * @date 2016-09-17
+	 * @remark
+	 * @param fileInformations
 	 */
 	public void addInputFileInformation(FileInformation... fileInformations) {
 		for (FileInformation f : fileInformations) {
@@ -187,9 +192,10 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * add FileInformation into outputFileList
 	 * 
-	 * @param fileInformation
+	 * @date 2016-09-17
+	 * @remark
+	 * @param fileInformations
 	 */
 	public void addOutputFileInformation(FileInformation... fileInformations) {
 		for (FileInformation f : fileInformations) {

@@ -5,11 +5,14 @@ import java.util.LinkedList;
 import com.batchfrommars.file.FileList;
 
 /**
- * Batch Component with multiple input and output
+ * BatchComponentII is used for data dealing. Extends BatchComponentII and
+ * implements excuteProcess method then you can easily create a data dealing
+ * process that you need.
  * 
  * @author JohnFromMars
- *
+ * @date 2016-09-17
  */
+
 public abstract class BatchComponentII extends ComponentII {
 
 	// constant area

@@ -13,6 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * 
+ * @author JohnFromMars
+ * @date 2016-09-17
+ */
 public class PhysicalFile implements FileInformation {
 	// member area
 	private String ioType;

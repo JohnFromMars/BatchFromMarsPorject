@@ -3,13 +3,12 @@ package com.batchfrommars.component;
 import com.batchfrommars.util.CompareUtil;
 
 /**
- * merge sort two ordered file. input can only be two physical or temporary
- * files. output could be physical file or temporary file in any amount. please
- * use SortComponent to sort unordered physical file or temporary file.
+ *
+ * MergeSortComponent is designed for merging two file. Notice that both data of
+ * files should be sorted first before you use this component.
  * 
  * @author JohnFromMars
- * @date 2016年8月20日
- * @remark 2016年8月20日
+ * @date 2016-09-17
  */
 public abstract class MergeSortComponent extends ComponentII {
 	private final static int INPUT_1 = 0;

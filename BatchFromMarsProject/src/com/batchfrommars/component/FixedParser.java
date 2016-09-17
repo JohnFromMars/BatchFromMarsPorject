@@ -7,8 +7,7 @@ import java.util.Map.Entry;
 /**
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public abstract class FixedParser extends Translation implements Parser {
 	// position
@@ -16,11 +15,7 @@ public abstract class FixedParser extends Translation implements Parser {
 
 	abstract protected LinkedHashMap<String, Integer> getFields();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.batchfrommars.component.Parser#parse(java.lang.String)
-	 */
+	
 	@Override
 	public void parse(String input) {
 		for (Entry<String, Integer> entry : this.getFields().entrySet()) {

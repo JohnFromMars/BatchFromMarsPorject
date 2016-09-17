@@ -1,9 +1,9 @@
 package com.batchfrommars.file;
+
 /**
  * 
  * @author JohnFromMars
- * @date 2016年8月13日
- * @remark 2016年8月13日
+ * @date 2016-09-17
  */
 public interface FileInformation {
 
