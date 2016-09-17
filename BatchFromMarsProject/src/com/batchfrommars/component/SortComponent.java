@@ -20,7 +20,7 @@ public abstract class SortComponent extends ComponentII {
 	// number of data that can be sorted in memory
 	private final static int SINGLE_SORT_SIZE = 200000;
 	private final static int INPUT_1 = 0;
-	private final static String TEMP_FILE_PATH = "c://temp_sort/";
+	private final static String TEMP_FILE_PATH = "c://";
 	private final static String TEMP_FILE_ENCODING = "BIG5";
 	private final static String WARNING_MSG="The input number of Sort Component can only be 1.";
 	protected final static int ASCESNDING = 1;

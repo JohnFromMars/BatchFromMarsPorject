@@ -8,9 +8,9 @@ import com.batchfrommars.file.TemporaryFile;
 
 /**
  * 
- * input can only be ordered physical files with any amount output can be
- * physical or temporary file with any amount
- * 
+ * input can only be ordered physical files with any amount 
+ * output can be physical or temporary file with any amount
+ *
  * 
  * @author JohnFromMars
  * @date 2016年8月22日
@@ -115,10 +115,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 		if (size % 2 != 0) {
 			tempSize--;
 		}
-		// System.out.println(ObjectList.get(0).getClass().getGenericSuperclass());
-		// System.out.println(ObjectList.get(1).getClass());
-		// System.out.println(ObjectList.get(2).getClass().getGenericSuperclass());
-		// System.out.println(PhysicalFile.class);
+		
 		for (int i = 0; i < tempSize; i += 2) {
 			if (ObjectList.get(i).getClass().getGenericSuperclass().equals(MergeSortComponent.class)
 					&& ObjectList.get(i + 1).getClass().getGenericSuperclass().equals(MergeSortComponent.class)) {
@@ -137,7 +134,7 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 				// System.out.println("generate 1 merge type1");
 
 			} else if (ObjectList.get(i).getClass().getGenericSuperclass().equals(MergeSortComponent.class)
-					&& ObjectList.get(i + 1).getClass().equals(PhysicalFile.class)) {
+					&& ObjectList.get(i + 1).getClass().getInterfaces()[0].equals(FileInformation.class)) {
 
 				FileInformation temp1 = new TemporaryFile();
 				FileInformation temp2 = (FileInformation) ObjectList.get(i + 1);
@@ -165,8 +162,6 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 	private boolean checkInputFileType() {
 		boolean result = true;
 		for (int i = 0; i < inputFileList.size(); i++) {
-//			System.out.println(inputFileList.get(i).getClass());
-//			System.out.println(PhysicalFile.class);
 			result = result && inputFileList.get(i).getClass().equals(PhysicalFile.class);
 		}
 		return result;
