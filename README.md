@@ -1,5 +1,5 @@
 # BatchFromMarsPorject
->This libarary provide some models of data processing that shoud make it easy to develop batch programs. Currently, it provide some simple models like sorting, comparing, merging, file reading and writing to help you reach the specific data processing purpose. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
+>This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, comparing, merging, file reading and writing to help you reach the specific data processing purposes. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
 # Example
 Please check more sample code in this dierctory to get a complete overview of this library.
@@ -48,7 +48,7 @@ Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData
 
 Merging data
 ------------
-Extend `MergeSortComponent` or `MultiMergeSortComponent` classes can reach the data merging purpose. `MergeSortComponent` can merge two data and `MultiMergeSortComponent` can merge more than two. You should implement 'getMethod()' and `getSortKey(String inputData)` then ou can create a merging process. Sample code below 
+Extend `MergeSortComponent` or `MultiMergeSortComponent` classes can reach the datas merging purpose. `MergeSortComponent` can merge two data and `MultiMergeSortComponent` can merge more than two. You should implement 'getMethod()' and `getSortKey(String inputData)` then you can create a merging process. 
 
 			@Override
 			protected int getMethod() {
