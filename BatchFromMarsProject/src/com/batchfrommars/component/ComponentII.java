@@ -43,7 +43,10 @@ public abstract class ComponentII extends Thread {
 	 * 
 	 */
 	public void run() {
-		this.act();
+		onInit();
+		act();
+		onFinish();
+		
 	}
 
 	/**
@@ -54,7 +57,17 @@ public abstract class ComponentII extends Thread {
 	 * @remark
 	 */
 	public void activate() {
-		this.act();
+		onInit();
+		act();
+		onFinish();
+	}
+
+	public void onInit() {
+
+	}
+
+	public void onFinish() {
+
 	}
 
 	/**
