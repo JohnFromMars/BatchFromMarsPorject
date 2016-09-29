@@ -85,8 +85,6 @@ public abstract class MultiMergeSortComponent extends ComponentII {
 			item.join();
 		}
 
-		inputFileList.closeFile();
-
 	}
 
 	private MergeSortComponent newMergeSortComponent() {

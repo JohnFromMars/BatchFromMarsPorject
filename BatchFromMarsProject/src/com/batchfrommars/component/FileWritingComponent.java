@@ -26,7 +26,6 @@ public abstract class FileWritingComponent extends ComponentII {
 				outputFileList.writeToAllFile(item);
 			}
 			dataList.clear();
-			outputFileList.closeFile();
 		}
 	
 

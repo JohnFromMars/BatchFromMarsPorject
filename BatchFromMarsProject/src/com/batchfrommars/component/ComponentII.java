@@ -46,7 +46,8 @@ public abstract class ComponentII extends Thread {
 		onInit();
 		act();
 		onFinish();
-		
+		closeFileLists();
+
 	}
 
 	/**
@@ -60,6 +61,7 @@ public abstract class ComponentII extends Thread {
 		onInit();
 		act();
 		onFinish();
+		closeFileLists();
 	}
 
 	public void onInit() {
@@ -68,6 +70,11 @@ public abstract class ComponentII extends Thread {
 
 	public void onFinish() {
 
+	}
+
+	public void closeFileLists() {
+		inputFileList.closeFile();
+		outputFileList.closeFile();
 	}
 
 	/**

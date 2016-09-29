@@ -24,6 +24,7 @@ public class PhysicalFile implements FileInformation {
 	private String filePath;
 	private String encoding;
 	private boolean append;
+	private boolean closed;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 
@@ -38,6 +39,7 @@ public class PhysicalFile implements FileInformation {
 		this.filePath = filePath;
 		this.encoding = encoding;
 		this.append = append;
+		this.closed = false;
 
 		try {
 			if (ioType.equals(INPUT)) {
@@ -95,19 +97,22 @@ public class PhysicalFile implements FileInformation {
 
 	@Override
 	public void closeFile() {
-		if (this.ioType.equals(INPUT)) {
+		if (this.ioType.equals(INPUT) && closed != true) {
+
 			try {
-				// this.scanner.close();
 				this.bufferedReader.close();
+				closed = true;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if (this.ioType.equals(OUTPUT)) {
+
+		} else if (this.ioType.equals(OUTPUT) && closed != true) {
+
 			try {
 				this.bufferedWriter.flush();
 				this.bufferedWriter.close();
+				closed = true;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -115,15 +120,11 @@ public class PhysicalFile implements FileInformation {
 
 	@Override
 	public void deleteFile() {
-		// System.out.println(filePath+" to delete");
-		// File file = new File(filePath);
-		//
-		// System.out.println(file.delete());
+	
 		Path path = Paths.get(filePath);
 		try {
 			Files.delete(path);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -160,6 +161,14 @@ public class PhysicalFile implements FileInformation {
 		this.append = append;
 	}
 
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+	
 	
 
 }

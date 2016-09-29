@@ -45,8 +45,7 @@ public abstract class MergeSortComponent extends ComponentII {
 			sortTwoLastComponent(input1, input2);
 		}
 
-		inputFileList.closeFile();
-		outputFileList.closeFile();
+	
 
 		if (this.getClass().getSimpleName() != null && inputFileList.size() == INPUT_SIZE) {
 			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);

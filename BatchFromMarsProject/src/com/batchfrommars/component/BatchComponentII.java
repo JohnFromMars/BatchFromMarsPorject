@@ -56,8 +56,6 @@ public abstract class BatchComponentII extends ComponentII {
 			}
 		}
 
-		inputFileList.closeFile();
-		outputFileList.closeFile();
 		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 	}
 
@@ -75,4 +73,6 @@ public abstract class BatchComponentII extends ComponentII {
 		}
 		return isNull;
 	}
+	
+	
 }

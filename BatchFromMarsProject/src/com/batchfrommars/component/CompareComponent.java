@@ -65,10 +65,6 @@ public abstract class CompareComponent extends ComponentII {
 			compareTwoLastComponent(input1, input2);
 		}
 
-		// close files
-		inputFileList.closeFile();
-		outputFileList.closeFile();
-
 		if (inputFileList.size() == INPUT_SIZE) {
 			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 		}
