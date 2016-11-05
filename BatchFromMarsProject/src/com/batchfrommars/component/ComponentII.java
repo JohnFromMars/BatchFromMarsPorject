@@ -64,11 +64,11 @@ public abstract class ComponentII extends Thread {
 		closeFileLists();
 	}
 
-	public void onInit() {
+	protected void onInit() {
 
 	}
 
-	public void onFinish() {
+	protected void onFinish() {
 
 	}
 

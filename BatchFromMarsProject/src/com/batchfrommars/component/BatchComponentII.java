@@ -50,8 +50,11 @@ public abstract class BatchComponentII extends ComponentII {
 
 			if (!isNull(inputList)) {
 				LinkedList<String> outputList = this.excuteProcess(inputList);
-				if (!isNull(outputList) && outputFileList.size() != 0) {
-					outputFileList.writeFile(outputList);
+
+				if (outputList != null) {
+					if (!isNull(outputList) && outputFileList.size() != 0) {
+						outputFileList.writeFile(outputList);
+					}
 				}
 			}
 		}
@@ -73,6 +76,5 @@ public abstract class BatchComponentII extends ComponentII {
 		}
 		return isNull;
 	}
-	
-	
+
 }
