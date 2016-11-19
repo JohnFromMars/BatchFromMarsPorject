@@ -1,5 +1,7 @@
 package com.batchfrommars.component;
 
+import java.math.BigDecimal;
+
 public class Translation {
 
 	public Translation() {
@@ -17,6 +19,16 @@ public class Translation {
 	public Integer translateToInteger(Object input) {
 		if (input.getClass().equals(String.class)) {
 			int result = Integer.parseInt((String) input);
+			return result;
+		} else {
+			return null;
+		}
+
+	}
+	
+	public BigDecimal translateToBigDecimal(Object input) {
+		if (input.getClass().equals(String.class)) {
+			BigDecimal result =new BigDecimal((String) input);
 			return result;
 		} else {
 			return null;

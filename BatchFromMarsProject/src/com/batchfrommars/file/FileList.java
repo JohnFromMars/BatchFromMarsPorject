@@ -1,5 +1,6 @@
 package com.batchfrommars.file;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -198,24 +199,29 @@ public class FileList {
 		this.fileInformationsList.clear();
 	}
 
-	public void deleteAllFile() {
+	public void deleteAllFile() throws IOException {
 		for (FileInformation item : this.fileInformationsList) {
-			item.deleteFile();
+			try {
+				item.deleteFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw e;
+			}
 		}
 	}
 
-	public void deleteFile(int fileInformation) {
+	public void deleteFile(int fileInformation) throws IOException {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 
-	// public ArrayList<FileInformation> getFileInformationsList() {
-	// return fileInformationsList;
-	// }
-	//
-	// public void setFileInformationsList(ArrayList<FileInformation>
-	// fileInformationsList) {
-	// this.fileInformationsList = fileInformationsList;
-	// }
+	 public ArrayList<FileInformation> getFileInformationsList() {
+	 return fileInformationsList;
+	 }
+	
+	 public void setFileInformationsList(ArrayList<FileInformation>
+	 fileInformationsList) {
+	 this.fileInformationsList = fileInformationsList;
+	 }
 
 	public String toString() {
 		return "FileList [fileInformationsList=" + fileInformationsList + "]";

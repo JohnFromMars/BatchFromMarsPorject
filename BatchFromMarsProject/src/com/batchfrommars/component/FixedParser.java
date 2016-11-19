@@ -1,6 +1,7 @@
 package com.batchfrommars.component;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -15,7 +16,6 @@ public abstract class FixedParser extends Translation implements Parser {
 
 	abstract protected LinkedHashMap<String, Integer> getFields();
 
-	
 	@Override
 	public void parse(String input) {
 		for (Entry<String, Integer> entry : this.getFields().entrySet()) {
@@ -49,6 +49,9 @@ public abstract class FixedParser extends Translation implements Parser {
 		} else if (clazz.equals(int.class)) {
 			result = translateToInteger(input.substring(index, index + length));
 			index += length;
+			return result;
+		} else if (clazz.equals(BigDecimal.class)) {
+			 result = translateToBigDecimal(input.substring(index, index + length));
 			return result;
 		} else {
 			index += length;

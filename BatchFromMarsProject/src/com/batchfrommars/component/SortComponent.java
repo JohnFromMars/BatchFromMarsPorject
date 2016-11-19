@@ -1,5 +1,6 @@
 package com.batchfrommars.component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -219,8 +220,15 @@ public abstract class SortComponent extends ComponentII {
 		}
 
 		if (inputFileList.size() == 1) {
-			tempFileList.deleteAllFile();
-			roundFileList.deleteAllFile();
+			
+			try {
+				tempFileList.deleteAllFile();
+				roundFileList.deleteAllFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
 		}
 

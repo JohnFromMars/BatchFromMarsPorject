@@ -1,6 +1,7 @@
 package com.batchfrommars.component;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -64,8 +65,11 @@ public abstract class SymbolParser extends Translation implements Parser {
 			count++;
 			return result;
 		} else if (clazz.equals(int.class)) {
-			int result= translateToInteger(stringList[count]);
+			int result = translateToInteger(stringList[count]);
 			count++;
+			return result;
+		} else if (clazz.equals(BigDecimal.class)) {
+			BigDecimal result = translateToBigDecimal(stringList[count]);
 			return result;
 		} else {
 			count++;

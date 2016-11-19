@@ -1,5 +1,7 @@
 package com.batchfrommars.file;
 
+import java.io.IOException;
+
 /**
  * 
  * @author JohnFromMars
@@ -15,6 +17,6 @@ public interface FileInformation {
 
 	void closeFile();
 	
-	void deleteFile();
+	void deleteFile() throws IOException;
 
 }

@@ -119,13 +119,15 @@ public class PhysicalFile implements FileInformation {
 	}
 
 	@Override
-	public void deleteFile() {
+	public void deleteFile() throws IOException {
 	
 		Path path = Paths.get(filePath);
 		try {
 			Files.delete(path);
 		} catch (IOException e) {
 			e.printStackTrace();
+				throw e;
+			
 		}
 	}
 

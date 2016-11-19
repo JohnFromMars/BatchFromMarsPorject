@@ -1,5 +1,6 @@
 package com.batchfrommars.file;
 
+import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +59,7 @@ public class TemporaryFile implements FileInformation {
 	}
 
 	@Override
-	public void deleteFile() {
+	public void deleteFile() throws IOException{
 	}
 
 }
