@@ -12,8 +12,8 @@ public class BatchLogFormatter extends Formatter {
 	@Override
 	public String format(LogRecord record) {
 		String message = form.format(new Date()) + OOUTE
-				+  "[" + record.getSourceMethodName() + "] " +String.format("%1$-8s", record.getLevel()) + "- "
-				+ record.getMessage() + "\r\n";
+				+ String.format("%1$-30s", "[" + record.getSourceMethodName() + "] ")
+				+ String.format("%1$-10s", "[" + record.getLevel() + "] ") + "- " + record.getMessage() + "\r\n";
 
 		return message;
 	}
