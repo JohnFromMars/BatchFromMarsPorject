@@ -15,8 +15,10 @@ public interface FileInformation {
 
 	boolean isEmpty();
 
-	void closeFile();
+	void closeFile() throws IOException;
 	
 	void deleteFile() throws IOException;
+	
+	String toString();
 
 }

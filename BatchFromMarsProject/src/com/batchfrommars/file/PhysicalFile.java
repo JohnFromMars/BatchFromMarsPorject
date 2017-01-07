@@ -33,7 +33,8 @@ public class PhysicalFile implements FileInformation {
 	public static final String INPUT = "INPUT";
 	public static final String OPERATE = "OPERATE";
 
-	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) {
+	public PhysicalFile(String ioType, String filePath, String encoding, boolean append)
+			throws UnsupportedEncodingException, FileNotFoundException {
 
 		this.ioType = ioType;
 		this.filePath = filePath;
@@ -41,19 +42,12 @@ public class PhysicalFile implements FileInformation {
 		this.append = append;
 		this.closed = false;
 
-		try {
-			if (ioType.equals(INPUT)) {
+		if (ioType.equals(INPUT)) {
+			this.bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), encoding));
 
-				this.bufferedReader = new BufferedReader(
-						new InputStreamReader(new FileInputStream(filePath), encoding));
-			} else if (ioType.equals(OUTPUT)) {
-				this.bufferedWriter = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
-			}
-
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else if (ioType.equals(OUTPUT)) {
+			this.bufferedWriter = new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
 		}
 
 	}
@@ -62,8 +56,10 @@ public class PhysicalFile implements FileInformation {
 	public String readFile() {
 		String data = null;
 		if (!isEmpty()) {
+			
 			try {
 				data = bufferedReader.readLine();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -78,6 +74,7 @@ public class PhysicalFile implements FileInformation {
 			try {
 				this.bufferedWriter.write(data);
 				this.bufferedWriter.newLine();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -88,6 +85,7 @@ public class PhysicalFile implements FileInformation {
 	public boolean isEmpty() {
 		try {
 			return (!bufferedReader.ready());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -96,39 +94,23 @@ public class PhysicalFile implements FileInformation {
 	}
 
 	@Override
-	public void closeFile() {
-		if (this.ioType.equals(INPUT) && closed != true) {
+	public void closeFile() throws IOException {
 
-			try {
-				this.bufferedReader.close();
-				closed = true;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (this.ioType.equals(INPUT) && closed != true) {
+			this.bufferedReader.close();
+			closed = true;
 
 		} else if (this.ioType.equals(OUTPUT) && closed != true) {
-
-			try {
-				this.bufferedWriter.flush();
-				this.bufferedWriter.close();
-				closed = true;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			this.bufferedWriter.flush();
+			this.bufferedWriter.close();
+			closed = true;
 		}
 	}
 
 	@Override
 	public void deleteFile() throws IOException {
-	
 		Path path = Paths.get(filePath);
-		try {
-			Files.delete(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-				throw e;
-			
-		}
+		Files.delete(path);
 	}
 
 	public String getIoType() {
@@ -170,7 +152,10 @@ public class PhysicalFile implements FileInformation {
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "PhysicalFile [ioType=" + ioType + ", filePath=" + filePath + ", encoding=" + encoding + ", append="
+				+ append + "]";
+	}
 }

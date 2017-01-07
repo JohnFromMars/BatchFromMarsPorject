@@ -12,26 +12,28 @@ public class LogUtil {
 	private static final SimpleDateFormat form = new SimpleDateFormat("yyyyMMdd");
 	private static final String LOG_POSTFIX = ".txt";
 	private static final String LOG_DATE = "_D";
+	private static final String FRONT = String.format("%1$-130s", " ");
+	private static final String NEW_LINE = "\r\n";
 
-	public static Logger setLogger(String logName, String logPath, Logger logger) {
-		return setLogger(logName, logPath, logger, Level.ALL);
+	public static Logger getLogger(String logName, String logPath) {
+		return getLogger(logName, logPath, Logger.getLogger(logName), Level.ALL);
 	}
 
-	private static Logger setLogger(String logName, String logPath, Logger logger, Level level) {
+	private static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
 
 		FileHandler fileHandler = null;
 		try {
-			
-			fileHandler = new FileHandler(getLogFilePath(logName,logPath), true);
+
+			fileHandler = new FileHandler(getLogFilePath(logName, logPath), true);
 			fileHandler.setFormatter(new BatchLogFormatter());
 			logger.addHandler(fileHandler);
 			logger.setLevel(level);
-			
-		}catch (IOException e) {
+
+		} catch (IOException e) {
 			logger.severe(e.getMessage());
-		}catch (SecurityException e) {  
-            logger.severe(e.getMessage());  
-        }
+		} catch (SecurityException e) {
+			logger.severe(e.getMessage());
+		}
 
 		return logger;
 	}
@@ -41,7 +43,7 @@ public class LogUtil {
 		logFilePath.append(logPath);
 
 		File file = new File(logFilePath.toString());
-		if(!file.exists()) {
+		if (!file.exists()) {
 			file.mkdirs();
 		}
 
@@ -53,7 +55,22 @@ public class LogUtil {
 
 		return logFilePath.toString();
 	}
-	
 
+	public static String getExMsg(Exception e) {
+
+		String msg = FRONT + e.getClass() + NEW_LINE + e.getMessage() + NEW_LINE;
+
+		for (int i = 0; i < e.getStackTrace().length; i++) {
+			if (i == e.getStackTrace().length) {
+				msg = msg + e.getStackTrace()[i];
+
+			} else {
+				msg = msg + e.getStackTrace()[i] + NEW_LINE;
+			}
+		}
+
+		return msg;
+
+	}
 
 }

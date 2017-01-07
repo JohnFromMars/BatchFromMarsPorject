@@ -79,12 +79,11 @@ public class FileList {
 		}
 	}
 
-	
-	
 	/**
 	 * specified element in file list write file
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
 	 * @param outputData
 	 */
@@ -92,12 +91,11 @@ public class FileList {
 		fileInformationsList.get(i).writeFile(outputData);
 	}
 
-	
-	
 	/**
 	 * write the string to all elements in file list
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param outputData
 	 */
 	public void writeToAllFile(String outputData) {
@@ -106,37 +104,36 @@ public class FileList {
 		}
 	}
 
-	
-	
 	/**
 	 * all element in file list close file
+	 * 
+	 * @throws IOException
 	 * @date 2016-09-17
 	 * @remark
 	 */
-	public void closeFile() {
+	public void closeFile() throws IOException {
 		for (FileInformation item : fileInformationsList) {
 			item.closeFile();
 		}
 	}
 
-	
-	
 	/**
 	 * specified element in file list close file
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
+	 * @throws IOException
 	 */
-	public void closeFile(int i) {
+	public void closeFile(int i) throws IOException {
 		fileInformationsList.get(i).closeFile();
 	}
 
-	
-	
 	/**
 	 * return true when all elements are empty
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public boolean isAllEmpty() {
@@ -149,8 +146,9 @@ public class FileList {
 
 	/**
 	 * return true when some elements are empty
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public boolean isSomeEmpty() {
@@ -162,12 +160,11 @@ public class FileList {
 
 	}
 
-	
-	
 	/**
 	 * return specified element is empty or not
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
 	 * @return
 	 */
@@ -175,12 +172,11 @@ public class FileList {
 		return fileInformationsList.get(i).isEmpty();
 	}
 
-	
-	
 	/**
 	 * return number of elements
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public int size() {
@@ -201,12 +197,7 @@ public class FileList {
 
 	public void deleteAllFile() throws IOException {
 		for (FileInformation item : this.fileInformationsList) {
-			try {
-				item.deleteFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw e;
-			}
+			item.deleteFile();
 		}
 	}
 
@@ -214,14 +205,13 @@ public class FileList {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 
-	 public ArrayList<FileInformation> getFileInformationsList() {
-	 return fileInformationsList;
-	 }
-	
-	 public void setFileInformationsList(ArrayList<FileInformation>
-	 fileInformationsList) {
-	 this.fileInformationsList = fileInformationsList;
-	 }
+	public ArrayList<FileInformation> getFileInformationsList() {
+		return fileInformationsList;
+	}
+
+	public void setFileInformationsList(ArrayList<FileInformation> fileInformationsList) {
+		this.fileInformationsList = fileInformationsList;
+	}
 
 	public String toString() {
 		return "FileList [fileInformationsList=" + fileInformationsList + "]";

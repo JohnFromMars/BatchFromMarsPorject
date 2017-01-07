@@ -41,11 +41,15 @@ public abstract class BatchComponentII extends ComponentII {
 	 * excuteProcess method
 	 * 
 	 */
+	@Override
 	protected void act() {
 
-		System.out.println(this.getClass().getSimpleName() + START_MSG);
+		logger.finest("In act method, cheching while loop condition...");
+		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
+				+ isSomeLastComponentsRunning());
 
 		while (!inputFileList.isAllEmpty() || this.isSomeLastComponentsRunning()) {
+
 			LinkedList<String> inputList = inputFileList.readFile();
 
 			if (!isNull(inputList)) {
@@ -59,7 +63,9 @@ public abstract class BatchComponentII extends ComponentII {
 			}
 		}
 
-		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		logger.finest("While loop finish, checking while loop condition...");
+		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
+				+ isSomeLastComponentsRunning());
 	}
 
 	/**

@@ -5,9 +5,9 @@ import com.batchfrommars.util.CompareUtil;
 
 /**
  * CompareComponent is designed for compare purpose. Extend CompareComponent and
- * implement getKeyFromInput1, getKeyFromInput2 and getResultFormat, then you can
- * easily create a compare process of two data. Notice that CompareComponent can
- * has only two inputs and both inputs key should be sorted.
+ * implement getKeyFromInput1, getKeyFromInput2 and getResultFormat, then you
+ * can easily create a compare process of two data. Notice that CompareComponent
+ * can has only two inputs and both inputs key should be sorted.
  * 
  * @author JohnFromMars
  * @date 2016-09-17
@@ -37,60 +37,57 @@ public abstract class CompareComponent extends ComponentII {
 		outputFileList = new FileList();
 	}
 
-	
 	protected void act() {
 
 		String input1 = null;
 		String input2 = null;
+
 		if (inputFileList.size() != INPUT_SIZE) {
-			System.err.println(WARNING_MSG);
+			logger.severe(WARNING_MSG);
+
 		} else {
-			System.out.println(this.getClass().getSimpleName() + START_MSG);
-		}
+			// perform with 3 condition
+			// no last component
+			if (getLastComponentsSize() == NO_COMPONENT) {
+				logger.finest("getLastComponentsSize()=" + getLastComponentsSize());
+				compareNoLastComponent(input1, input2);
 
-		// perform with 3 condition
-		// no last component
-		if (getLastComponentsSize() == NO_COMPONENT) {
+				// one last component
+			} else if (getLastComponentsSize() == ONE_COMPONENT) {
+				logger.finest("getLastComponentsSize()=" + getLastComponentsSize());
+				compareOneLastComponent(input1, input2);
 
-			compareNoLastComponent(input1, input2);
-
-			// one last component
-		} else if (getLastComponentsSize() == ONE_COMPONENT) {
-
-			compareOneLastComponent(input1, input2);
-
-			// two last component
-		} else if (getLastComponentsSize() == TWO_COMPONENTS) {
-
-			compareTwoLastComponent(input1, input2);
-		}
-
-		if (inputFileList.size() == INPUT_SIZE) {
-			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+				// two last component
+			} else if (getLastComponentsSize() == TWO_COMPONENTS) {
+				logger.finest("getLastComponentsSize()=" + getLastComponentsSize());
+				compareTwoLastComponent(input1, input2);
+			}
 		}
 
 	}
 
 	private void compareNoLastComponent(String input1, String input2) {
+		logger.finest("In compareNoLastComponent ehile loop checking condition...");
+		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()"
+				+ inputFileList.isAllEmpty());
+
 		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty()) {
 			// no inut
 			if (input1 == null && input2 == null) {
 				input1 = inputFileList.readFile(INPUT_1);
 				input2 = inputFileList.readFile(INPUT_2);
-				System.out.println(inputFileList.isAllEmpty());
 
 			} else if (input1 != null && input2 == null) {
 				break;
+
 			} else if (input1 == null && input2 != null) {
 				break;
+
 			} else if (input1 != null && input2 != null) {
 
-				// compare two key
-				System.out.println("*before com" + input1 + "," + input2);
-
-				System.out.println("input 2 is " + input2 == null);
-
 				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+				logger.finest("Key compare result=" + compare + ", getKeyFromInput1(input1)=" + getKeyFromInput1(input1)
+						+ ", getKeyFromInput2(input2)=" + getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 					// write out the data with the specified format
@@ -98,9 +95,11 @@ public abstract class CompareComponent extends ComponentII {
 
 					if (outputFileList.size() != ZERO) {
 						outputFileList.writeToAllFile(outputData);
-						System.out.println("write 1 2 " + input1 + "," + input2);
+						logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
+								+ ", outputData=" + outputData);
 					}
 
+					logger.finest("Input1 and Input2 read next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 					input2 = inputFileList.readFile(INPUT_2);
 				}
@@ -108,26 +107,32 @@ public abstract class CompareComponent extends ComponentII {
 				else if (compare > EQUAL) {
 
 					input2 = inputFileList.readFile(INPUT_2);
-					System.out.println("read 2 " + input2);
+					logger.finest("Compare result is " + compare + " read input2 next data...");
 
 				} else if (compare < EQUAL) {
 					// if file is not empty then read the next data
 					input1 = inputFileList.readFile(INPUT_1);
-					System.out.println("read 1 " + input1);
+					logger.finest("Compare result is " + compare + " read input1 next data...");
 				}
 
 			}
 		}
 
+		// check last round data
 		if (input1 != null && input2 != null) {
+
 			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+
+			logger.finest("Checking last round data, compare result=" + compare);
 
 			if (compare == EQUAL) {
 				// write out the data with the specified format
 				String outputData = this.getResultFormat(input1, input2);
+
 				if (outputFileList.size() != ZERO) {
 					outputFileList.writeToAllFile(outputData);
-					System.out.println("write 1 2 " + input1 + "," + input2);
+					logger.finest("Last round compare result is 0, write out input1=" + input1 + " and input2=" + input2
+							+ ", outputData=" + outputData);
 				}
 			}
 		}
