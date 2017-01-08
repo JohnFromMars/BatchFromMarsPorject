@@ -120,8 +120,8 @@ public class TestCompareComponent {
 
 		FileInformation testInput1 = new TemporaryFile();
 		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testInputA = new TemporaryFile();
-		FileInformation testInputB = new TemporaryFile();
+		FileInformation testInputA = new TemporaryFile(1);
+		FileInformation testInputB = new TemporaryFile(1);
 		FileInformation testOutput = new TemporaryFile();
 
 		// setting input1 data
