@@ -179,6 +179,7 @@ public abstract class CompareComponent extends ComponentII {
 
 				} else {
 					logger.finest("emptyCount=" + emptyCount + ", DEFAULT_MAX_EMPTY_TIMES=" + DEFAULT_MAX_EMPTY_TIMES);
+					logger.finest("input1 == null, input2 != null, read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 
