@@ -67,20 +67,23 @@ public abstract class CompareComponent extends ComponentII {
 	}
 
 	private void compareNoLastComponent(String input1, String input2) {
-		logger.finest("In compareNoLastComponent ehile loop checking condition...");
-		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()"
+		logger.finest("In compareNoLastComponent, checking while loop condition...");
+		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
 				+ inputFileList.isAllEmpty());
 
 		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty()) {
 			// no inut
 			if (input1 == null && input2 == null) {
+				logger.finest("input1 == null, input2 == null, read input1 and input2 next data...");
 				input1 = inputFileList.readFile(INPUT_1);
 				input2 = inputFileList.readFile(INPUT_2);
 
 			} else if (input1 != null && input2 == null) {
+				logger.finest("input1 != null and input2 == null, break the while loop...");
 				break;
 
 			} else if (input1 == null && input2 != null) {
+				logger.finest("input1 == null and input2 != null, break the while loop...");
 				break;
 
 			} else if (input1 != null && input2 != null) {
@@ -131,85 +134,102 @@ public abstract class CompareComponent extends ComponentII {
 
 				if (outputFileList.size() != ZERO) {
 					outputFileList.writeToAllFile(outputData);
-					logger.finest("Last round compare result is 0, write out input1=" + input1 + " and input2=" + input2
+					logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
 							+ ", outputData=" + outputData);
+
 				}
 			}
 		}
 	}
 
 	private void compareOneLastComponent(String input1, String input2) {
+
 		int emptyCount = ZERO;
+
+		logger.finest("In compareOneLastComponent, checking while loop condition...");
+		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
+				+ inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());
 
 		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
 
 			if (input1 == null && input2 == null) {
 				input1 = inputFileList.readFile(INPUT_1);
 				input2 = inputFileList.readFile(INPUT_2);
-				System.out.println(inputFileList.isAllEmpty());
+				logger.finest("input1 == null, input2 == null, read input1 and input2 next data...");
 
 			} else if (input1 != null && input2 == null) {
 				if (emptyCount < DEFAULT_MAX_EMPTY_TIMES) {
+					logger.finest("input1 != null, input2 == null, read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
 					emptyCount++;
-					System.out.println("count++");
+					logger.finest("emptyCount=" + emptyCount + ", DEFAULT_MAX_EMPTY_TIMES=" + DEFAULT_MAX_EMPTY_TIMES);
+
 				} else {
+					logger.finest("emptyCount=" + emptyCount + ", DEFAULT_MAX_EMPTY_TIMES=" + DEFAULT_MAX_EMPTY_TIMES);
+					logger.finest("input1 != null, input2 == null, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 				}
 
 			} else if (input1 == null && input2 != null) {
 				if (emptyCount < DEFAULT_MAX_EMPTY_TIMES) {
+					logger.finest("input1 == null, input2 != null, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 					emptyCount++;
-					System.out.println("count++");
+					logger.finest("emptyCount=" + emptyCount + ", DEFAULT_MAX_EMPTY_TIMES=" + DEFAULT_MAX_EMPTY_TIMES);
+
 				} else {
+					logger.finest("emptyCount=" + emptyCount + ", DEFAULT_MAX_EMPTY_TIMES=" + DEFAULT_MAX_EMPTY_TIMES);
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 
 			} else if (input1 != null && input2 != null) {
 
-				// compare two key
-				System.out.println("*before com" + input1 + "," + input2);
-
-				System.out.println("input 2 is " + input2 == null);
-
 				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
 				emptyCount = ZERO;
+
+				logger.finest("Key compare result=" + compare + ", getKeyFromInput1(input1)=" + getKeyFromInput1(input1)
+						+ ", getKeyFromInput2(input2)=" + getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 
 					String outputData = this.getResultFormat(input1, input2);
+
 					if (outputFileList.size() != ZERO) {
 						outputFileList.writeToAllFile(outputData);
-						System.out.println("write 1 2 " + input1 + "," + input2);
+						logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
+								+ ", outputData=" + outputData);
+
 					}
 
+					logger.finest("Input1 and Input2 read next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 
 				else if (compare > EQUAL) {
-
+					logger.finest("Compare result is " + compare + " read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
-					System.out.println("read 2 " + input2);
 
 				} else if (compare < EQUAL) {
 					// if file is not empty then read the next data
+					logger.finest("Compare result is " + compare + " read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
-					System.out.println("read 1 " + input1);
 				}
 			}
 		}
 
 		if (input1 != null && input2 != null) {
 			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+			logger.finest("Checking last round data, compare result=" + compare);
 
 			if (compare == EQUAL) {
 				// write out the data with the specified format
 				String outputData = this.getResultFormat(input1, input2);
+
 				if (outputFileList.size() != ZERO) {
 					outputFileList.writeToAllFile(outputData);
-					System.out.println("write 1 2 " + input1 + "," + input2);
+					logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
+							+ ", outputData=" + outputData);
 				}
 			}
 		}
@@ -217,69 +237,89 @@ public abstract class CompareComponent extends ComponentII {
 	}
 
 	private void compareTwoLastComponent(String input1, String input2) {
+		logger.finest("In compareTwoLastComponent, checking while loop condition...");
+		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
+				+ inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());
+
 		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
 			if (input1 == null && input2 == null) {
 				input1 = inputFileList.readFile(INPUT_1);
 				input2 = inputFileList.readFile(INPUT_2);
-				System.out.println(inputFileList.isAllEmpty());
+				logger.finest("input1 == null, input2 == null, read input1 and input2 next data...");
 
 			} else if (input1 != null && input2 == null) {
+				logger.finest("input1 != null, input2 == null, cheching isLastComponentRunning...");
+
 				if (isLastComponentRunning(INPUT_2)) {
+					logger.finest("Checking input2 component " + getLastComponentList().get(INPUT_2).toString()
+							+ " is still running, read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
-					System.out.println("input2 alive");
+
 				} else if (!isLastComponentRunning(INPUT_2)) {
+					logger.finest("Checking input2 component " + getLastComponentList().get(INPUT_2).toString()
+							+ " is not running, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 				}
 
 			} else if (input1 == null && input2 != null) {
+				logger.finest("input1 == null, input2 != null, cheching isLastComponentRunning...");
+
 				if (isLastComponentRunning(INPUT_1)) {
+					logger.finest("Checking input1 component " + getLastComponentList().get(INPUT_1).toString()
+							+ " is still running, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
-					System.out.println("count++");
+
 				} else if (!isLastComponentRunning(INPUT_1)) {
+					logger.finest("Checking input1 component " + getLastComponentList().get(INPUT_1).toString()
+							+ " is not running, read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 
 			} else if (input1 != null && input2 != null) {
 
 				// compare two key
-				System.out.println("*before com" + input1 + "," + input2);
-
-				System.out.println("input 2 is " + input2 == null);
-
 				int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+				logger.finest("Key compare result=" + compare + ", getKeyFromInput1(input1)=" + getKeyFromInput1(input1)
+						+ ", getKeyFromInput2(input2)=" + getKeyFromInput2(input2));
 
 				if (compare == EQUAL) {
 					// write out the data with the specified format
 					String outputData = this.getResultFormat(input1, input2);
+
 					if (outputFileList.size() != ZERO) {
 						outputFileList.writeToAllFile(outputData);
-						System.out.println("write 1 2 " + input1 + "," + input2);
+						logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
+								+ ", outputData=" + outputData);
 					}
+					logger.finest("Input1 and Input2 read next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 
 				else if (compare > EQUAL) {
-
+					logger.finest("Compare result is " + compare + " read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
-					System.out.println("read 2 " + input2);
 
 				} else if (compare < EQUAL) {
 					// if file is not empty then read the next data
+					logger.finest("Compare result is " + compare + " read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
-					System.out.println("read 1 " + input1);
 				}
 			}
 		}
 
 		if (input1 != null && input2 != null) {
 			int compare = CompareUtil.compare(getKeyFromInput1(input1), getKeyFromInput2(input2));
+			logger.finest("Checking last round data, compare result=" + compare);
+
 			if (compare == EQUAL) {
 				// write out the data with the specified format
 				String outputData = this.getResultFormat(input1, input2);
+
 				if (outputFileList.size() != ZERO) {
 					outputFileList.writeToAllFile(outputData);
-					System.out.println("write 1 2 " + input1 + "," + input2);
+					logger.finest("Compare result is 0, write out input1=" + input1 + " and input2=" + input2
+							+ ", outputData=" + outputData);
 				}
 			}
 		}

@@ -125,7 +125,7 @@ public abstract class ComponentII extends Thread {
 			logger.info("#### InputFileList and outputFileList have been closed...");
 
 		} catch (Exception e) {
-			logger.warning("#### Exception happened wile closing inputFileList and outputFileList...");
+			logger.warning("#### Exception happened while closing inputFileList and outputFileList...");
 			logger.warning(LogUtil.getExMsg(e));
 		}
 
