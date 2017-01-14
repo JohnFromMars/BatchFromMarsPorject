@@ -13,7 +13,7 @@ import com.batchfrommars.test.component.TestBatchComponentII1;
 import com.batchfrommars.test.component.TestBatchComponentII2;
 import com.batchfrommars.test.component.TwoWayBatchComponenet;
 
-public class TestCompareComponent {
+public class CompareComponentTest {
 
 	@Test
 	public void testSingleCompareComponent() {

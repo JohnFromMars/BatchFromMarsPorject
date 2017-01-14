@@ -14,7 +14,7 @@ import com.batchfrommars.test.component.TestBatchComponentII1;
 import com.batchfrommars.test.component.TestBatchComponentII2;
 import com.batchfrommars.test.component.TestBatchComponentII3;
 
-public class TestBatchComponentII {
+public class BatchComponentIITest {
 
 	@Test
 	public void testStepBatchComponent() {
