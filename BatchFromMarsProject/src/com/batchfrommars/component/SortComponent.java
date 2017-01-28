@@ -1,11 +1,336 @@
 package com.batchfrommars.component;
 
-public abstract class SortComponent extends ComponentII{
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import com.batchfrommars.file.FileList;
+import com.batchfrommars.file.LogUtil;
+import com.batchfrommars.util.CompareUtil;
+
+public abstract class SortComponent extends ComponentII {
+	protected final static int ASCESNDING = 1;
+	protected final static int DESCESNDING = -1;
+
+	protected abstract ArrayList<Object> getKeys(String data);
+
+	protected abstract ArrayList<Integer> getMethods();
 
 	@Override
 	protected void act() {
-		// TODO Auto-generated method stub
-		
+		File tempFile = null;
+
+		if (inputFileList.size() != 1) {
+			logger.severe("inputFileList.size() should be 1 but was " + inputFileList.size());
+
+		} else {
+			for (int i = 0; i < getSortRound(); i++) {
+
+				try {
+					List<File> files = sortFileBatch(inputFileList, i, tempFile);
+					tempFile = mergeFiles(files, i);
+
+					if (i == getLastRound()) {
+						doOutput(tempFile, outputFileList);
+					}
+
+				} catch (Exception e) {
+					logger.warning(LogUtil.getExMsg(e));
+				}
+			}
+		}
 	}
 
+	/**
+	 * This method sort input file
+	 * 
+	 * @param fileList
+	 * @param comparator
+	 * @return
+	 * @throws IOException
+	 */
+	public List<File> sortFileBatch(FileList fileList, int i, File file) throws IOException {
+		logger.finest("In sortFileBatch which round=" + (i + 1) + ", total round=" + getSortRound());
+		List<File> files = new ArrayList<File>();
+		long blocksize = estimateSizeOfBlock();
+		List<String> tmplist = new ArrayList<>();
+		BufferedReader bReader = getBufferReader(i, file);
+
+		// first round, read the data from inputFileList
+		logger.finest("Checking condition fileList.get(0).isEmpty()=" + fileList.get(0).isEmpty()
+				+ ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());
+		long currentblocksize = 0;
+
+		while (!isEmpty(i, fileList, bReader) || isSomeLastComponentsRunning()) {
+
+			// String data = fileList.get(0).readFile();
+			String data = readFile(i, fileList, bReader);
+
+			if (data != null) {
+				tmplist.add(data);
+				currentblocksize += data.length();
+				logger.finest("data != null, adding data to tmplist, currentblocksize=" + currentblocksize);
+			}
+
+			if (currentblocksize >= blocksize) {
+				files.add(sortAndSaveFile(tmplist, getComparator(i)));
+				currentblocksize = 0;
+				blocksize = estimateSizeOfBlock();
+				tmplist.clear();
+			}
+		}
+
+		// if tmplist still got some data
+		if (tmplist.size() > 0) {
+			files.add(sortAndSaveFile(tmplist, getComparator(i)));
+			tmplist.clear();
+		}
+
+		return files;
+	}
+
+	public File sortAndSaveFile(List<String> sortList, Comparator<String> comparator) throws IOException {
+		// create temp file
+		File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
+		file.deleteOnExit();
+		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+		logger.finest("Temp file " + file.getAbsolutePath() + " has been created.");
+
+		// sort the list
+		Collections.sort(sortList, comparator);
+		logger.finest("List has been sorted");
+
+		// write out the list to temp file
+		try {
+			for (String s : sortList) {
+				logger.finest("Write out Sting=" + s + " to temp file.");
+				bWriter.write(s);
+				bWriter.newLine();
+			}
+		} finally {
+			logger.finest("Closing bufferWriter...");
+			bWriter.close();
+		}
+
+		return file;
+	}
+
+
+
+
+	public File mergeFiles(List<File> files, int x) throws IOException {
+
+		if (files.size() == 1) {
+			logger.finest("files.size() == 1, return files.get(0)");
+			return files.get(0);
+
+		} else if (files.size() == 2) {
+			logger.finest("files.size() == 2, return merge(files.get(0), files.get(1), x)");
+			return merge(files.get(0), files.get(1), x);
+
+		} else {
+			logger.finest("files.size()>2, devide file list and merge sublist");
+			return merge(mergeFiles(files.subList(0, files.size() / 2), x),
+					mergeFiles(files.subList(files.size() / 2, files.size()), x), x);
+		}
+	}
+
+	public File merge(File file1, File file2, int i) throws IOException {
+		logger.finest("In merge method, which file1=" + file1.getAbsolutePath() + ", file2=" + file2.getAbsolutePath());
+
+		final int BUFFER_SIZE = 2048;
+		int compare = 0;
+		File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
+		file.deleteOnExit();
+
+		BufferedReader bReader1 = new BufferedReader(new FileReader(file1), BUFFER_SIZE);
+		BufferedReader bReader2 = new BufferedReader(new FileReader(file2), BUFFER_SIZE);
+		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+
+		try {
+
+			String s1 = bReader1.readLine();
+			String s2 = bReader2.readLine();
+
+			while (file1 != null && file2 != null) {
+
+				if (s1 == null && s2 == null) {
+					break;
+
+				} else if (s1 != null && s2 != null) {
+					compare = CompareUtil.compare(getKeys(s1).get(i), getKeys(s2).get(i)) * getMethods().get(i);
+
+				} else if (s1 == null && s2 != null) {
+					compare = 1;
+
+				} else if (s1 != null && s2 == null) {
+					compare = -1;
+				}
+
+				if (compare <= 0) {
+					bWriter.write(s1);
+					bWriter.newLine();
+					logger.finest("Write out string s1=" + s1);
+					s1 = bReader1.readLine();
+
+				} else if (compare > 0) {
+					bWriter.write(s2);
+					bWriter.newLine();
+					logger.finest("Write out string s2=" + s2);
+					s2 = bReader2.readLine();
+				}
+			}
+
+		} finally {
+			bReader1.close();
+			bReader2.close();
+			bWriter.close();
+		}
+
+		return file;
+	}
+
+	public long estimateSizeOfBlock() {
+		long blockSize;
+		long maxSize = Runtime.getRuntime().maxMemory() / 3;
+		long minSize = Runtime.getRuntime().freeMemory();
+
+		if (minSize < maxSize) {
+			blockSize = (maxSize + minSize) / 2;
+
+		} else {
+			blockSize = maxSize;
+		}
+
+		logger.finest("EstimateSizeOfBlock, block size=" + blockSize + ",  max block size=" + maxSize
+				+ ", min block size=" + minSize);
+
+		return blockSize;
+	}
+
+	/**
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean isEmpty(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
+		if (i == 0) {
+			return fileList.get(0).isEmpty();
+
+		} else {
+			return !bufferedReader.ready();
+		}
+	}
+
+	/**
+	 * if it is first round,read from inputFileList.if not, read from temp file
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @return
+	 * @throws IOException
+	 */
+	public String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
+		if (i == 0) {
+			return fileList.get(0).readFile();
+
+		} else {
+			return bufferedReader.readLine();
+		}
+	}
+
+	/***
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @throws IOException
+	 */
+	public void writeFile(int i, FileList fileList, BufferedWriter bufferedWriter, String data) throws IOException {
+		if (i == getLastRound()) {
+			fileList.get(0).writeFile(data);
+
+		} else {
+			bufferedWriter.write(data);
+			bufferedWriter.newLine();
+		}
+	}
+
+	public void doOutput(File file, FileList fileList) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String s = null;
+
+		try {
+			while (reader.ready()) {
+				s = reader.readLine();
+				fileList.writeToAllFile(s);
+			}
+		} finally {
+
+			reader.close();
+		}
+	}
+
+	/**
+	 * This method return comparator with getKeys and getMethods.
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public Comparator<String> getComparator(int i) {
+		Comparator<String> comparator = new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				return CompareUtil.compare(getKeys(o1).get(i), getKeys(o2).get(i)) * getMethods().get(i);
+			}
+		};
+
+		return comparator;
+	}
+
+	public BufferedReader getBufferReader(int i, File file) throws FileNotFoundException {
+		if (i == 0) {
+			return null;
+
+		} else if (i != 0 && file != null) {
+			logger.finest("Round=" + (i + 1) + " return BufferReader which file=" + file.getAbsolutePath());
+			return new BufferedReader(new FileReader(file));
+
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * this method return how many round sort to do
+	 * 
+	 * @return
+	 */
+	public int getSortRound() {
+		return getMethods().size();
+	}
+
+	/**
+	 * this method return last round number
+	 * 
+	 * @return
+	 */
+	public int getLastRound() {
+		return getMethods().size() - 1;
+	}
 }
+
+
