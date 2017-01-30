@@ -15,7 +15,7 @@ public class TemporaryFile implements FileInformation {
 
 	private String tempFileName;
 	// constant area
-	private static int DEFAULT_ALLOCATE = 500;
+	private static int DEFAULT_ALLOCATE = 300;
 	private static int DEFAULT_WAITING_TIME = 5;
 
 	public TemporaryFile(int allocate) {
