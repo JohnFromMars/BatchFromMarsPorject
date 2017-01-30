@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.batchfrommars.file.FileList;
-import com.batchfrommars.file.LogUtil;
 import com.batchfrommars.util.CompareUtil;
 
 public abstract class SortComponent extends ComponentII {
@@ -25,25 +24,21 @@ public abstract class SortComponent extends ComponentII {
 	protected abstract ArrayList<Integer> getMethods();
 
 	@Override
-	protected void act() {
+	protected void act() throws Exception {
 		File tempFile = null;
 
 		if (inputFileList.size() != 1) {
 			logger.severe("inputFileList.size() should be 1 but was " + inputFileList.size());
 
 		} else {
+			
 			for (int i = 0; i < getSortRound(); i++) {
 
-				try {
-					List<File> files = sortFileBatch(inputFileList, i, tempFile);
-					tempFile = mergeFiles(files, i);
+				List<File> files = sortFileBatch(inputFileList, i, tempFile);
+				tempFile = mergeFiles(files, i);
 
-					if (i == getLastRound()) {
-						doOutput(tempFile, outputFileList);
-					}
-
-				} catch (Exception e) {
-					logger.warning(LogUtil.getExMsg(e));
+				if (i == getLastRound()) {
+					doOutput(tempFile, outputFileList);
 				}
 			}
 		}
@@ -55,9 +50,9 @@ public abstract class SortComponent extends ComponentII {
 	 * @param fileList
 	 * @param comparator
 	 * @return
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public List<File> sortFileBatch(FileList fileList, int i, File file) throws IOException {
+	public List<File> sortFileBatch(FileList fileList, int i, File file) throws Exception {
 		logger.finest("In sortFileBatch which round=" + (i + 1) + ", total round=" + getSortRound());
 
 		long blockSize = estimateSizeOfBlock();
@@ -174,6 +169,7 @@ public abstract class SortComponent extends ComponentII {
 
 		final int BUFFER_SIZE = 2048;
 		int compare = 0;
+
 		File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
 		file.deleteOnExit();
 
@@ -229,7 +225,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 */
 	public long estimateSizeOfBlock() {
-		long blockSize;
+		long blockSize = 0;
 		long maxSize = Runtime.getRuntime().maxMemory() / 3;
 		long minSize = Runtime.getRuntime().freeMemory();
 
@@ -240,7 +236,7 @@ public abstract class SortComponent extends ComponentII {
 			blockSize = maxSize;
 		}
 
-		logger.finest("EstimateSizeOfBlock, block size=" + blockSize + ",  max block size=" + maxSize
+		logger.info("EstimateSizeOfBlock, block size=" + blockSize + ",  max block size=" + maxSize
 				+ ", min block size=" + minSize);
 
 		return blockSize;
@@ -255,7 +251,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @throws IOException
 	 */
 	public boolean isEmpty(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
-		
+
 		if (i == 0) {
 			return fileList.get(0).isEmpty();
 
@@ -271,10 +267,10 @@ public abstract class SortComponent extends ComponentII {
 	 * @param fileList
 	 * @param bufferedReader
 	 * @return
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
-		
+	public String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws Exception {
+
 		if (i == 0) {
 			return fileList.get(0).readFile();
 
@@ -288,10 +284,10 @@ public abstract class SortComponent extends ComponentII {
 	 * @param i
 	 * @param fileList
 	 * @param bufferedReader
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public void writeFile(int i, FileList fileList, BufferedWriter bufferedWriter, String data) throws IOException {
-		
+	public void writeFile(int i, FileList fileList, BufferedWriter bufferedWriter, String data) throws Exception {
+
 		if (i == getLastRound()) {
 			fileList.get(0).writeFile(data);
 
@@ -305,9 +301,9 @@ public abstract class SortComponent extends ComponentII {
 	 * 
 	 * @param file
 	 * @param fileList
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public void doOutput(File file, FileList fileList) throws IOException {
+	public void doOutput(File file, FileList fileList) throws Exception {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String s = null;
 
@@ -329,7 +325,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 */
 	public Comparator<String> getComparator(int i) {
-		
+
 		Comparator<String> comparator = new Comparator<String>() {
 
 			@Override

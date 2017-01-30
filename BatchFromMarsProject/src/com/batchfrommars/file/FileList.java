@@ -1,6 +1,5 @@
 package com.batchfrommars.file;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,8 +38,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @return
+	 * @throws Exception 
 	 */
-	public LinkedList<String> readFile() {
+	public LinkedList<String> readFile() throws Exception {
 		LinkedList<String> inputList = new LinkedList<>();
 		for (FileInformation item : fileInformationsList) {
 			inputList.add(item.readFile());
@@ -54,8 +54,9 @@ public class FileList {
 	 * @remark
 	 * @param i
 	 * @return
+	 * @throws Exception 
 	 */
-	public String readFile(int i) {
+	public String readFile(int i) throws Exception {
 		String output = null;
 		output = fileInformationsList.get(i).readFile();
 		return output;
@@ -67,8 +68,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param outputList
+	 * @throws Exception 
 	 */
-	public void writeFile(List<String> outputList) {
+	public void writeFile(List<String> outputList) throws Exception {
 		if (outputList.size() == fileInformationsList.size()) {
 			for (int i = 0; i < outputList.size(); i++) {
 
@@ -86,8 +88,9 @@ public class FileList {
 	 * @remark
 	 * @param i
 	 * @param outputData
+	 * @throws Exception 
 	 */
-	public void writeFile(int i, String outputData) {
+	public void writeFile(int i, String outputData) throws Exception {
 		fileInformationsList.get(i).writeFile(outputData);
 	}
 
@@ -97,8 +100,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param outputData
+	 * @throws Exception 
 	 */
-	public void writeToAllFile(String outputData) {
+	public void writeToAllFile(String outputData) throws Exception {
 		for (FileInformation item : fileInformationsList) {
 			item.writeFile(outputData);
 		}
@@ -106,12 +110,12 @@ public class FileList {
 
 	/**
 	 * all element in file list close file
+	 * @throws Exception 
 	 * 
-	 * @throws IOException
 	 * @date 2016-09-17
 	 * @remark
 	 */
-	public void closeFile() throws IOException {
+	public void closeFile() throws Exception {
 		for (FileInformation item : fileInformationsList) {
 			item.closeFile();
 		}
@@ -123,9 +127,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param i
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public void closeFile(int i) throws IOException {
+	public void closeFile(int i) throws Exception {
 		fileInformationsList.get(i).closeFile();
 	}
 
@@ -195,13 +199,13 @@ public class FileList {
 		this.fileInformationsList.clear();
 	}
 
-	public void deleteAllFile() throws IOException {
+	public void deleteAllFile() throws Exception {
 		for (FileInformation item : this.fileInformationsList) {
 			item.deleteFile();
 		}
 	}
 
-	public void deleteFile(int fileInformation) throws IOException {
+	public void deleteFile(int fileInformation) throws Exception {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 

@@ -16,7 +16,7 @@ import com.batchfrommars.test.component.TwoWayBatchComponenet;
 public class CompareComponentTest {
 
 	@Test
-	public void testSingleCompareComponent() {
+	public void testSingleCompareComponent() throws Exception {
 		StepCompare compare = new StepCompare();
 		FileInformation testInput1 = new TemporaryFile();
 		FileInformation testInput2 = new TemporaryFile();
@@ -55,7 +55,7 @@ public class CompareComponentTest {
 	}
 
 	@Test
-	public void testTwoWayCompareComponent() throws InterruptedException {
+	public void testTwoWayCompareComponent() throws Exception {
 		StepCompare compare = new StepCompare();
 		TwoWayBatchComponenet batchComponenet = new TwoWayBatchComponenet();
 
@@ -113,7 +113,7 @@ public class CompareComponentTest {
 	}
 
 	@Test
-	public void testThreeWayCompareComponenet() throws InterruptedException {
+	public void testThreeWayCompareComponenet() throws Exception {
 		StepCompare compare = new StepCompare();
 		TestBatchComponentII1 componentII1 = new TestBatchComponentII1();
 		TestBatchComponentII2 componentII2 = new TestBatchComponentII2();

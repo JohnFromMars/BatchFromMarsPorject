@@ -53,31 +53,22 @@ public class PhysicalFile implements FileInformation {
 	}
 
 	@Override
-	public String readFile() {
+	public String readFile() throws IOException {
 		String data = null;
+
 		if (!isEmpty()) {
-			
-			try {
-				data = bufferedReader.readLine();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			data = bufferedReader.readLine();
 		}
+
 		return data;
 	}
 
 	@Override
-	public void writeFile(String data) {
-		if (data != null) {
+	public void writeFile(String data) throws IOException {
 
-			try {
-				this.bufferedWriter.write(data);
-				this.bufferedWriter.newLine();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (data != null) {
+			this.bufferedWriter.write(data);
+			this.bufferedWriter.newLine();
 		}
 	}
 
@@ -85,9 +76,8 @@ public class PhysicalFile implements FileInformation {
 	public boolean isEmpty() {
 		try {
 			return (!bufferedReader.ready());
-			
+
 		} catch (IOException e) {
-			e.printStackTrace();
 			return false;
 		}
 

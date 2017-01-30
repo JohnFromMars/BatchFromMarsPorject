@@ -17,11 +17,13 @@ import com.batchfrommars.file.TemporaryFile;
 import com.batchfrommars.test.component.StepDelayBatch;
 import com.batchfrommars.test.component.StepSort;
 import com.batchfrommars.test.component.StepSortManyRound;
+import com.batchfrommars.test.component.StepSortObject;
+import com.batchfrommars.test.component.StepSortSplitFile;
 
 public class SortComponentTest {
 
 	@Test
-	public void testGetRunTimeMemoryUsage() {
+	public void testGetRunTimeMemoryUsage() throws Exception {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new TemporaryFile();
 		FileInformation testOutput = new TemporaryFile();
@@ -67,7 +69,7 @@ public class SortComponentTest {
 	}
 
 	@Test
-	public void testDelaySort() throws InterruptedException {
+	public void testDelaySort() throws Exception {
 		StepSort sort = new StepSort();
 		StepDelayBatch batch = new StepDelayBatch();
 
@@ -124,7 +126,7 @@ public class SortComponentTest {
 	}
 
 	@Test
-	public void testPhysicalFile() throws IOException {
+	public void testPhysicalFile() throws Exception {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new TemporaryFile();
 		FileInformation testOutput = new PhysicalFile(PhysicalFile.OUTPUT, "d:/test.txt", "UTF8", false);
@@ -176,7 +178,7 @@ public class SortComponentTest {
 	}
 
 	@Test
-	public void testTwoRoundSort() {
+	public void testTwoRoundSort() throws Exception {
 		StepSortManyRound sort = new StepSortManyRound();
 		FileInformation testInput = new TemporaryFile();
 		FileInformation testOutput = new TemporaryFile();
@@ -256,6 +258,7 @@ public class SortComponentTest {
 
 	}
 
+
 	public void testSortLargData() throws UnsupportedEncodingException, FileNotFoundException {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort3.txt", "UTF8",
@@ -271,6 +274,43 @@ public class SortComponentTest {
 		long end = System.currentTimeMillis();
 
 		System.out.println((end - start) / 1000 + " second");
+	}
+
+	@Test
+	public void testSortSplitFile() throws UnsupportedEncodingException, FileNotFoundException {
+		StepSortSplitFile sort = new StepSortSplitFile();
+		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort5.txt", "UTF8",
+				false);
+		FileInformation testOutput = new PhysicalFile(PhysicalFile.OUTPUT, "e:/BatchFromMars/SortData/sort6.txt",
+				"UTF8", false);
+
+		sort.addInputFileInformation(testInput);
+		sort.addOutputFileInformation(testOutput);
+
+		long start = System.currentTimeMillis();
+		sort.activate();
+		long end = System.currentTimeMillis();
+
+		System.out.println((end - start) / 1000 + " second");
+
+	}
+
+	public void testSortObject() throws UnsupportedEncodingException, FileNotFoundException {
+		StepSortObject sort = new StepSortObject();
+		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort3.txt", "UTF8",
+				false);
+		FileInformation testOutput = new PhysicalFile(PhysicalFile.OUTPUT, "e:/BatchFromMars/SortData/sort4.txt",
+				"UTF8", false);
+
+		sort.addInputFileInformation(testInput);
+		sort.addOutputFileInformation(testOutput);
+
+		long start = System.currentTimeMillis();
+		sort.activate();
+		long end = System.currentTimeMillis();
+
+		System.out.println((end - start) / 1000 + " second");
+
 	}
 
 	@Test

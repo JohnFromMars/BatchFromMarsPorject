@@ -23,7 +23,7 @@ public abstract class MergeSortComponent extends ComponentII {
 	protected abstract int getMergeSortMethod();
 
 	@Override
-	protected void act() {
+	protected void act() throws Exception {
 		String input1 = null;
 		String input2 = null;
 
@@ -48,7 +48,7 @@ public abstract class MergeSortComponent extends ComponentII {
 
 	}
 
-	private void sortNoLastComponent(String input1, String input2) {
+	private void sortNoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In sortNoLastComponent method, cheching while loop condition...");
 		logger.finest("inputFileList.size() == INPUT_SIZE " + (inputFileList.size() == INPUT_SIZE));
 
@@ -123,7 +123,7 @@ public abstract class MergeSortComponent extends ComponentII {
 
 	}
 
-	private void sortTwoLastComponent(String input1, String input2) {
+	private void sortTwoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In sortTwoLastComponent method, cheching while loop condition...");
 		logger.finest("inputFileList.size() == INPUT_SIZE " + (inputFileList.size() == INPUT_SIZE)
 				+ ", inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
@@ -235,7 +235,7 @@ public abstract class MergeSortComponent extends ComponentII {
 
 	}
 
-	private void sortOneLastComponent(String input1, String input2) {
+	private void sortOneLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In sortOneLastComponent method, cheching while loop condition...");
 		logger.finest("inputFileList.size() == INPUT_SIZE " + (inputFileList.size() == INPUT_SIZE)
 				+ ", inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="

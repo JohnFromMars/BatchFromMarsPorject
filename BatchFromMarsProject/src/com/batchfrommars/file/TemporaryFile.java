@@ -1,6 +1,5 @@
 package com.batchfrommars.file;
 
-import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -30,27 +29,17 @@ public class TemporaryFile implements FileInformation {
 	}
 
 	@Override
-	public String readFile() {
-		String data = null;
-		try {
-			data = buffer.poll(DEFAULT_WAITING_TIME, TimeUnit.MILLISECONDS);
+	public String readFile() throws InterruptedException {
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		String data = buffer.poll(DEFAULT_WAITING_TIME, TimeUnit.MILLISECONDS);
 		return data;
 	}
 
 	@Override
-	public void writeFile(String data) {
+	public void writeFile(String data) throws InterruptedException {
+
 		if (data != null) {
-
-			try {
-				buffer.put(data);
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			buffer.put(data);
 		}
 	}
 
@@ -64,7 +53,7 @@ public class TemporaryFile implements FileInformation {
 	}
 
 	@Override
-	public void deleteFile() throws IOException {
+	public void deleteFile() {
 	}
 
 	@Override

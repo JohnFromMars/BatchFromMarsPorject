@@ -35,7 +35,7 @@ public abstract class ComponentII extends Thread {
 	private final static int NO_COMPONENT = 0;
 
 	// get main function from children
-	protected abstract void act();
+	protected abstract void act() throws Exception;
 
 	// get logger from children
 	protected abstract Logger getLoggger();
@@ -57,9 +57,9 @@ public abstract class ComponentII extends Thread {
 	public void run() {
 		logger.fine(this.getClass().getSimpleName() + " Runing...");
 		logStart();
-		onInit();
+		init();
 		performAct();
-		onFinish();
+		finish();
 		closeFileLists();
 		logComplete();
 
@@ -75,9 +75,9 @@ public abstract class ComponentII extends Thread {
 	public void activate() {
 		logger.finest(this.getClass().getSimpleName() + " Activating...");
 		logStart();
-		onInit();
+		init();
 		performAct();
-		onFinish();
+		finish();
 		closeFileLists();
 		logComplete();
 
@@ -85,22 +85,44 @@ public abstract class ComponentII extends Thread {
 
 	private void performAct() {
 		try {
-			logger.finest("Before act...");
 			this.act();
-			logger.finest("After act...");
 
 		} catch (Exception e) {
-			logger.warning("#### Exception happeed in act method...");
+			logger.warning("#### Exception happeed in act() method...");
 			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
+		}
+	}
+
+	private void init() {
+		try {
+			onInit();
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happeed in onInit() method...");
+			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
+		}
+	}
+
+	private void finish() {
+		try {
+			onFinish();
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happeed in onFinish() method...");
+			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
 		}
 	}
 
 	protected void onInit() {
-
 	}
 
 	protected void onFinish() {
-
 	}
 
 	protected void logStart() {
@@ -128,7 +150,6 @@ public abstract class ComponentII extends Thread {
 			logger.warning("#### Exception happened while closing inputFileList and outputFileList...");
 			logger.warning(LogUtil.getExMsg(e));
 		}
-
 	}
 
 	/**

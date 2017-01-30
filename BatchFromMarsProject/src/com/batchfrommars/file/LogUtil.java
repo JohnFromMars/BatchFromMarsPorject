@@ -16,7 +16,9 @@ public class LogUtil {
 	private static final String NEW_LINE = "\r\n";
 
 	public static Logger getLogger(String logName, String logPath) {
-		return getLogger(logName, logPath, Logger.getLogger(logName), Level.ALL);
+		return getLogger(logName, logPath, Logger.getLogger(logName), Level.INFO
+
+		);
 	}
 
 	private static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
@@ -62,10 +64,10 @@ public class LogUtil {
 
 		for (int i = 0; i < e.getStackTrace().length; i++) {
 			if (i == e.getStackTrace().length) {
-				msg = msg + e.getStackTrace()[i];
+				msg = FRONT + msg + e.getStackTrace()[i];
 
 			} else {
-				msg = msg + e.getStackTrace()[i] + NEW_LINE;
+				msg = FRONT + msg + e.getStackTrace()[i] + NEW_LINE;
 			}
 		}
 

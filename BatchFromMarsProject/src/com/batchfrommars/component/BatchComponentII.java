@@ -39,10 +39,11 @@ public abstract class BatchComponentII extends ComponentII {
 	/**
 	 * activate the BatchComponentII when children class implements
 	 * excuteProcess method
+	 * @throws Exception 
 	 * 
 	 */
 	@Override
-	protected void act() {
+	protected void act() throws Exception {
 
 		logger.finest("In act method, cheching while loop condition...");
 		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="

@@ -17,7 +17,7 @@ import com.batchfrommars.test.component.TestBatchComponentII3;
 public class BatchComponentIITest {
 
 	@Test
-	public void testStepBatchComponent() {
+	public void testStepBatchComponent() throws Exception {
 		StepTestBatchComponent component = new StepTestBatchComponent();
 		FileInformation testInput = new TemporaryFile();
 		FileInformation testOuputDev = new TemporaryFile();
@@ -66,7 +66,7 @@ public class BatchComponentIITest {
 	}
 
 	@Test
-	public void testMultipleBatchComponent() throws InterruptedException {
+	public void testMultipleBatchComponent() throws Exception {
 
 		StepTestBatchComponent component = new StepTestBatchComponent();
 		TestBatchComponentII1 componentDev = new TestBatchComponentII1();

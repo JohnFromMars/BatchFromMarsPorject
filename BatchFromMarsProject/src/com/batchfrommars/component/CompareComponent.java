@@ -37,7 +37,7 @@ public abstract class CompareComponent extends ComponentII {
 		outputFileList = new FileList();
 	}
 
-	protected void act() {
+	protected void act() throws Exception {
 
 		String input1 = null;
 		String input2 = null;
@@ -66,7 +66,7 @@ public abstract class CompareComponent extends ComponentII {
 
 	}
 
-	private void compareNoLastComponent(String input1, String input2) {
+	private void compareNoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In compareNoLastComponent, checking while loop condition...");
 		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
 				+ inputFileList.isAllEmpty());
@@ -142,7 +142,7 @@ public abstract class CompareComponent extends ComponentII {
 		}
 	}
 
-	private void compareOneLastComponent(String input1, String input2) {
+	private void compareOneLastComponent(String input1, String input2) throws Exception {
 
 		int emptyCount = ZERO;
 
@@ -237,7 +237,7 @@ public abstract class CompareComponent extends ComponentII {
 
 	}
 
-	private void compareTwoLastComponent(String input1, String input2) {
+	private void compareTwoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In compareTwoLastComponent, checking while loop condition...");
 		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
 				+ inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());

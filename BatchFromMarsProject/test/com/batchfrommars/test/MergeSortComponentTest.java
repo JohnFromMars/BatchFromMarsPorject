@@ -17,7 +17,7 @@ import com.batchfrommars.test.component.TwoWayBatchComponenet;
 public class MergeSortComponentTest {
 
 	@Test
-	public void testSingleMergeSortComponentDescending() {
+	public void testSingleMergeSortComponentDescending() throws Exception {
 		StepMerge merge = new StepMerge();
 		FileInformation testInput1 = new TemporaryFile();
 		FileInformation testInput2 = new TemporaryFile();
@@ -59,7 +59,7 @@ public class MergeSortComponentTest {
 	}
 
 	@Test
-	public void testSingleMergeSortComponentAscending() {
+	public void testSingleMergeSortComponentAscending() throws Exception {
 		StepMergeAscending merge = new StepMergeAscending();
 		FileInformation testInput1 = new TemporaryFile();
 		FileInformation testInput2 = new TemporaryFile();
@@ -100,7 +100,7 @@ public class MergeSortComponentTest {
 	}
 
 	@Test
-	public void testTwoWayMergeSortComponent() throws InterruptedException {
+	public void testTwoWayMergeSortComponent() throws Exception {
 		StepMerge merge = new StepMerge();
 		TestBatchComponentII1 batch1 = new TestBatchComponentII1();
 		TestBatchComponentII2 batch2 = new TestBatchComponentII2();
@@ -174,7 +174,7 @@ public class MergeSortComponentTest {
 	}
 
 	@Test
-	public void testOneWayMergeSortComponent() throws InterruptedException {
+	public void testOneWayMergeSortComponent() throws Exception {
 		StepMerge merge = new StepMerge();
 		TwoWayBatchComponenet componenet = new TwoWayBatchComponenet();
 
