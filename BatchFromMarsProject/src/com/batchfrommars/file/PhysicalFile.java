@@ -24,6 +24,7 @@ public class PhysicalFile implements FileInformation {
 	private String filePath;
 	private String encoding;
 	private boolean append;
+	private boolean closed;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 
@@ -32,53 +33,42 @@ public class PhysicalFile implements FileInformation {
 	public static final String INPUT = "INPUT";
 	public static final String OPERATE = "OPERATE";
 
-	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) {
+	public PhysicalFile(String ioType, String filePath, String encoding, boolean append)
+			throws UnsupportedEncodingException, FileNotFoundException {
 
 		this.ioType = ioType;
 		this.filePath = filePath;
 		this.encoding = encoding;
 		this.append = append;
+		this.closed = false;
 
-		try {
-			if (ioType.equals(INPUT)) {
+		if (ioType.equals(INPUT)) {
+			this.bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), encoding));
 
-				this.bufferedReader = new BufferedReader(
-						new InputStreamReader(new FileInputStream(filePath), encoding));
-			} else if (ioType.equals(OUTPUT)) {
-				this.bufferedWriter = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
-			}
-
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else if (ioType.equals(OUTPUT)) {
+			this.bufferedWriter = new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
 		}
 
 	}
 
 	@Override
-	public String readFile() {
+	public String readFile() throws IOException {
 		String data = null;
+
 		if (!isEmpty()) {
-			try {
-				data = bufferedReader.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			data = bufferedReader.readLine();
 		}
+
 		return data;
 	}
 
 	@Override
-	public void writeFile(String data) {
-		if (data != null) {
+	public void writeFile(String data) throws IOException {
 
-			try {
-				this.bufferedWriter.write(data);
-				this.bufferedWriter.newLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (data != null) {
+			this.bufferedWriter.write(data);
+			this.bufferedWriter.newLine();
 		}
 	}
 
@@ -86,46 +76,31 @@ public class PhysicalFile implements FileInformation {
 	public boolean isEmpty() {
 		try {
 			return (!bufferedReader.ready());
+
 		} catch (IOException e) {
-			e.printStackTrace();
 			return false;
 		}
 
 	}
 
 	@Override
-	public void closeFile() {
-		if (this.ioType.equals(INPUT)) {
-			try {
-				// this.scanner.close();
-				this.bufferedReader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else if (this.ioType.equals(OUTPUT)) {
-			try {
-				this.bufferedWriter.flush();
-				this.bufferedWriter.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void closeFile() throws IOException {
+
+		if (this.ioType.equals(INPUT) && closed != true) {
+			this.bufferedReader.close();
+			closed = true;
+
+		} else if (this.ioType.equals(OUTPUT) && closed != true) {
+			this.bufferedWriter.flush();
+			this.bufferedWriter.close();
+			closed = true;
 		}
 	}
 
 	@Override
-	public void deleteFile() {
-		// System.out.println(filePath+" to delete");
-		// File file = new File(filePath);
-		//
-		// System.out.println(file.delete());
+	public void deleteFile() throws IOException {
 		Path path = Paths.get(filePath);
-		try {
-			Files.delete(path);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Files.delete(path);
 	}
 
 	public String getIoType() {
@@ -160,6 +135,17 @@ public class PhysicalFile implements FileInformation {
 		this.append = append;
 	}
 
-	
+	public boolean isClosed() {
+		return closed;
+	}
 
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+
+	@Override
+	public String toString() {
+		return "PhysicalFile [ioType=" + ioType + ", filePath=" + filePath + ", encoding=" + encoding + ", append="
+				+ append + "]";
+	}
 }

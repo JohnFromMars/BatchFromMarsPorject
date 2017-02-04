@@ -4,7 +4,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-
 /**
  * 
  * @author JohnFromMars
@@ -13,38 +12,34 @@ import java.util.concurrent.TimeUnit;
 public class TemporaryFile implements FileInformation {
 	// queue buffer
 	private BlockingQueue<String> buffer;
+
+	private String tempFileName;
 	// constant area
-	private static int DEFAULT_ALLOCATE = 2000;
+	private static int DEFAULT_ALLOCATE = 300;
 	private static int DEFAULT_WAITING_TIME = 5;
 
 	public TemporaryFile(int allocate) {
 		buffer = new ArrayBlockingQueue<String>(allocate);
+		tempFileName = this.getClass().getGenericInterfaces().getClass().getSimpleName();
 	}
 
 	public TemporaryFile() {
 		buffer = new ArrayBlockingQueue<String>(DEFAULT_ALLOCATE);
+		tempFileName = String.valueOf(this.getClass().getSimpleName() + " " + this.hashCode());
 	}
 
 	@Override
-	public String readFile() {
-		String data = null;
-		try {
-			data = buffer.poll(DEFAULT_WAITING_TIME, TimeUnit.MILLISECONDS);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public String readFile() throws InterruptedException {
+
+		String data = buffer.poll(DEFAULT_WAITING_TIME, TimeUnit.MILLISECONDS);
 		return data;
 	}
 
 	@Override
-	public void writeFile(String data) {
-		if (data != null) {
+	public void writeFile(String data) throws InterruptedException {
 
-			try {
-				buffer.put(data);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		if (data != null) {
+			buffer.put(data);
 		}
 	}
 
@@ -59,6 +54,11 @@ public class TemporaryFile implements FileInformation {
 
 	@Override
 	public void deleteFile() {
+	}
+
+	@Override
+	public String toString() {
+		return "TemporaryFile [tempFileName=" + tempFileName + "]";
 	}
 
 }

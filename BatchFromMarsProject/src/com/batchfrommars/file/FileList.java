@@ -38,8 +38,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @return
+	 * @throws Exception 
 	 */
-	public LinkedList<String> readFile() {
+	public LinkedList<String> readFile() throws Exception {
 		LinkedList<String> inputList = new LinkedList<>();
 		for (FileInformation item : fileInformationsList) {
 			inputList.add(item.readFile());
@@ -53,8 +54,9 @@ public class FileList {
 	 * @remark
 	 * @param i
 	 * @return
+	 * @throws Exception 
 	 */
-	public String readFile(int i) {
+	public String readFile(int i) throws Exception {
 		String output = null;
 		output = fileInformationsList.get(i).readFile();
 		return output;
@@ -66,8 +68,9 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param outputList
+	 * @throws Exception 
 	 */
-	public void writeFile(List<String> outputList) {
+	public void writeFile(List<String> outputList) throws Exception {
 		if (outputList.size() == fileInformationsList.size()) {
 			for (int i = 0; i < outputList.size(); i++) {
 
@@ -78,64 +81,63 @@ public class FileList {
 		}
 	}
 
-	
-	
 	/**
 	 * specified element in file list write file
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
 	 * @param outputData
+	 * @throws Exception 
 	 */
-	public void writeFile(int i, String outputData) {
+	public void writeFile(int i, String outputData) throws Exception {
 		fileInformationsList.get(i).writeFile(outputData);
 	}
 
-	
-	
 	/**
 	 * write the string to all elements in file list
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param outputData
+	 * @throws Exception 
 	 */
-	public void writeToAllFile(String outputData) {
+	public void writeToAllFile(String outputData) throws Exception {
 		for (FileInformation item : fileInformationsList) {
 			item.writeFile(outputData);
 		}
 	}
 
-	
-	
 	/**
 	 * all element in file list close file
+	 * @throws Exception 
+	 * 
 	 * @date 2016-09-17
 	 * @remark
 	 */
-	public void closeFile() {
+	public void closeFile() throws Exception {
 		for (FileInformation item : fileInformationsList) {
 			item.closeFile();
 		}
 	}
 
-	
-	
 	/**
 	 * specified element in file list close file
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
+	 * @throws Exception 
 	 */
-	public void closeFile(int i) {
+	public void closeFile(int i) throws Exception {
 		fileInformationsList.get(i).closeFile();
 	}
 
-	
-	
 	/**
 	 * return true when all elements are empty
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public boolean isAllEmpty() {
@@ -148,8 +150,9 @@ public class FileList {
 
 	/**
 	 * return true when some elements are empty
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public boolean isSomeEmpty() {
@@ -161,12 +164,11 @@ public class FileList {
 
 	}
 
-	
-	
 	/**
 	 * return specified element is empty or not
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @param i
 	 * @return
 	 */
@@ -174,22 +176,23 @@ public class FileList {
 		return fileInformationsList.get(i).isEmpty();
 	}
 
-	
-	
 	/**
 	 * return number of elements
+	 * 
 	 * @date 2016-09-17
-	 * @remark 
+	 * @remark
 	 * @return
 	 */
 	public int size() {
 		return fileInformationsList.size();
 	}
 
+	
 	public FileInformation get(int fileInformation) {
 		return this.fileInformationsList.get(fileInformation);
 	}
 
+	
 	public FileInformation getLast() {
 		return fileInformationsList.get(fileInformationsList.size() - 1);
 	}
@@ -198,24 +201,23 @@ public class FileList {
 		this.fileInformationsList.clear();
 	}
 
-	public void deleteAllFile() {
+	public void deleteAllFile() throws Exception {
 		for (FileInformation item : this.fileInformationsList) {
 			item.deleteFile();
 		}
 	}
 
-	public void deleteFile(int fileInformation) {
+	public void deleteFile(int fileInformation) throws Exception {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 
-	// public ArrayList<FileInformation> getFileInformationsList() {
-	// return fileInformationsList;
-	// }
-	//
-	// public void setFileInformationsList(ArrayList<FileInformation>
-	// fileInformationsList) {
-	// this.fileInformationsList = fileInformationsList;
-	// }
+	public ArrayList<FileInformation> getFileInformationsList() {
+		return fileInformationsList;
+	}
+
+	public void setFileInformationsList(ArrayList<FileInformation> fileInformationsList) {
+		this.fileInformationsList = fileInformationsList;
+	}
 
 	public String toString() {
 		return "FileList [fileInformationsList=" + fileInformationsList + "]";

@@ -7,14 +7,16 @@ package com.batchfrommars.file;
  */
 public interface FileInformation {
 
-	String readFile();
+	String readFile() throws Exception;
 
-	void writeFile(String data);
+	void writeFile(String data)throws Exception;
 
 	boolean isEmpty();
 
-	void closeFile();
+	void closeFile() throws Exception;
 	
-	void deleteFile();
+	void deleteFile() throws Exception;
+	
+	String toString();
 
 }

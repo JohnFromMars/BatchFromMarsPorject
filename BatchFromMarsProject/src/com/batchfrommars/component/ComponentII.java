@@ -1,9 +1,13 @@
 package com.batchfrommars.component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Logger;
 
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
+import com.batchfrommars.file.LogUtil;
 
 /**
  * ComponentII is parent class of every components in BatchFromMars. Every
@@ -22,18 +26,26 @@ public abstract class ComponentII extends Thread {
 	protected FileList inputFileList;
 	protected FileList outputFileList;
 
+	protected Logger logger;
+
 	// constant area
 	protected final static String START_MSG = " started...";
 	protected final static String COMPELETE_MSG = " compeleted...";
+	protected final static SimpleDateFormat FORM = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private final static int NO_COMPONENT = 0;
+
+	// get main function from children
+	protected abstract void act() throws Exception;
+
+	// get logger from children
+	protected abstract Logger getLoggger();
 
 	public ComponentII() {
 		lastComponentList = new ArrayList<>();
 		inputFileList = new FileList();
 		outputFileList = new FileList();
+		logger = this.getLoggger();
 	}
-
-	protected abstract void act();
 
 	public ArrayList<ComponentII> getLastComponentList() {
 		return this.lastComponentList;
@@ -43,7 +55,14 @@ public abstract class ComponentII extends Thread {
 	 * 
 	 */
 	public void run() {
-		this.act();
+		logger.fine(this.getClass().getSimpleName() + " Runing...");
+		logStart();
+		init();
+		performAct();
+		finish();
+		closeFileLists();
+		logComplete();
+
 	}
 
 	/**
@@ -54,7 +73,83 @@ public abstract class ComponentII extends Thread {
 	 * @remark
 	 */
 	public void activate() {
-		this.act();
+		logger.finest(this.getClass().getSimpleName() + " Activating...");
+		logStart();
+		init();
+		performAct();
+		finish();
+		closeFileLists();
+		logComplete();
+
+	}
+
+	private void performAct() {
+		try {
+			this.act();
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happened in act() method...");
+			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
+		}
+	}
+
+	private void init() {
+		try {
+			onInit();
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happened in onInit() method...");
+			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
+		}
+	}
+
+	private void finish() {
+		try {
+			onFinish();
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happened in onFinish() method...");
+			logger.warning(LogUtil.getExMsg(e));
+			closeFileLists();
+			System.exit(MAX_PRIORITY);
+		}
+	}
+
+	protected void onInit() {
+	}
+
+	protected void onFinish() {
+	}
+
+	protected void logStart() {
+		logger.info("#### " + this.getClass().getSimpleName() + " started...");
+		logger.info("#### Started at " + FORM.format(new Date()));
+		logger.info("#### LastComponentList=" + lastComponentList);
+		logger.info("#### InputFileList=" + inputFileList);
+		logger.info("#### OutputFileList=" + outputFileList);
+	}
+
+	protected void logComplete() {
+		logger.info("#### Completed at " + FORM.format(new Date()));
+		logger.info("#### " + this.getClass().getSimpleName() + " completed...");
+	}
+
+	public void closeFileLists() {
+
+		try {
+			logger.info("#### Closing inputFileList and outputFileList...");
+			inputFileList.closeFile();
+			outputFileList.closeFile();
+			logger.info("#### InputFileList and outputFileList have been closed...");
+
+		} catch (Exception e) {
+			logger.warning("#### Exception happened while closing inputFileList and outputFileList...");
+			logger.warning(LogUtil.getExMsg(e));
+		}
 	}
 
 	/**
@@ -133,9 +228,9 @@ public abstract class ComponentII extends Thread {
 	 */
 	public void addLastComponent(ComponentII... component) {
 		for (ComponentII c : component) {
+			logger.finest("Adding " + c.toString() + " to lastComponentLst");
 			lastComponentList.add(c);
 		}
-
 	}
 
 	/**
@@ -186,6 +281,7 @@ public abstract class ComponentII extends Thread {
 	 */
 	public void addInputFileInformation(FileInformation... fileInformations) {
 		for (FileInformation f : fileInformations) {
+			logger.finest("Adding " + f.toString() + " to inputFileList");
 			this.inputFileList.addFileInformation(f);
 		}
 
@@ -199,9 +295,14 @@ public abstract class ComponentII extends Thread {
 	 */
 	public void addOutputFileInformation(FileInformation... fileInformations) {
 		for (FileInformation f : fileInformations) {
+			logger.finest("Adding " + f.toString() + " to outputFileList");
 			this.outputFileList.addFileInformation(f);
 		}
+	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
 	}
 
 }

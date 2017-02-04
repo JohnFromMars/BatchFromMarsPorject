@@ -39,26 +39,34 @@ public abstract class BatchComponentII extends ComponentII {
 	/**
 	 * activate the BatchComponentII when children class implements
 	 * excuteProcess method
+	 * @throws Exception 
 	 * 
 	 */
-	protected void act() {
+	@Override
+	protected void act() throws Exception {
 
-		System.out.println(this.getClass().getSimpleName() + START_MSG);
+		logger.finest("In act method, cheching while loop condition...");
+		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
+				+ isSomeLastComponentsRunning());
 
 		while (!inputFileList.isAllEmpty() || this.isSomeLastComponentsRunning()) {
+
 			LinkedList<String> inputList = inputFileList.readFile();
 
 			if (!isNull(inputList)) {
 				LinkedList<String> outputList = this.excuteProcess(inputList);
-				if (!isNull(outputList) && outputFileList.size() != 0) {
-					outputFileList.writeFile(outputList);
+
+				if (outputList != null) {
+					if (!isNull(outputList) && outputFileList.size() != 0) {
+						outputFileList.writeFile(outputList);
+					}
 				}
 			}
 		}
 
-		inputFileList.closeFile();
-		outputFileList.closeFile();
-		System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		logger.finest("While loop finish, checking while loop condition...");
+		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
+				+ isSomeLastComponentsRunning());
 	}
 
 	/**
@@ -75,4 +83,5 @@ public abstract class BatchComponentII extends ComponentII {
 		}
 		return isNull;
 	}
+
 }

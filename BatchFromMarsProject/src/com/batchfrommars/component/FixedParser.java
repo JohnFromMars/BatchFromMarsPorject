@@ -1,6 +1,7 @@
 package com.batchfrommars.component;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -15,21 +16,18 @@ public abstract class FixedParser extends Translation implements Parser {
 
 	abstract protected LinkedHashMap<String, Integer> getFields();
 
-	
 	@Override
-	public void parse(String input) {
+	public void parse(String input)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		for (Entry<String, Integer> entry : this.getFields().entrySet()) {
-			try {
-				Field field = this.getClass().getDeclaredField(entry.getKey());
-				field.setAccessible(true);
-				Class<?> clazz = field.getType();
-				int length = entry.getValue();
-				Object value = translate(input, clazz, length);
-				field.set(this, value);
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Field field = this.getClass().getDeclaredField(entry.getKey());
+			field.setAccessible(true);
+			Class<?> clazz = field.getType();
+			int length = entry.getValue();
+			Object value = translate(input, clazz, length);
+			field.set(this, value);
+
 		}
 	}
 
@@ -46,10 +44,20 @@ public abstract class FixedParser extends Translation implements Parser {
 			result = translateToString(input.substring(index, index + length));
 			index += length;
 			return result;
+
 		} else if (clazz.equals(int.class)) {
 			result = translateToInteger(input.substring(index, index + length));
 			index += length;
+
 			return result;
+		} else if (clazz.equals(BigDecimal.class)) {
+			result = translateToBigDecimal(input.substring(index, index + length));
+			return result;
+
+		} else if (clazz.equals(boolean.class)) {
+			result = translateToBoolean(input.substring(index, index + length));
+			return result;
+			
 		} else {
 			index += length;
 			return result;

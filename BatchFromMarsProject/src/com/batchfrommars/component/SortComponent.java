@@ -1,285 +1,386 @@
 package com.batchfrommars.component;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
-import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
-import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.CompareUtil;
 
 /**
+ * Extend SortComponent and implement getKeys() and getOrders(),
+ * then this class can be able to work.
  * 
- * @author JohnFromMars
- * @date 2016-09-17
+ * @author user
+ *
  */
 public abstract class SortComponent extends ComponentII {
-	// constant area
-	// number of data that can be sorted in memory
-	private final static int SINGLE_SORT_SIZE = 200000;
-	private final static int INPUT_1 = 0;
-	private final static String TEMP_FILE_PATH = "c://";
-	private final static String TEMP_FILE_ENCODING = "BIG5";
-	private final static String WARNING_MSG="The input number of Sort Component can only be 1.";
 	protected final static int ASCESNDING = 1;
 	protected final static int DESCESNDING = -1;
 
-	
-	protected abstract ArrayList<Object> getInputKey(String inputData);
+	protected abstract ArrayList<Object> getKeys(String data);
 
-	protected abstract ArrayList<Integer> getSortMethod();
-
-	public SortComponent() {
-
-	}
+	protected abstract ArrayList<Integer> getOrders();
 
 	@Override
-	protected void act() {
-		ArrayList<String> sortList = new ArrayList<>();// list to restore data
-		ArrayList<FileWritingComponent> writingFileList = new ArrayList<>();
-
-		FileList roundFileList = new FileList();
-		FileList tempFileList = new FileList();
-		int tempFileCount = 0;
+	protected void act() throws Exception {
+		File tempFile = null;
 
 		if (inputFileList.size() != 1) {
-			System.err.println(WARNING_MSG);
+			logger.severe("inputFileList.size() should be 1 but was " + inputFileList.size());
+
 		} else {
-			System.out.println(this.getClass().getSimpleName() + START_MSG);
+			
+			for (int i = 0; i < getSortRound(); i++) {
+
+				List<File> files = sortFileBatch(inputFileList, i, tempFile);
+				tempFile = mergeFiles(files, i);
+
+				if (i == getLastRound()) {
+					doOutput(tempFile, outputFileList);
+				}
+			}
+		}
+	}
+
+	/**
+	 * This method sort input file
+	 * 
+	 * @param fileList
+	 * @param comparator
+	 * @return
+	 * @throws Exception
+	 */
+	public List<File> sortFileBatch(FileList fileList, int i, File file) throws Exception {
+		logger.finest("In sortFileBatch which round=" + (i + 1) + ", total round=" + getSortRound());
+
+		long blockSize = estimateSizeOfBlock();
+		long currentBlockSize = 0;
+		List<File> files = new ArrayList<File>();
+		List<String> tmpList = new ArrayList<>();
+		BufferedReader bReader = getBufferReader(i, file);
+
+		// first round, read the data from inputFileList
+		logger.finest("Checking condition isEmpty()=" + isEmpty(i, fileList, bReader)
+				+ ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());
+
+		while (!isEmpty(i, fileList, bReader) || isSomeLastComponentsRunning()) {
+
+			// String data = fileList.get(0).readFile();
+			String data = readFile(i, fileList, bReader);
+
+			if (data != null) {
+				tmpList.add(data);
+				currentBlockSize += data.length();
+				logger.finest("data != null, adding data to tmplist, currentblocksize=" + currentBlockSize);
+			}
+
+			if (currentBlockSize >= blockSize) {
+				files.add(sortAndSaveFile(tmpList, getComparator(i)));
+				currentBlockSize = 0;
+				blockSize = estimateSizeOfBlock();
+				tmpList.clear();
+			}
 		}
 
-		for (int i = 0; i < getSortMethod().size(); i++) {
-			// System.out.println("round " + i + " not in loop");
-			// System.out.println("tempfile list is empty " +
-			// tempFileList.isAllEmpty());
-			//
-			while (inputFileList.size() == 1 && !inputFileList.isAllEmpty() || !tempFileList.isAllEmpty()
-					|| isAllLastComponentsRunning()) {
-				// System.out.println("round " + i + " in loop");
-				String input = null;
+		// if tmplist still got some data
+		if (tmpList.size() > 0) {
+			files.add(sortAndSaveFile(tmpList, getComparator(i)));
+			tmpList.clear();
+		}
 
-				// if it is first round read input file
-				if (i == 0) {
-					input = inputFileList.readFile(INPUT_1);
-					// Syste
-					// if not , read 0temporary file
-				} else {
-					input = tempFileList.readFile(INPUT_1);
-					// System.out.println("read temp file size :" +
-					// tempFileList.size() + "input =" + input);
+		return files;
+	}
+
+	/**
+	 * 
+	 * @param sortList
+	 * @param comparator
+	 * @return
+	 * @throws IOException
+	 */
+	public File sortAndSaveFile(List<String> sortList, Comparator<String> comparator) throws IOException {
+		// create temp file
+		File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
+		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+
+		logger.finest("Temp file " + file.getAbsolutePath() + " has been created.");
+		file.deleteOnExit();
+
+		// sort the list
+		Collections.sort(sortList, comparator);
+		logger.finest("List has been sorted");
+
+		// write out the list to temp file
+		try {
+
+			for (String s : sortList) {
+				logger.finest("Write out Sting=" + s + " to temp file.");
+				bWriter.write(s);
+				bWriter.newLine();
+			}
+
+		} finally {
+			logger.finest("Closing bufferWriter...");
+			bWriter.close();
+		}
+
+		return file;
+	}
+
+	/**
+	 * 
+	 * @param files
+	 * @param x
+	 * @return
+	 * @throws IOException
+	 */
+	public File mergeFiles(List<File> files, int x) throws IOException {
+
+		if (files.size() == 1) {
+
+			logger.finest("files.size() == 1, return files.get(0)");
+			return files.get(0);
+
+		} else if (files.size() == 2) {
+
+			logger.finest("files.size() == 2, return merge(files.get(0), files.get(1), x)");
+			return merge(files.get(0), files.get(1), x);
+
+		} else {
+
+			logger.finest("files.size() > 2, devide file list and merge sublist");
+			return merge(mergeFiles(files.subList(0, files.size() / 2), x),
+					mergeFiles(files.subList(files.size() / 2, files.size()), x), x);
+		}
+	}
+
+	/**
+	 * 
+	 * @param file1
+	 * @param file2
+	 * @param i
+	 * @return
+	 * @throws IOException
+	 */
+	public File merge(File file1, File file2, int i) throws IOException {
+		logger.finest("In merge method, which file1=" + file1.getAbsolutePath() + ", file2=" + file2.getAbsolutePath());
+
+		final int BUFFER_SIZE = 2048;
+		int compare = 0;
+
+		File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
+		file.deleteOnExit();
+
+		BufferedReader bReader1 = new BufferedReader(new FileReader(file1), BUFFER_SIZE);
+		BufferedReader bReader2 = new BufferedReader(new FileReader(file2), BUFFER_SIZE);
+		BufferedWriter bWriter = new BufferedWriter(new FileWriter(file));
+
+		try {
+
+			String s1 = bReader1.readLine();
+			String s2 = bReader2.readLine();
+
+			while (file1 != null && file2 != null) {
+
+				if (s1 == null && s2 == null) {
+					break;
+
+				} else if (s1 != null && s2 != null) {
+					compare = CompareUtil.compare(getKeys(s1).get(i), getKeys(s2).get(i)) * getOrders().get(i);
+
+				} else if (s1 == null && s2 != null) {
+					compare = 1;
+
+				} else if (s1 != null && s2 == null) {
+					compare = -1;
 				}
 
-				// add data to list if it is not null
-				if (input != null) {
-					sortList.add(input);
-				}
+				if (compare <= 0) {
+					bWriter.write(s1);
+					bWriter.newLine();
+					logger.finest("Write out string s1=" + s1);
+					s1 = bReader1.readLine();
 
-				// when list size greater than 200000
-				// sort data and write them out as temp file
-				if (sortList.size() > SINGLE_SORT_SIZE) {
-					int sortNo = i;
-					ArrayList<String> tempSortList = new ArrayList<>();
-					// System.out.println("sortNo " + sortNo);
-					// System.out.println("tempFileCount" + tempFileCount);
-					// sort data and put them to another list to write out
-					sortData(sortList, sortNo);
-					tempSortList.addAll(sortList);
-					// System.out.println("temp sort list size :" +
-					// tempSortList.size());
-					FileInformation tempOutputFile = newOutputPhyscalFile(tempFileCount);
-					FileWritingComponent fileWritingComponent = newFileWritingComponent(tempSortList);
-					fileWritingComponent.addOutputFileInformation(tempOutputFile);
-					writingFileList.add(fileWritingComponent);
-					fileWritingComponent.start();
-
-					tempFileCount++;
-					sortList.clear();
-					// System.out.println("ort list size: " + sortList.size());
-
+				} else if (compare > 0) {
+					bWriter.write(s2);
+					bWriter.newLine();
+					logger.finest("Write out string s2=" + s2);
+					s2 = bReader2.readLine();
 				}
 			}
 
-			if (sortList.size() <= SINGLE_SORT_SIZE) {
-				// if data no more than 200000
-				if (tempFileCount == 0) {
-					int sortNo = i;
-					// if it is last round, write data out to output file list
-					if (i == getSortMethod().size() - 1) {
-						// System.out.println("sortNo " + sortNo);
-
-						for (String item : sortData(sortList, sortNo)) {
-							// System.out.println("write out " + item);
-							outputFileList.writeToAllFile(item);
-						}
-
-						outputFileList.closeFile();
-						tempFileList.closeFile();
-						roundFileList.closeFile();
-
-						// if it is not last round,write data out to temp file
-					} else {
-						tempFileList.closeFile();
-						tempFileList.clear();
-						FileInformation tempOutput = new PhysicalFile(PhysicalFile.OUTPUT,
-								TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp.txt", "BIG5", false);
-
-						for (String item : sortData(sortList, sortNo)) {
-							tempOutput.writeFile(item);
-						}
-
-						tempOutput.closeFile();
-						FileInformation tempInput = new PhysicalFile(PhysicalFile.INPUT,
-								TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp.txt", "BIG5", false);
-						tempFileList.addFileInformation(tempInput);
-					}
-
-					sortList.clear();
-
-				} else if (tempFileCount > 0) {
-					int sortNo = i;
-					ArrayList<String> tempSortList = new ArrayList<>();
-
-					// System.out.println("sortNo " + sortNo);
-					sortData(sortList, sortNo);
-					tempSortList.addAll(sortList);
-					FileInformation tempOutputFile = newOutputPhyscalFile(tempFileCount);
-					FileWritingComponent fileWritingComponent = newFileWritingComponent(tempSortList);
-					fileWritingComponent.addOutputFileInformation(tempOutputFile);
-					writingFileList.add(fileWritingComponent);
-					fileWritingComponent.start();
-
-					tempFileCount++;
-					sortList.clear();
-
-					// wait for every thread of writing file finish
-					waitForWritingFile(writingFileList);
-
-					/* merge sort start */
-
-					// prepare round file list
-					for (int j = 0; j < tempFileCount; j++) {
-						FileInformation mergeSorInput = newInputPhyscalFile(j);
-						roundFileList.addFileInformation(mergeSorInput);
-					}
-
-					// new multiple merge sort component
-					// round file list set as input file list
-					MultiMergeSortComponent multiMergeSortComponent = newMultiMergeSortComponent(sortNo);
-					multiMergeSortComponent.setInputFileList(roundFileList);
-
-					// decide output list for next round
-					// if it is last round
-					if (i == getSortMethod().size() - 1) {
-
-						tempFileList.closeFile();
-						multiMergeSortComponent.setOutputFileList(outputFileList);
-						multiMergeSortComponent.start();
-						// System.out.println("merge write to output file list
-						// in round " + i);
-
-						try {
-							multiMergeSortComponent.join();
-							roundFileList.closeFile();
-
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-
-						// if it is not last round
-					} else {
-						tempFileList.closeFile();
-						tempFileList.clear();
-						FileInformation tempOutput = new PhysicalFile(PhysicalFile.OUTPUT,
-								TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp.txt", "BIG5", false);
-						tempFileList.addFileInformation(tempOutput);
-						multiMergeSortComponent.setOutputFileList(tempFileList);
-						multiMergeSortComponent.start();
-						// System.out.println("merge write to temp file list in
-						// round " + i);
-
-						try {
-							multiMergeSortComponent.join();
-							FileInformation tempInput = new PhysicalFile(PhysicalFile.INPUT,
-									TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp.txt", "BIG5", false);
-							tempFileList.clear();
-							tempFileList.addFileInformation(tempInput);
-							roundFileList.closeFile();
-							roundFileList.clear();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-
-					}
-
-				}
-			}
-
-			tempFileCount = 0;
+		} finally {
+			bReader1.close();
+			bReader2.close();
+			bWriter.close();
+			file1.delete();
+			file2.delete();
 		}
 
-		if (inputFileList.size() == 1) {
-			tempFileList.deleteAllFile();
-			roundFileList.deleteAllFile();
-			System.out.println(this.getClass().getSimpleName() + COMPELETE_MSG);
+		return file;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public long estimateSizeOfBlock() {
+		long blockSize = 0;
+		long maxSize = Runtime.getRuntime().maxMemory() / 3;
+		long minSize = Runtime.getRuntime().freeMemory();
+
+		if (minSize < maxSize) {
+			blockSize = (maxSize + minSize) / 2;
+
+		} else {
+			blockSize = maxSize;
 		}
 
+		logger.info("EstimateSizeOfBlock, block size=" + blockSize + ",  max block size=" + maxSize
+				+ ", min block size=" + minSize);
+
+		return blockSize;
 	}
 
-	private FileInformation newOutputPhyscalFile(int tempFileCount) {
-		return new PhysicalFile(PhysicalFile.OUTPUT,
-				TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp" + tempFileCount + ".txt", TEMP_FILE_ENCODING,
-				false);
+	/**
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean isEmpty(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
+
+		if (i == 0) {
+			return fileList.get(0).isEmpty();
+
+		} else {
+			return !bufferedReader.ready();
+		}
 	}
 
-	private FileInformation newInputPhyscalFile(int tempFileCount) {
-		return new PhysicalFile(PhysicalFile.INPUT,
-				TEMP_FILE_PATH + this.getClass().getSimpleName() + "temp" + tempFileCount + ".txt", TEMP_FILE_ENCODING,
-				false);
+	/**
+	 * if it is first round,read from inputFileList.if not, read from temp file
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @return
+	 * @throws Exception
+	 */
+	public String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws Exception {
+
+		if (i == 0) {
+			return fileList.get(0).readFile();
+
+		} else {
+			return bufferedReader.readLine();
+		}
 	}
 
-	private FileWritingComponent newFileWritingComponent(ArrayList<String> sortList) {
-		return new FileWritingComponent() {
+	/***
+	 * 
+	 * @param i
+	 * @param fileList
+	 * @param bufferedReader
+	 * @throws Exception
+	 */
+	public void writeFile(int i, FileList fileList, BufferedWriter bufferedWriter, String data) throws Exception {
 
-			protected ArrayList<String> getWritingData() {
-				return sortList;
+		if (i == getLastRound()) {
+			fileList.get(0).writeFile(data);
+
+		} else {
+			bufferedWriter.write(data);
+			bufferedWriter.newLine();
+		}
+	}
+
+	/**
+	 * 
+	 * @param file
+	 * @param fileList
+	 * @throws Exception
+	 */
+	public void doOutput(File file, FileList fileList) throws Exception {
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String s = null;
+
+		try {
+			while (reader.ready()) {
+				s = reader.readLine();
+				fileList.writeToAllFile(s);
 			}
-		};
+
+		} finally {
+			reader.close();
+		}
 	}
 
-	private ArrayList<String> sortData(ArrayList<String> sortList, int sortNo) {
-		Collections.sort(sortList, new Comparator<String>() {
+	/**
+	 * This method return comparator with getKeys and getMethods.
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public Comparator<String> getComparator(int i) {
+
+		Comparator<String> comparator = new Comparator<String>() {
+
+			@Override
 			public int compare(String o1, String o2) {
-				return CompareUtil.compare(getInputKey(o1).get(sortNo), getInputKey(o2).get(sortNo))
-						* getSortMethod().get(sortNo);
-
+				return CompareUtil.compare(getKeys(o1).get(i), getKeys(o2).get(i)) * getOrders().get(i);
 			}
-		});
+		};
 
-		return sortList;
+		return comparator;
 	}
 
-	private void waitForWritingFile(ArrayList<FileWritingComponent> writingFileList) {
-		for (FileWritingComponent item : writingFileList) {
-			try {
-				item.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	/**
+	 * 
+	 * @param i
+	 * @param file
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	public BufferedReader getBufferReader(int i, File file) throws FileNotFoundException {
+		if (i == 0) {
+			return null;
+
+		} else if (i != 0 && file != null) {
+			logger.finest("Round=" + (i + 1) + " return BufferReader which file=" + file.getAbsolutePath());
+			return new BufferedReader(new FileReader(file));
+
+		} else {
+			return null;
 		}
 	}
 
-	private MultiMergeSortComponent newMultiMergeSortComponent(int sortNo) {
-		return new MultiMergeSortComponent() {
-			@Override
-			protected int getMethod() {
-				return getSortMethod().get(sortNo);
-			}
+	/**
+	 * this method return how many round sort to do
+	 * 
+	 * @return
+	 */
+	public int getSortRound() {
+		return getOrders().size();
+	}
 
-			@Override
-			protected Object getSortKey(String inputData) {
-				return getInputKey(inputData).get(sortNo);
-			}
-		};
+	/**
+	 * this method return last round number
+	 * 
+	 * @return
+	 */
+	public int getLastRound() {
+		return getOrders().size() - 1;
 	}
 }
