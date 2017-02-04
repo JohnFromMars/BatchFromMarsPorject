@@ -88,7 +88,7 @@ public abstract class ComponentII extends Thread {
 			this.act();
 
 		} catch (Exception e) {
-			logger.warning("#### Exception happeed in act() method...");
+			logger.warning("#### Exception happened in act() method...");
 			logger.warning(LogUtil.getExMsg(e));
 			closeFileLists();
 			System.exit(MAX_PRIORITY);
@@ -100,7 +100,7 @@ public abstract class ComponentII extends Thread {
 			onInit();
 
 		} catch (Exception e) {
-			logger.warning("#### Exception happeed in onInit() method...");
+			logger.warning("#### Exception happened in onInit() method...");
 			logger.warning(LogUtil.getExMsg(e));
 			closeFileLists();
 			System.exit(MAX_PRIORITY);
@@ -112,7 +112,7 @@ public abstract class ComponentII extends Thread {
 			onFinish();
 
 		} catch (Exception e) {
-			logger.warning("#### Exception happeed in onFinish() method...");
+			logger.warning("#### Exception happened in onFinish() method...");
 			logger.warning(LogUtil.getExMsg(e));
 			closeFileLists();
 			System.exit(MAX_PRIORITY);

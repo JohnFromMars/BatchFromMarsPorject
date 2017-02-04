@@ -175,5 +175,10 @@ public class CompareComponentTest {
 		assertTrue("testoUTPUT SHOULD BE EMPTY", testOutput.isEmpty());
 
 	}
+	
+	@Test
+	public void testOneLastComponentAndFile(){
+		
+	}
 
 }

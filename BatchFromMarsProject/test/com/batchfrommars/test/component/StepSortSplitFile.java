@@ -20,7 +20,7 @@ public class StepSortSplitFile extends SortComponent {
 	}
 
 	@Override
-	protected ArrayList<Integer> getMethods() {
+	protected ArrayList<Integer> getOrders() {
 		ArrayList<Integer> orders=new ArrayList<>();
 		orders.add(DESCESNDING);
 		return orders;

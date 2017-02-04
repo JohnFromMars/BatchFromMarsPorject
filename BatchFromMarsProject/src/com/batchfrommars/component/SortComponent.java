@@ -15,13 +15,20 @@ import java.util.List;
 import com.batchfrommars.file.FileList;
 import com.batchfrommars.util.CompareUtil;
 
+/**
+ * Extend SortComponent and implement getKeys() and getOrders(),
+ * then this class can be able to work.
+ * 
+ * @author user
+ *
+ */
 public abstract class SortComponent extends ComponentII {
 	protected final static int ASCESNDING = 1;
 	protected final static int DESCESNDING = -1;
 
 	protected abstract ArrayList<Object> getKeys(String data);
 
-	protected abstract ArrayList<Integer> getMethods();
+	protected abstract ArrayList<Integer> getOrders();
 
 	@Override
 	protected void act() throws Exception {
@@ -188,7 +195,7 @@ public abstract class SortComponent extends ComponentII {
 					break;
 
 				} else if (s1 != null && s2 != null) {
-					compare = CompareUtil.compare(getKeys(s1).get(i), getKeys(s2).get(i)) * getMethods().get(i);
+					compare = CompareUtil.compare(getKeys(s1).get(i), getKeys(s2).get(i)) * getOrders().get(i);
 
 				} else if (s1 == null && s2 != null) {
 					compare = 1;
@@ -215,6 +222,8 @@ public abstract class SortComponent extends ComponentII {
 			bReader1.close();
 			bReader2.close();
 			bWriter.close();
+			file1.delete();
+			file2.delete();
 		}
 
 		return file;
@@ -330,7 +339,7 @@ public abstract class SortComponent extends ComponentII {
 
 			@Override
 			public int compare(String o1, String o2) {
-				return CompareUtil.compare(getKeys(o1).get(i), getKeys(o2).get(i)) * getMethods().get(i);
+				return CompareUtil.compare(getKeys(o1).get(i), getKeys(o2).get(i)) * getOrders().get(i);
 			}
 		};
 
@@ -363,7 +372,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 */
 	public int getSortRound() {
-		return getMethods().size();
+		return getOrders().size();
 	}
 
 	/**
@@ -372,6 +381,6 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 */
 	public int getLastRound() {
-		return getMethods().size() - 1;
+		return getOrders().size() - 1;
 	}
 }

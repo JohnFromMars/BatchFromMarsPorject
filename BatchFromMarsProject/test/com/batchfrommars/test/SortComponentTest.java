@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
@@ -258,7 +256,7 @@ public class SortComponentTest {
 
 	}
 
-
+	@Test
 	public void testSortLargData() throws UnsupportedEncodingException, FileNotFoundException {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort3.txt", "UTF8",
@@ -276,7 +274,6 @@ public class SortComponentTest {
 		System.out.println((end - start) / 1000 + " second");
 	}
 
-	@Test
 	public void testSortSplitFile() throws UnsupportedEncodingException, FileNotFoundException {
 		StepSortSplitFile sort = new StepSortSplitFile();
 		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort5.txt", "UTF8",
@@ -313,12 +310,4 @@ public class SortComponentTest {
 
 	}
 
-	@Test
-	public void testMerge() throws IOException {
-		StepSort sort = new StepSort();
-		File file1 = new File("D:/BatchFromMars/SortData/sort1.txt");
-		File file2 = new File("D:/BatchFromMars/SortData/sort2.txt");
-
-		sort.merge(file1, file2, 0);
-	}
 }

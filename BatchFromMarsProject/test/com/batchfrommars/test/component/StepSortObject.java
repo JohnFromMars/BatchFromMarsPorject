@@ -34,7 +34,7 @@ public class StepSortObject extends SortComponent {
 	}
 
 	@Override
-	protected ArrayList<Integer> getMethods() {
+	protected ArrayList<Integer> getOrders() {
 		ArrayList<Integer> method = new ArrayList<>();
 		method.add(ASCESNDING);
 		return method;

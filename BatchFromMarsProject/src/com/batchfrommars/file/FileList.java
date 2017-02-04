@@ -187,10 +187,12 @@ public class FileList {
 		return fileInformationsList.size();
 	}
 
+	
 	public FileInformation get(int fileInformation) {
 		return this.fileInformationsList.get(fileInformation);
 	}
 
+	
 	public FileInformation getLast() {
 		return fileInformationsList.get(fileInformationsList.size() - 1);
 	}

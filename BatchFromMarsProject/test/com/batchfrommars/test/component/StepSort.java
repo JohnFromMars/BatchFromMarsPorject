@@ -17,7 +17,7 @@ public class StepSort extends SortComponent {
 	}
 
 	@Override
-	protected ArrayList<Integer> getMethods() {
+	protected ArrayList<Integer> getOrders() {
 		ArrayList<Integer> methods = new ArrayList<>();
 		methods.add(DESCESNDING);
 
