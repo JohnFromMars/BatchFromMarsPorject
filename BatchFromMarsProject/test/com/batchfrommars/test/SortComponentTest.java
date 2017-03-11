@@ -21,6 +21,20 @@ import com.batchfrommars.test.component.StepSortSplitFile;
 public class SortComponentTest {
 
 	@Test
+	public void testNoInput() {
+		StepSort sort = new StepSort();
+		FileInformation testInput = new TemporaryFile();
+		FileInformation testOutput = new TemporaryFile();
+
+		sort.addInputFileInformation(testInput);
+		sort.addOutputFileInformation(testOutput);
+
+		sort.activate();
+		
+		assertTrue(testOutput.isEmpty());
+	}
+
+	@Test
 	public void testGetRunTimeMemoryUsage() throws Exception {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new TemporaryFile();
@@ -256,7 +270,7 @@ public class SortComponentTest {
 
 	}
 
-	@Test
+
 	public void testSortLargData() throws UnsupportedEncodingException, FileNotFoundException {
 		StepSort sort = new StepSort();
 		FileInformation testInput = new PhysicalFile(PhysicalFile.INPUT, "e:/BatchFromMars/SortData/sort3.txt", "UTF8",

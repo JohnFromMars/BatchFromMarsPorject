@@ -16,8 +16,8 @@ import com.batchfrommars.file.FileList;
 import com.batchfrommars.util.CompareUtil;
 
 /**
- * Extend SortComponent and implement getKeys() and getOrders(),
- * then this class can be able to work.
+ * Extend SortComponent and implement getKeys() and getOrders(), then this class
+ * can be able to work.
  * 
  * @author user
  *
@@ -38,7 +38,7 @@ public abstract class SortComponent extends ComponentII {
 			logger.severe("inputFileList.size() should be 1 but was " + inputFileList.size());
 
 		} else {
-			
+
 			for (int i = 0; i < getSortRound(); i++) {
 
 				List<File> files = sortFileBatch(inputFileList, i, tempFile);
@@ -145,7 +145,14 @@ public abstract class SortComponent extends ComponentII {
 	 */
 	public File mergeFiles(List<File> files, int x) throws IOException {
 
-		if (files.size() == 1) {
+		if (files.size() == 0) {
+
+			logger.finest("files.size() == 0, return an empty file");
+			File file = File.createTempFile(String.valueOf(this.hashCode()), ".tempFile");
+			file.deleteOnExit();
+			return file;
+
+		} else if (files.size() == 1) {
 
 			logger.finest("files.size() == 1, return files.get(0)");
 			return files.get(0);
