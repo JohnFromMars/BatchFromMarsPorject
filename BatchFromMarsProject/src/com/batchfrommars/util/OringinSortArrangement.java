@@ -44,11 +44,17 @@ public class OringinSortArrangement implements SortUtil {
 	private ArrayList<Integer> getOrderFromSortText(String sortText) {
 		String[] strings = sortText.split(",");
 
-		for (int i = 2; i < sortText.length() - 1; i = i + 3) {
+		for (int i = 0; i < strings.length - 1; i++) {
 
+			if (i % 3 == 2) {
+				if (strings[i].matches("\\d+")) {
+
+				}
+			}
 		}
-
+		
 		return null;
+
 	}
 
 	private ArrayList<Object> getKeyFromSortText(String sortText, String data) {
