@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
+import com.batchfrommars.util.LogeLevel;
 
 public class BatchControllerTest {
 
@@ -13,14 +14,12 @@ public class BatchControllerTest {
 	public void test() throws UnsupportedEncodingException, FileNotFoundException {
 		BatchController batchController = new BatchController() {
 		};
-		
-		batchController.addInput("c://ss/s/s.txt", "UTF8")
-		               .addOutput("c://ss/s/s.txt", "UTF8", true)
-		               .filter()
-		               .mapping()
-		               .sort()
-		               .addLogger("C://zz/zz/")
-		               .execute();
+
+		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .addInput("D://BatchFromMars/TestSortComponent/StepSort_D20170129.txt", "BIG5")
+				       .addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false)
+				       .sort("1,3,A")
+				       .execute();
 	}
 
 }

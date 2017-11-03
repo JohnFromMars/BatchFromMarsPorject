@@ -21,7 +21,7 @@ public class LogUtil {
 		);
 	}
 
-	private static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
+	public static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
 
 		FileHandler fileHandler = null;
 		try {
