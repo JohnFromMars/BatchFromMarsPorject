@@ -191,7 +191,7 @@ public class OriginSortArrangementTest {
 		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				.addInput(testInput)
 				.addOutput(testOutput)
-				.sort("5,6,A,1,4,D")
+				.sort("7,8,D,5,6,A,1,4,D")
 				.execute();
 		
 		assertFalse(testOutput.isEmpty());
