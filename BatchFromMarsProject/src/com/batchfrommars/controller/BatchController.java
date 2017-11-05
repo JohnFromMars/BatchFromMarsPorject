@@ -49,7 +49,7 @@ public abstract class BatchController {
 
 	public BatchController sort(String sortText) {
 		sortUtil = new OringinSortArrangement();
-		sortUtil.sortArrangement(components, logger,sortText);
+		sortUtil.sortArrangement(components, logger, sortText);
 
 		return this;
 	}
@@ -74,11 +74,21 @@ public abstract class BatchController {
 		return this;
 	}
 
+	public BatchController addInput(FileInformation fileInformation) {
+		this.input = fileInformation;
+		return this;
+	}
+
 	public BatchController addOutput(String filePath, String encodeing, boolean appdening)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
 		FileInformation output = new PhysicalFile(PhysicalFile.OUTPUT, filePath, encodeing, appdening);
 		this.output = output;
+		return this;
+	}
+
+	public BatchController addOutput(FileInformation fileInformation) {
+		this.output = fileInformation;
 		return this;
 	}
 
@@ -90,11 +100,9 @@ public abstract class BatchController {
 
 		logger.finest("components size = " + components.size());
 		logger.finest("temp file size = " + tempFile.size());
-		
-		//connect all components
-		
-		
-		
+
+		// connect all components
+
 		// start the batch flow
 		for (ComponentII componentII : components) {
 			componentII.activate();
