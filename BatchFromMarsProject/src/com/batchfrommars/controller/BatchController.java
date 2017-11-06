@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.ComponentII;
@@ -11,7 +13,11 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
+import com.batchfrommars.util.MapUtil;
+import com.batchfrommars.util.FilterUtil;
 import com.batchfrommars.util.OriginLoggerArrangement;
+import com.batchfrommars.util.OringinFilterArrangement;
+import com.batchfrommars.util.OringinMapArangement;
 import com.batchfrommars.util.OringinSortArrangement;
 import com.batchfrommars.util.SortUtil;
 
@@ -42,7 +48,9 @@ public abstract class BatchController {
 		tempFile = new ArrayList<>();
 	}
 
-	public BatchController filter() {
+	public BatchController filter(Predicate<String> predicate) {
+		FilterUtil mapUtil = new OringinFilterArrangement();
+		mapUtil.mapArrangement(components, logger, predicate);
 
 		return this;
 	}
@@ -54,7 +62,9 @@ public abstract class BatchController {
 		return this;
 	}
 
-	public BatchController mapping() {
+	public BatchController map(Function<String, String> function) {
+		MapUtil mapUtil = new OringinMapArangement();
+		mapUtil.mapArrangement(components, logger, function);
 
 		return this;
 	}
