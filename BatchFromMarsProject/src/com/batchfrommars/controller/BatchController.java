@@ -11,10 +11,12 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
+import com.batchfrommars.util.ExecuteUtil;
+import com.batchfrommars.util.FilterUtil;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
 import com.batchfrommars.util.MapUtil;
-import com.batchfrommars.util.FilterUtil;
+import com.batchfrommars.util.OriginExecuteArrangement;
 import com.batchfrommars.util.OriginLoggerArrangement;
 import com.batchfrommars.util.OringinFilterArrangement;
 import com.batchfrommars.util.OringinMapArangement;
@@ -103,20 +105,8 @@ public abstract class BatchController {
 	}
 
 	public void execute() {
-
-		// stream up the components
-		components.get(0).addInputFileInformation(this.input);
-		components.get(components.size() - 1).addOutputFileInformation(output);
-
-		logger.finest("components size = " + components.size());
-		logger.finest("temp file size = " + tempFile.size());
-
-		// connect all components
-
-		// start the batch flow
-		for (ComponentII componentII : components) {
-			componentII.activate();
-		}
+		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		executeUtil.executeArrangement(input, output, logger, components);
 	}
 
 }
