@@ -19,7 +19,7 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 public class OriginSortArrangementTest {
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -29,7 +29,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax2() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax2() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -39,7 +39,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax3() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax3() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -49,7 +49,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax4() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax4() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -59,7 +59,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test
-	public void testSyntax5() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax5() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -69,7 +69,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax6() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax6() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -79,7 +79,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test
-	public void testSyntax7() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax7() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -89,7 +89,7 @@ public class OriginSortArrangementTest {
 	}
 
 	@Test
-	public void testSyntax8() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSyntax8() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 

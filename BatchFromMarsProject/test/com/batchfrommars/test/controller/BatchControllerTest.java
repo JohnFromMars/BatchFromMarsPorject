@@ -13,7 +13,7 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 public class BatchControllerTest {
 
 	@Test
-	public void testSort() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSort() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 
@@ -25,7 +25,7 @@ public class BatchControllerTest {
 	}
 	
 	@Test(expected = SyntaxException.class)  
-	public void testSort2() throws UnsupportedEncodingException, FileNotFoundException {
+	public void testSort2() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
 		BatchController batchController = new BatchController() {
 		};
 

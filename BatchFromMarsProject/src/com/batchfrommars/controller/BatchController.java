@@ -2,6 +2,7 @@ package com.batchfrommars.controller;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -16,12 +17,15 @@ import com.batchfrommars.util.FilterUtil;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
 import com.batchfrommars.util.MapUtil;
+import com.batchfrommars.util.OriginCountArrangement;
 import com.batchfrommars.util.OriginExecuteArrangement;
 import com.batchfrommars.util.OriginLoggerArrangement;
+import com.batchfrommars.util.OriginSumArrangement;
 import com.batchfrommars.util.OringinFilterArrangement;
 import com.batchfrommars.util.OringinMapArangement;
 import com.batchfrommars.util.OringinSortArrangement;
 import com.batchfrommars.util.SortUtil;
+import com.batchfrommars.util.SumUtil;
 
 public abstract class BatchController {
 
@@ -104,9 +108,19 @@ public abstract class BatchController {
 		return this;
 	}
 
-	public void execute() {
+	public void execute() throws InterruptedException {
 		ExecuteUtil executeUtil = new OriginExecuteArrangement();
 		executeUtil.executeArrangement(input, output, logger, components);
+	}
+
+	public BigDecimal sum(Function<String, String> function) throws InterruptedException {
+		SumUtil originSumArranement = new OriginSumArrangement();
+		return originSumArranement.arrangeSum(function, components, logger, input, output);
+	}
+	
+	public Integer count() throws InterruptedException{
+		OriginCountArrangement count = new OriginCountArrangement();
+		return count.arrangeCount(components, logger, input, output);
 	}
 
 }

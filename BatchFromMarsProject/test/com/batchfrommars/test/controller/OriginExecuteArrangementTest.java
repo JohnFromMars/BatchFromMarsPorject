@@ -40,8 +40,39 @@ public class OriginExecuteArrangementTest {
 		assertFalse(testOutput.isEmpty());
 		assertEquals("0001DD00.txt", testOutput.readFile());
 		assertEquals("0002EE02.txt", testOutput.readFile());
-		assertEquals("0003DD01.txt", testOutput.readFile());
 		assertEquals("0003EE03.txt", testOutput.readFile());
+		assertEquals("0003DD01.txt", testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+	}
+	
+	@Test
+	public void testMultipleTasks2() throws Exception{
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput = new TemporaryFile();
+		FileInformation testOutput = new TemporaryFile();
+
+		// Set input
+
+		testInput.writeFile("0001DD00");
+		testInput.writeFile("0003EE03");
+		testInput.writeFile("0002EE02");
+		testInput.writeFile("0003DD01");
+		testInput.writeFile("0000HH00");
+		testInput.writeFile("0000HH000");
+
+		batchController.addInput(testInput)
+		               .addOutput(testOutput)
+				       .addLogger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .map((String s) -> s + ".txt")
+				       .sort("1,4,A")
+				       .filter((s) -> s.substring(4, 6).equals("DD"))
+				       .execute();
+
+		assertFalse(testOutput.isEmpty());
+		assertEquals("0001DD00.txt", testOutput.readFile());
+		assertEquals("0003DD01.txt", testOutput.readFile());
 		assertFalse(!testOutput.isEmpty());
 	}
 }

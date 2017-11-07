@@ -26,9 +26,11 @@ public class OringinFilterArrangement implements FilterUtil {
 				LinkedList<String> outList = new LinkedList<>();
 				String outData = null;
 
-				if (predicate.test(dataList.get(INPUT_1))) {
-					outData = dataList.get(INPUT_1);
-					log.finest("filter data= " + outData);
+				if (dataList.get(INPUT_1) != null) {
+					if (predicate.test(dataList.get(INPUT_1))) {
+						outData = dataList.get(INPUT_1);
+						log.finest("filter data= " + outData);
+					}
 				}
 
 				outList.add(outData);

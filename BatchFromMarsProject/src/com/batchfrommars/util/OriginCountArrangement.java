@@ -2,16 +2,18 @@ package com.batchfrommars.util;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
+import com.batchfrommars.file.FileInformation;
 
-public class OringinMapArangement implements MapUtil {
+public class OriginCountArrangement {
 
-	@Override
-	public void mapArrangement(List<ComponentII> components, Logger log, Function<String, String> function) {
+	private Integer count = new Integer(0);
+
+	public Integer arrangeCount(List<ComponentII> components, Logger log, FileInformation input, FileInformation output)
+			throws InterruptedException {
 
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
@@ -22,25 +24,23 @@ public class OringinMapArangement implements MapUtil {
 
 			@Override
 			protected LinkedList<String> excuteProcess(LinkedList<String> dataList) {
-				LinkedList<String> outList = new LinkedList<>();
-				String outData = null;
 
 				if (dataList.get(INPUT_1) != null) {
-					outData = function.apply(dataList.get(INPUT_1));
-					log.finest("After map = " + outData);
+					logger.finest("dataList.get(INPUT_1)=" + dataList.get(INPUT_1));
+					count++;
+					logger.finest("count=" + count);
 				}
 
-				outList.add(outData);
-
-				return outList;
+				return dataList;
 			}
 		};
 
-		log.finest("add map component to list");
-		// add to list
 		components.add(batchComponentII);
 
-		log.finest("finish");
+		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		executeUtil.executeArrangement(input, output, log, components);
+
+		return count;
 	}
 
 }
