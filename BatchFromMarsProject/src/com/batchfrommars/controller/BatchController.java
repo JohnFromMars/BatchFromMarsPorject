@@ -41,6 +41,10 @@ public abstract class BatchController {
 	 * protected List<FileInformation> outputInformations = new ArrayList<>();
 	 */
 
+	// header and footer
+	protected String header;
+	protected String footer;
+
 	// file area
 	protected List<FileInformation> tempFile;
 	protected FileInformation input;
@@ -75,13 +79,13 @@ public abstract class BatchController {
 		return this;
 	}
 
-	public BatchController addLogger(String logName, String filePath, LogeLevel level) {
+	public BatchController logger(String logName, String filePath, LogeLevel level) {
 		loggerUtil = new OriginLoggerArrangement();
 		this.logger = loggerUtil.loggerArrangement(logName, filePath, level);
 		return this;
 	}
 
-	public BatchController addInput(String filePath, String encodeing)
+	public BatchController input(String filePath, String encodeing)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
 		FileInformation input = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
@@ -90,12 +94,12 @@ public abstract class BatchController {
 		return this;
 	}
 
-	public BatchController addInput(FileInformation fileInformation) {
+	public BatchController input(FileInformation fileInformation) {
 		this.input = fileInformation;
 		return this;
 	}
 
-	public BatchController addOutput(String filePath, String encodeing, boolean appdening)
+	public BatchController output(String filePath, String encodeing, boolean appdening)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
 		FileInformation output = new PhysicalFile(PhysicalFile.OUTPUT, filePath, encodeing, appdening);
@@ -103,24 +107,34 @@ public abstract class BatchController {
 		return this;
 	}
 
-	public BatchController addOutput(FileInformation fileInformation) {
+	public BatchController output(FileInformation fileInformation) {
 		this.output = fileInformation;
 		return this;
 	}
 
-	public void execute() throws InterruptedException {
+	public void execute() throws Exception {
 		ExecuteUtil executeUtil = new OriginExecuteArrangement();
-		executeUtil.executeArrangement(input, output, logger, components);
+		executeUtil.executeArrangement(input, output, logger, components, header, footer);
 	}
 
-	public BigDecimal sum(Function<String, String> function) throws InterruptedException {
+	public BigDecimal sum(Function<String, String> function) throws Exception {
 		SumUtil originSumArranement = new OriginSumArrangement();
-		return originSumArranement.arrangeSum(function, components, logger, input, output);
+		return originSumArranement.arrangeSum(function, components, logger, input, output, header, footer);
 	}
-	
-	public Integer count() throws InterruptedException{
+
+	public Integer count() throws Exception {
 		OriginCountArrangement count = new OriginCountArrangement();
-		return count.arrangeCount(components, logger, input, output);
+		return count.arrangeCount(components, logger, input, output, header, footer);
+	}
+
+	public BatchController header(String header) {
+		this.header = header;
+		return this;
+	}
+
+	public BatchController footer(String footer) {
+		this.footer = footer;
+		return this;
 	}
 
 }

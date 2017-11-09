@@ -7,5 +7,5 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
 public interface ExecuteUtil {
-	void executeArrangement(FileInformation input,FileInformation output,Logger log,List<ComponentII> components) throws InterruptedException ;
+	void executeArrangement(FileInformation input,FileInformation output,Logger log,List<ComponentII> components,String header,String footer) throws  Exception ;
 }

@@ -12,8 +12,8 @@ public class OriginCountArrangement {
 
 	private Integer count = new Integer(0);
 
-	public Integer arrangeCount(List<ComponentII> components, Logger log, FileInformation input, FileInformation output)
-			throws InterruptedException {
+	public Integer arrangeCount(List<ComponentII> components, Logger log, FileInformation input, FileInformation output,
+			String header, String footer) throws Exception {
 
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
@@ -38,7 +38,7 @@ public class OriginCountArrangement {
 		components.add(batchComponentII);
 
 		ExecuteUtil executeUtil = new OriginExecuteArrangement();
-		executeUtil.executeArrangement(input, output, log, components);
+		executeUtil.executeArrangement(input, output, log, components, header, footer);
 
 		return count;
 	}

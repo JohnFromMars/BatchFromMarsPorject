@@ -24,9 +24,9 @@ public class OriginCoutArrangement {
 		testInput.writeFile("0003.25EE03");
 		testInput.writeFile("0002.15EE02");
 
-		Integer count = batchController.addInput(testInput)
-				                       .addOutput(testOutput)
-				                       .addLogger("TestSum2", "D:/BatchFromMars", LogeLevel.FINEST)
+		Integer count = batchController.input(testInput)
+				                       .output(testOutput)
+				                       .logger("TestSum2", "D:/BatchFromMars", LogeLevel.FINEST)
 				                       .filter((s)->s.substring(0, 4).equals("0001"))
 				                       .count();
 

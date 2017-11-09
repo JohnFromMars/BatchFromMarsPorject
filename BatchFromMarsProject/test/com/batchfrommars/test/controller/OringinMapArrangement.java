@@ -3,8 +3,6 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.Date;
-
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
@@ -31,9 +29,9 @@ public class OringinMapArrangement {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .map((s)->s.substring(0, 3))
 				       .execute();
 
@@ -63,9 +61,9 @@ public class OringinMapArrangement {
 		testInput.writeFile("0003EE03");
 		
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .map((s)->s + "," + date)
 				       .execute();
 

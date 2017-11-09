@@ -30,8 +30,8 @@ public class OriginSumArrangement {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		BigDecimal decimal = batchController.addInput(testInput)
-				                            .addLogger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
+		BigDecimal decimal = batchController.input(testInput)
+				                            .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
 				                            .sum((s) -> s.substring(0, 4));
 
 		assertEquals(new BigDecimal(9), decimal);
@@ -52,9 +52,9 @@ public class OriginSumArrangement {
 		testInput.writeFile("0002.15EE02");
 		
 
-		BigDecimal decimal = batchController.addInput(testInput)
-				                            .addOutput(testOutput)
-				                            .addLogger("TestSum2", "D:/BatchFromMars", LogeLevel.FINEST)
+		BigDecimal decimal = batchController.input(testInput)
+				                            .output(testOutput)
+				                            .logger("TestSum2", "D:/BatchFromMars", LogeLevel.FINEST)
 				                            .sum((s) -> s.substring(0, 7));
 
 		assertEquals(new BigDecimal(6.75), decimal);

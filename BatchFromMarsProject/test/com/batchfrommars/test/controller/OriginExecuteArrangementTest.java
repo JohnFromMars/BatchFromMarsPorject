@@ -29,9 +29,9 @@ public class OriginExecuteArrangementTest {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("MultipleTasksTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("MultipleTasksTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .sort("1,4,A")
 				       .map((String s) -> s + ".txt")
@@ -62,9 +62,9 @@ public class OriginExecuteArrangementTest {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
@@ -74,5 +74,151 @@ public class OriginExecuteArrangementTest {
 		assertEquals("0001DD00.txt", testOutput.readFile());
 		assertEquals("0003DD01.txt", testOutput.readFile());
 		assertFalse(!testOutput.isEmpty());
+	}
+	
+
+	@Test
+	public void testHeader() throws Exception{
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput = new TemporaryFile();
+		FileInformation testOutput = new TemporaryFile();
+		String header = "hello this is header !";
+
+		// Set input
+
+		testInput.writeFile("0001DD00");
+		testInput.writeFile("0003EE03");
+		testInput.writeFile("0002EE02");
+		testInput.writeFile("0003DD01");
+		testInput.writeFile("0000HH00");
+		testInput.writeFile("0000HH000");
+
+		batchController.input(testInput)
+		               .output(testOutput)
+		               .header(header)
+				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .map((String s) -> s + ".txt")
+				       .sort("1,4,A")
+				       .filter((s) -> s.substring(4, 6).equals("DD"))
+				       .execute();
+
+		assertFalse(testOutput.isEmpty());
+		assertEquals(header, testOutput.readFile());
+		assertEquals("0001DD00.txt", testOutput.readFile());
+		assertEquals("0003DD01.txt", testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+	}
+	
+
+	@Test
+	public void testFooter() throws Exception{
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput = new TemporaryFile();
+		FileInformation testOutput = new TemporaryFile();
+		String footer = "hello this is footer !";
+
+		// Set input
+
+		testInput.writeFile("0001DD00");
+		testInput.writeFile("0003EE03");
+		testInput.writeFile("0002EE02");
+		testInput.writeFile("0003DD01");
+		testInput.writeFile("0000HH00");
+		testInput.writeFile("0000HH000");
+
+		batchController.input(testInput)
+		               .output(testOutput)
+		               .footer(footer)
+				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .map((String s) -> s + ".txt")
+				       .sort("1,4,A")
+				       .filter((s) -> s.substring(4, 6).equals("DD"))
+				       .execute();
+
+		assertFalse(testOutput.isEmpty());
+		assertEquals("0001DD00.txt", testOutput.readFile());
+		assertEquals("0003DD01.txt", testOutput.readFile());
+		assertEquals(footer, testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+	}
+	
+	@Test
+	public void testHeaderAndFooter() throws Exception{
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput = new TemporaryFile();
+		FileInformation testOutput = new TemporaryFile();
+		String footer = "hello this is footer !";
+		String header = "hello this is header !";
+
+		// Set input
+
+		testInput.writeFile("0001DD00");
+		testInput.writeFile("0003EE03");
+		testInput.writeFile("0002EE02");
+		testInput.writeFile("0003DD01");
+		testInput.writeFile("0000HH00");
+		testInput.writeFile("0000HH000");
+
+		batchController.input(testInput)
+		               .output(testOutput)
+		               .footer(footer)
+		               .header(header)
+				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .map((String s) -> s + ".txt")
+				       .sort("1,4,A")
+				       .filter((s) -> s.substring(4, 6).equals("DD"))
+				       .execute();
+
+		assertFalse(testOutput.isEmpty());
+		assertEquals(header, testOutput.readFile());
+		assertEquals("0001DD00.txt", testOutput.readFile());
+		assertEquals("0003DD01.txt", testOutput.readFile());
+		assertEquals(footer, testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+	}
+	
+	@Test
+	public void testPhysicalFileWithHeaderAndFooter() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				       .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+				       .header("header...")
+				       .footer("footer...")
+				       .sort("4,6,1,3")
+				       .execute();
+	}
+	@Test
+	public void testPhysicalFileWithHeader() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				       .output("D:/BatchFromMars/TestHeader.txt", "BIG5", false)
+				       .header("header...")
+				       .sort("4,6,1,3")
+				       .execute();
+	}
+	
+	@Test
+	public void testPhysicalFileWithfooter() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				       .output("D:/BatchFromMars/TestFooter.txt", "BIG5", false)
+				       .footer("footer...")
+				       .sort("4,6,1,3")
+				       .execute();
 	}
 }

@@ -29,9 +29,9 @@ public class OringinFilterArrangement {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .execute();
 
@@ -61,9 +61,9 @@ public class OringinFilterArrangement {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .filter((s) -> s.length() > 8)
 				       .execute();
 
@@ -90,9 +90,9 @@ public class OringinFilterArrangement {
 		testInput.writeFile("0000HH00");
 		testInput.writeFile("0000HH000");
 
-		batchController.addInput(testInput)
-		               .addOutput(testOutput)
-				       .addLogger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.input(testInput)
+		               .output(testOutput)
+				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
 				       .execute();
 

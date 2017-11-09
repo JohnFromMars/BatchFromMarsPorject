@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
@@ -19,83 +16,83 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 public class OriginSortArrangementTest {
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,3,e").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,3,e").execute();
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax2() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax2() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,a").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,a").execute();
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax3() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax3() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,a,1").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,a,1").execute();
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax4() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax4() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("a,2,1").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("a,2,1").execute();
 	}
 
 	@Test
-	public void testSyntax5() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax5() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("1,2").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("1,2").execute();
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void testSyntax6() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax6() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,1").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,1").execute();
 	}
 
 	@Test
-	public void testSyntax7() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax7() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2").execute();
 	}
 
 	@Test
-	public void testSyntax8() throws UnsupportedEncodingException, FileNotFoundException, InterruptedException {
+	public void testSyntax8() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.addOutput("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2,3,3").execute();
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2,3,3").execute();
 	}
 
 	@Test
@@ -123,9 +120,9 @@ public class OriginSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput(testInput)
-				.addOutput(testOutput)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input(testInput)
+				.output(testOutput)
 				.sort("1,4,D")
 				.execute();
 		
@@ -188,9 +185,9 @@ public class OriginSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.addLogger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-				.addInput(testInput)
-				.addOutput(testOutput)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.input(testInput)
+				.output(testOutput)
 				.sort("7,8,D,5,6,A,1,4,D")
 				.execute();
 		

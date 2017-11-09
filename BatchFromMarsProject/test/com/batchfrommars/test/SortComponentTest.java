@@ -165,6 +165,9 @@ public class SortComponentTest {
 
 		sort.activate();
 
+		testOutput.closeFile();
+		testInput.closeFile();
+		
 		FileInformation assertInput = new PhysicalFile(PhysicalFile.INPUT, "d:/test.txt", "UTF8", false);
 
 		assertFalse(assertInput.isEmpty());
