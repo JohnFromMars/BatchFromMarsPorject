@@ -85,6 +85,11 @@ public abstract class BatchController {
 		return this;
 	}
 
+	public BatchController logger(Logger logger) {
+		this.logger = logger;
+		return this;
+	}
+
 	public BatchController input(String filePath, String encodeing)
 			throws UnsupportedEncodingException, FileNotFoundException {
 

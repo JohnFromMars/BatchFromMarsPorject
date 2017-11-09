@@ -51,8 +51,11 @@ public class OriginExecuteArrangement implements ExecuteUtil {
 	}
 
 	private void setInput(FileInformation input, Logger log, List<ComponentII> components) {
-		components.get(0).addInputFileInformation(input);
-		log.finest("start component(0)+input");
+		if (input != null) {
+			components.get(0).addInputFileInformation(input);
+			log.finest("start component(0)+input");
+		}
+
 	}
 
 	private void setOutput(FileInformation output, Logger log, List<ComponentII> components) {
