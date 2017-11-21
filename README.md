@@ -1,5 +1,5 @@
-# BatchFromMarsPorject 1.1.2
->This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, comparing, merging, file reading, and writing to help you reach the specific data processing purposes. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
+# BatchFromMarsPorject 1.1.3
+>This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
 # Example
 Please check more sample code in this dierctory to get a complete overview of this library.
