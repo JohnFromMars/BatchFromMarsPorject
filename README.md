@@ -2,12 +2,12 @@
 >This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. The idea of this library is making business logic and progress clear and maintainable like the code below. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
         batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
-	                .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-		        .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
-		        .sort("4,6,1,3")
-		        .map((s) -> s.substring(0, 4))
-		        .filter((s) -> s.equals("0000"))
-		        .execute();
+	                   .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		           .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		           .sort("4,6,1,3")
+		           .map((s) -> s.substring(0, 4))
+		           .filter((s) -> s.equals("0000"))
+		           .execute();
 
 # Example
 Please check more sample code in this dierctory to get a complete overview of this library.
