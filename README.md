@@ -1,6 +1,14 @@
 # BatchFromMarsPorject 1.1.3
 >This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. The idea of this library is making business logic and progress clear and maintainable. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
+	@Override
+	protected ArrayList<Object> getKeys(String inputData) {
+		ArrayList<Object> keyTable = new ArrayList<>();
+		keyTable.add(Integer.valueOf(inputData.substring(2, 6)));
+		keyTable.add(inputData.substring(0, 1));
+		return keyTable;
+	}
+
 # Example
 Please check more sample code in this dierctory to get a complete overview of this library.
 
