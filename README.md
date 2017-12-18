@@ -1,4 +1,4 @@
-# BatchFromMarsPorject 1.1.3
+# BatchFromMarsPorject 1.2.0
 >This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. The idea of this library is making business logic and progress clear and maintainable like the code below. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
         batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
@@ -14,23 +14,12 @@ Please check more sample code in this dierctory to get a complete overview of th
 
 Sorting data
 ------------
-Extend `SortComponent` calss and implement `getInputKey(String inputData)` to get specific key from data and `getSortMethod()` to decide ascending or descending order. Sample code below are showing how to sort data with 2 sorting condiction.
+The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample code below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of a record sorted with descending order and 1 to 3 sorted with ascending order). 
 
-	@Override
-	protected ArrayList<Object> getKeys(String inputData) {
-		ArrayList<Object> keyTable = new ArrayList<>();
-		keyTable.add(Integer.valueOf(inputData.substring(2, 6)));
-		keyTable.add(inputData.substring(0, 1));
-		return keyTable;
-	}
-
-	@Override
-	protected ArrayList<Integer> getOrders() {
-		ArrayList<Integer> sortMethod = new ArrayList<>();
-		sortMethod.add(DESCESNDING);
-		sortMethod.add(ASCESNDING);
-		return sortMethod;
-	}
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		          .sort("4,6,D,1,3,A")
+		          .execute();
 
 Comparing data
 --------------
