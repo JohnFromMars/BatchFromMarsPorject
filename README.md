@@ -14,7 +14,7 @@ Please check more sample code in this dierctory to get a complete overview of th
 
 Sorting data
 ------------
-The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample code below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of a record sorted with descending order and 1 to 3 sorted with ascending order). 
+The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample code below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of records sorted with descending order and 1 to 3 sorted with ascending one). 
 
        batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
