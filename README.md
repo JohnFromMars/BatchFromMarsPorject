@@ -21,6 +21,14 @@ The `sort` task sorts the datas by simple orders which can be arranged easily.  
 		          .sort("4,6,D,1,3,A")
 		          .execute();
 
+If the sorting orders are not specified, they will be assigned as ascending orders by default. Just like the code below (both substring 4 to 6 and 1 to 3 of records sorted with ascending order).
+
+
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		          .sort("4,6,1,3")
+		          .execute();
+
 Comparing data
 --------------
 Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData)` to indicate the key form input 1, `getKeyFromInput2(String inputData)` to definit the key from input 2 and `getResultFormat(String inputData1, String inputData2)` to specify the format of the matching data you intend to output, then you can create a simple compare process. The sample code below tring to comapre two data and output format is input 1 + input 2. 
