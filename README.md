@@ -34,10 +34,10 @@ Map Task
 Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData)` to indicate the key form input 1, `getKeyFromInput2(String inputData)` to definit the key from input 2 and `getResultFormat(String inputData1, String inputData2)` to specify the format of the matching data you intend to output, then you can create a simple compare process. The sample code below tring to comapre two data and output format is input 1 + input 2. 
 
       
-	batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-		           .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
-		           .map((s) -> s.substring(0, 4))
-		           .execute();
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .map((s) -> s.substring(0, 4))
+		          .execute();
 
 
 Merging data
