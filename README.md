@@ -12,7 +12,7 @@
 # Example
 Please check more sample code in this dierctory to get a complete overview of this library.
 
-Sorting data
+Sort Task
 ------------
 The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample code below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of records sorted with descending order and 1 to 3 sorted with ascending one). 
 
@@ -29,27 +29,16 @@ If the sorting orders are not specified, they will be assigned as ascending orde
 		          .sort("4,6,1,3")
 		          .execute();
 
-Comparing data
+Map Task
 --------------
 Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData)` to indicate the key form input 1, `getKeyFromInput2(String inputData)` to definit the key from input 2 and `getResultFormat(String inputData1, String inputData2)` to specify the format of the matching data you intend to output, then you can create a simple compare process. The sample code below tring to comapre two data and output format is input 1 + input 2. 
 
-	@Override
-	protected Object getKeyFromInput1(String inputData) {
-		
-		return inputData.substring(0,6);
-	}
+      
+	batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		           .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		           .map((s) -> s.substring(0, 4))
+		           .execute();
 
-	@Override
-	protected Object getKeyFromInput2(String inputData) {
-		
-		return inputData.substring(0,6);
-	}
-
-	@Override
-	protected String getResultFormat(String inputData1, String inputData2) {
-
-		return inputData1 + "," + inputData2;
-	}
 
 Merging data
 ------------
