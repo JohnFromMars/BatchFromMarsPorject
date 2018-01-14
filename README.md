@@ -9,7 +9,7 @@
 		           .filter((s) -> s.equals("0000"))
 		           .execute();
 
-# Example
+# Features 
 Please check more sample code in this dierctory to get a complete overview of this library.
 
 Sort Task
