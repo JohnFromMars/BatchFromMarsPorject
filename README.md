@@ -31,12 +31,21 @@ If the sorting orders are not specified, they will be assigned as ascending orde
 
 Map Task
 --------------
-Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData)` to indicate the key form input 1, `getKeyFromInput2(String inputData)` to definit the key from input 2 and `getResultFormat(String inputData1, String inputData2)` to specify the format of the matching data you intend to output, then you can create a simple compare process. The sample code below tring to comapre two data and output format is input 1 + input 2. 
+The `map` task transform datas. It support Lambda, making business logic clear. The code below are demostrating how to convert each data into it's substring 0 to 4.
 
       
        batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
 		          .map((s) -> s.substring(0, 4))
+		          .execute();
+
+Filter Task
+--------------
+The `filter` task 
+      
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .filter((s) -> s.equals("0000"))
 		          .execute();
 
 
