@@ -49,6 +49,13 @@ The `filter` task picks the data out with specifies condition which represented 
 		          .execute();
 
 
+Setting logger
+--------------
+The `logger` task allow you to set the propperties of logger including log name, address and loging level. Just like the example below.
+
+       batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+       
+
 Execute the process
 ---------------
 Ther are there ways to activate the process - execute, count and sum. Both them start the process with different functions. The codes below are showing how to execute the batch controller normally.
@@ -60,13 +67,13 @@ Ther are there ways to activate the process - execute, count and sum. Both them 
 			  
 The codes below are showing how to add the specified area of data(substring between 0 and 4) and get the sum of BigDecimal.
 
-       BigDecimal decimal = batchController.input(testInput)
+       BigDecimal decimal = batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 		                               .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
 		                               .sum((s) -> s.substring(0, 4));
 
 The codes below are showing how to count the number of data with certain condition wheather substring 0 to 4 is greater than 1 and return Integer of total number which confer to the condition.
 
-       Integer count = batchController.input(testInput)
-		                          .output(testOutput)
+       Integer count = batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		                          .output("D:/BatchFromMars/SortData/test.txt", "UTF8")
 		                          .logger("testCount2", "D:/BatchFromMars", LogeLevel.FINEST)
 		                          .count((s) -> Integer.valueOf(s.substring(0, 4)) > 1);
