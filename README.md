@@ -61,12 +61,12 @@ Ther are there ways to activate the process - execute, count and sum. Both them 
 The codes below are showing how to add the specified area of data(substring between 0 and 4) and get the sum of BigDecimal.
 
        BigDecimal decimal = batchController.input(testInput)
-		          .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
-		          .sum((s) -> s.substring(0, 4));
+		                               .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
+		                               .sum((s) -> s.substring(0, 4));
 
 The codes below are showing how to count the number of data with certain condition wheather substring 0 to 4 is greater than 1 and return Integer of total number which confer to the condition.
 
        Integer count = batchController.input(testInput)
-		         .output(testOutput)
-		         .logger("testCount2", "D:/BatchFromMars", LogeLevel.FINEST)
-		         .count((s) -> Integer.valueOf(s.substring(0, 4)) > 1);
+		                          .output(testOutput)
+		                          .logger("testCount2", "D:/BatchFromMars", LogeLevel.FINEST)
+		                          .count((s) -> Integer.valueOf(s.substring(0, 4)) > 1);
