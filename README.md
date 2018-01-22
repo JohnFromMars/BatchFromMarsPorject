@@ -1,80 +1,79 @@
-# BatchFromMarsPorject 1.1.2
->This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, comparing, merging, file reading, and writing to help you reach the specific data processing purposes. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
+# BatchFromMarsPorject 1.2.0
+>This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. The idea of this library is making business logic and progress clear and maintainable like the code below. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
-# Example
+        batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+	                   .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		           .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		           .sort("4,6,1,3")
+		           .map((s) -> s.substring(0, 4))
+		           .filter((s) -> s.equals("0000"))
+		           .execute();
+
+# Features 
 Please check more sample code in this dierctory to get a complete overview of this library.
 
-Sorting data
+Sort Task
 ------------
-Extend `SortComponent` calss and implement `getInputKey(String inputData)` to get specific key from data and `getSortMethod()` to decide ascending or descending order. Sample code below are showing how to sort data with 2 sorting condiction.
+The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample codes below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of records sorted with descending order and 1 to 3 sorted with ascending one). 
 
-	@Override
-	protected ArrayList<Object> getKeys(String inputData) {
-		ArrayList<Object> keyTable = new ArrayList<>();
-		keyTable.add(Integer.valueOf(inputData.substring(2, 6)));
-		keyTable.add(inputData.substring(0, 1));
-		return keyTable;
-	}
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		          .sort("4,6,D,1,3,A")
+		          .execute();
 
-	@Override
-	protected ArrayList<Integer> getOrders() {
-		ArrayList<Integer> sortMethod = new ArrayList<>();
-		sortMethod.add(DESCESNDING);
-		sortMethod.add(ASCESNDING);
-		return sortMethod;
-	}
+If the sorting orders are not specified, they will be assigned as ascending orders by default. Just like the code below (both substring 4 to 6 and 1 to 3 of records sorted with ascending order).
 
-Comparing data
+
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+		          .sort("4,6,1,3")
+		          .execute();
+
+Map Task
 --------------
-Extend `CompareComponent` class and implement `getKeyFromInput1(String inputData)` to indicate the key form input 1, `getKeyFromInput2(String inputData)` to definit the key from input 2 and `getResultFormat(String inputData1, String inputData2)` to specify the format of the matching data you intend to output, then you can create a simple compare process. The sample code below tring to comapre two data and output format is input 1 + input 2. 
+The `map` task transform datas. It support Lambda, making business logic clear. The codes below are demostrating how to convert each data into it's substring 0 to 4.
 
-	@Override
-	protected Object getKeyFromInput1(String inputData) {
-		
-		return inputData.substring(0,6);
-	}
+      
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .map((s) -> s.substring(0, 4))
+		          .execute();
 
-	@Override
-	protected Object getKeyFromInput2(String inputData) {
-		
-		return inputData.substring(0,6);
-	}
+Filter Task
+--------------
+The `filter` task picks the data out with specifies condition which represented by Lambda. The codes below are illustarting how to pick the data which equal to string "0000".
+      
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .filter((s) -> s.equals("0000"))
+		          .execute();
 
-	@Override
-	protected String getResultFormat(String inputData1, String inputData2) {
 
-		return inputData1 + "," + inputData2;
-	}
+Setting logger
+--------------
+The `logger` task allow you to set the propperties of logger including log name, address and loging level. Just like the example below.
 
-Merging data
-------------
-Extend `MergeSortComponent`class can reach the datas merging purpose. `MergeSortComponent` can merge two data and `MultiMergeSortComponent` can merge more than two. You should implement 'getMethod()' and `getSortKey(String inputData)` then you can create a merging process. 
+       batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+       
 
-			@Override
-			protected int getMergeSortMethod() {
-				return ASCENDING;
-			}
-
-			@Override
-			protected String getKey(String inputData) {
-				return inputData.substring(0, 2);
-			}  
-
-Data processing
+Execute the process
 ---------------
-Extend BatchComponentII class then you can create a simple process that could easily deal the data. Implement `excuteProcess(LinkedList<String> dataList)` and define how you intend to deal the data. Notice that dataList should always be checked that it is null or not. Sample code below is tring to use the stock ID from data to check the stock price through YahooFinanceAPI and output as a new format.
+Ther are there ways to activate the process - execute, count and sum. Both them start the process with different functions. The codes below are showing how to execute the batch controller normally.
 
-	@Override
-	protected LinkedList<String> excuteProcess(LinkedList<String> dataList) {
-		LinkedList<String> outputList = new LinkedList<>();
-		String output1 = null;
-	
-		if (dataList.get(0) != null) {
-		  String stockID = dataList.get(0).subString(0 , 4);
-		  Stock stock = YahooFinance.get(stockID);
-		  output1 = dataList.get(0)+","+ stock.getQuote().getPrice();
-		} 
-		
-		outputList.add(output1);
-		return outputList;
-	}
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .filter((s) -> s.equals("0000"))
+		          .execute();
+			  
+The codes below are showing how to add the specified area of data(substring between 0 and 4) and get the sum of BigDecimal.
+
+       BigDecimal decimal = batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		                               .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
+		                               .sum((s) -> s.substring(0, 4));
+
+The codes below are showing how to count the number of data with certain condition wheather substring 0 to 4 is greater than 1 and return Integer of total number which confer to the condition.
+
+       Integer count = batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		                          .output("D:/BatchFromMars/SortData/test.txt", "UTF8")
+		                          .logger("testCount2", "D:/BatchFromMars", LogeLevel.FINEST)
+		                          .count((s) -> Integer.valueOf(s.substring(0, 4)) > 1);

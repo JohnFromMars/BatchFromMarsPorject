@@ -60,7 +60,7 @@ public abstract class ComponentII extends Thread {
 		init();
 		performAct();
 		finish();
-		closeFileLists();
+//		closeFileLists();
 		logComplete();
 
 	}
@@ -78,7 +78,7 @@ public abstract class ComponentII extends Thread {
 		init();
 		performAct();
 		finish();
-		closeFileLists();
+//		closeFileLists();
 		logComplete();
 
 	}

@@ -30,6 +30,14 @@ public abstract class SortComponent extends ComponentII {
 
 	protected abstract ArrayList<Integer> getOrders();
 
+//	public SortComponent(Logger logger, ArrayList<Integer> orders, ArrayList<Object> keys) {
+//		super();
+//	}
+//
+//	public SortComponent() {
+//		super();
+//	}
+
 	@Override
 	protected void act() throws Exception {
 		File tempFile = null;
