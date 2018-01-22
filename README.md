@@ -14,7 +14,7 @@ Please check more sample code in this dierctory to get a complete overview of th
 
 Sort Task
 ------------
-The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample code below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of records sorted with descending order and 1 to 3 sorted with ascending one). 
+The `sort` task sorts the datas by simple orders which can be arranged easily.  Sample codes below are showing how to sort data with 2 sorting condiction (substring 4 to 6 of records sorted with descending order and 1 to 3 sorted with ascending one). 
 
        batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
@@ -31,7 +31,7 @@ If the sorting orders are not specified, they will be assigned as ascending orde
 
 Map Task
 --------------
-The `map` task transform datas. It support Lambda, making business logic clear. The code below are demostrating how to convert each data into it's substring 0 to 4.
+The `map` task transform datas. It support Lambda, making business logic clear. The codes below are demostrating how to convert each data into it's substring 0 to 4.
 
       
        batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
@@ -41,7 +41,7 @@ The `map` task transform datas. It support Lambda, making business logic clear. 
 
 Filter Task
 --------------
-The `filter` task 
+The `filter` task picks the data out with specifies condition which represented by Lambda. The codes below are illustarting how to pick the data which equal to string "0000".
       
        batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
@@ -49,35 +49,24 @@ The `filter` task
 		          .execute();
 
 
-Merging data
-------------
-Extend `MergeSortComponent`class can reach the datas merging purpose. `MergeSortComponent` can merge two data and `MultiMergeSortComponent` can merge more than two. You should implement 'getMethod()' and `getSortKey(String inputData)` then you can create a merging process. 
-
-			@Override
-			protected int getMergeSortMethod() {
-				return ASCENDING;
-			}
-
-			@Override
-			protected String getKey(String inputData) {
-				return inputData.substring(0, 2);
-			}  
-
-Data processing
+Execute the process
 ---------------
-Extend BatchComponentII class then you can create a simple process that could easily deal the data. Implement `excuteProcess(LinkedList<String> dataList)` and define how you intend to deal the data. Notice that dataList should always be checked that it is null or not. Sample code below is tring to use the stock ID from data to check the stock price through YahooFinanceAPI and output as a new format.
+Ther are there ways to activate the process - execute, count and sum. Both them start the process with different functions. The codes below are showing how to execute the batch controller normally.
 
-	@Override
-	protected LinkedList<String> excuteProcess(LinkedList<String> dataList) {
-		LinkedList<String> outputList = new LinkedList<>();
-		String output1 = null;
-	
-		if (dataList.get(0) != null) {
-		  String stockID = dataList.get(0).subString(0 , 4);
-		  Stock stock = YahooFinance.get(stockID);
-		  output1 = dataList.get(0)+","+ stock.getQuote().getPrice();
-		} 
-		
-		outputList.add(output1);
-		return outputList;
-	}
+       batchController.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+		          .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)		 
+		          .filter((s) -> s.equals("0000"))
+		          .execute();
+			  
+The codes below are showing how to add the specified area of data(substring between 0 and 4) and get the sum of BigDecimal.
+
+       BigDecimal decimal = batchController.input(testInput)
+		          .logger("TestSum", "D:/BatchFromMars", LogeLevel.FINEST)
+		          .sum((s) -> s.substring(0, 4));
+
+The codes below are showing how to count the number of data with certain condition wheather substring 0 to 4 is greater than 1 and return Integer of total number which confer to the condition.
+
+       Integer count = batchController.input(testInput)
+		         .output(testOutput)
+		         .logger("testCount2", "D:/BatchFromMars", LogeLevel.FINEST)
+		         .count((s) -> Integer.valueOf(s.substring(0, 4)) > 1);
