@@ -13,6 +13,17 @@ public class OringinMapArangement implements MapUtil {
 	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Function<String, String> function) {
 
+		//create map task
+		BatchComponentII batchComponentII = createMapComponent(log, function);
+
+		log.finest("add map component to list");
+		// add to list
+		components.add(batchComponentII);
+
+		log.finest("mapArrangement finish");
+	}
+
+	private BatchComponentII createMapComponent(Logger log, Function<String, String> function) {
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
 			@Override
@@ -35,12 +46,7 @@ public class OringinMapArangement implements MapUtil {
 				return outList;
 			}
 		};
-
-		log.finest("add map component to list");
-		// add to list
-		components.add(batchComponentII);
-
-		log.finest("finish");
+		return batchComponentII;
 	}
 
 }

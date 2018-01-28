@@ -27,6 +27,19 @@ public class OriginSumArrangement implements SumUtil {
 	public BigDecimal arrangeSum(Function<String, String> function, List<ComponentII> components, Logger log,
 			FileInformation input, FileInformation output, String header, String footer) throws Exception {
 
+		// create the sum task
+		BatchComponentII batchComponentII = createSumComponent(function, log);
+		// add the task into list
+		components.add(batchComponentII);
+		//execute the batch controller
+		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		executeUtil.executeArrangement(input, output, log, components, header, footer);
+
+		//return the sum finally
+		return decimal;
+	}
+
+	private BatchComponentII createSumComponent(Function<String, String> function, Logger log) {
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
 			@Override
@@ -47,14 +60,7 @@ public class OriginSumArrangement implements SumUtil {
 			}
 
 		};
-
-		components.add(batchComponentII);
-		ExecuteUtil executeUtil = new OriginExecuteArrangement();
-		executeUtil.executeArrangement(input, output, log, components, header, footer);
-
-		// log.finest("After execute, decimal=" + decimal);
-
-		return decimal;
+		return batchComponentII;
 	}
 
 }

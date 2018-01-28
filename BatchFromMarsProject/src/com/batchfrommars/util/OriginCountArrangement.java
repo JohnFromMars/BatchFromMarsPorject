@@ -15,6 +15,20 @@ public class OriginCountArrangement {
 	public Integer arrangeCount(List<ComponentII> components, Logger log, FileInformation input, FileInformation output,
 			String header, String footer) throws Exception {
 
+		//create count task
+		BatchComponentII batchComponentII = createCountComponent(log);
+
+		//add it into task list
+		components.add(batchComponentII);
+
+		//execute the batch controller
+		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		executeUtil.executeArrangement(input, output, log, components, header, footer);
+
+		return count;
+	}
+
+	private BatchComponentII createCountComponent(Logger log) {
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
 			@Override
@@ -34,13 +48,7 @@ public class OriginCountArrangement {
 				return dataList;
 			}
 		};
-
-		components.add(batchComponentII);
-
-		ExecuteUtil executeUtil = new OriginExecuteArrangement();
-		executeUtil.executeArrangement(input, output, log, components, header, footer);
-
-		return count;
+		return batchComponentII;
 	}
 
 }

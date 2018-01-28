@@ -13,7 +13,17 @@ public class OringinFilterArrangement implements FilterUtil {
 	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Predicate<String> predicate) {
 		log.finest("predicate=" + predicate.toString());
+		// create filter task
+		BatchComponentII batchComponentII = createFilterComponent(log, predicate);
 
+		log.finest("add map component to list");
+		// add it into task list
+		components.add(batchComponentII);
+
+		log.finest("finish");
+	}
+
+	private BatchComponentII createFilterComponent(Logger log, Predicate<String> predicate) {
 		BatchComponentII batchComponentII = new BatchComponentII() {
 
 			@Override
@@ -37,12 +47,7 @@ public class OringinFilterArrangement implements FilterUtil {
 				return outList;
 			}
 		};
-
-		log.finest("add map component to list");
-		// add to list
-		components.add(batchComponentII);
-
-		log.finest("finish");
+		return batchComponentII;
 	}
 
 }

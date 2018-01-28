@@ -18,6 +18,18 @@ public class OringinSortArrangement implements SortUtil {
 		ArrayList<SortObject> result = analyseSortText(sortText, log);
 		log.finest("result=" + result);
 
+		//create sort task 
+		SortComponent sortComponent = createSortComponent(log, result);
+
+		log.finest("add sort component to list");
+		// add to list
+		components.add(sortComponent);
+
+		log.finest("finish");
+
+	}
+
+	private SortComponent createSortComponent(Logger log, ArrayList<SortObject> result) {
 		// set sort component
 		SortComponent sortComponent = new SortComponent() {
 
@@ -36,13 +48,7 @@ public class OringinSortArrangement implements SortUtil {
 				return getKeyFromSortText(result, data, log);
 			}
 		};
-
-		log.finest("add sort component to list");
-		// add to list
-		components.add(sortComponent);
-
-		log.finest("finish");
-
+		return sortComponent;
 	}
 
 	private ArrayList<Integer> getOrderFromSortText(ArrayList<SortObject> result, Logger log) {
