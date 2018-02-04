@@ -10,7 +10,7 @@ import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
-public class OriginSumArrangement implements SumUtil {
+public class OriginalSumArrangement implements SumUtil {
 
 	private BigDecimal decimal = new BigDecimal(0);
 
@@ -32,7 +32,7 @@ public class OriginSumArrangement implements SumUtil {
 		// add the task into list
 		components.add(batchComponentII);
 		//execute the batch controller
-		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		ExecuteUtil executeUtil = new OriginalExecuteArrangement();
 		executeUtil.executeArrangement(input, output, log, components, header, footer);
 
 		//return the sum finally

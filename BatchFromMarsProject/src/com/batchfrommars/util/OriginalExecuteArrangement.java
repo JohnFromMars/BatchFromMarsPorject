@@ -7,7 +7,7 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 
-public class OriginExecuteArrangement implements ExecuteUtil {
+public class OriginalExecuteArrangement implements ExecuteUtil {
 
 	@Override
 	public void executeArrangement(FileInformation input, FileInformation output, Logger log,

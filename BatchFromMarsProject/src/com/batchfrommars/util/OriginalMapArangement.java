@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 
-public class OringinMapArangement implements MapUtil {
+public class OriginalMapArangement implements MapUtil {
 
 	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Function<String, String> function) {

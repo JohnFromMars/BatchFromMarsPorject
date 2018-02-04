@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 
-public class OringinFilterArrangement implements FilterUtil {
+public class OriginalFilterArrangement implements FilterUtil {
 
 	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Predicate<String> predicate) {

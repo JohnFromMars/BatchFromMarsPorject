@@ -17,13 +17,13 @@ import com.batchfrommars.util.FilterUtil;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
 import com.batchfrommars.util.MapUtil;
-import com.batchfrommars.util.OriginCountArrangement;
-import com.batchfrommars.util.OriginExecuteArrangement;
-import com.batchfrommars.util.OriginLoggerArrangement;
-import com.batchfrommars.util.OriginSumArrangement;
-import com.batchfrommars.util.OringinFilterArrangement;
-import com.batchfrommars.util.OringinMapArangement;
-import com.batchfrommars.util.OringinSortArrangement;
+import com.batchfrommars.util.OriginalCountArrangement;
+import com.batchfrommars.util.OriginalExecuteArrangement;
+import com.batchfrommars.util.OriginalLoggerArrangement;
+import com.batchfrommars.util.OriginalSumArrangement;
+import com.batchfrommars.util.OriginalFilterArrangement;
+import com.batchfrommars.util.OriginalMapArangement;
+import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.SortUtil;
 import com.batchfrommars.util.SumUtil;
 
@@ -59,28 +59,28 @@ public abstract class BatchController {
 	}
 
 	public BatchController filter(Predicate<String> predicate) {
-		FilterUtil mapUtil = new OringinFilterArrangement();
+		FilterUtil mapUtil = new OriginalFilterArrangement();
 		mapUtil.mapArrangement(components, logger, predicate);
 
 		return this;
 	}
 
 	public BatchController sort(String sortText) {
-		sortUtil = new OringinSortArrangement();
+		sortUtil = new OriginalSortArrangement();
 		sortUtil.sortArrangement(components, logger, sortText);
 
 		return this;
 	}
 
 	public BatchController map(Function<String, String> function) {
-		MapUtil mapUtil = new OringinMapArangement();
+		MapUtil mapUtil = new OriginalMapArangement();
 		mapUtil.mapArrangement(components, logger, function);
 
 		return this;
 	}
 
 	public BatchController logger(String logName, String filePath, LogeLevel level) {
-		loggerUtil = new OriginLoggerArrangement();
+		loggerUtil = new OriginalLoggerArrangement();
 		this.logger = loggerUtil.loggerArrangement(logName, filePath, level);
 		return this;
 	}
@@ -118,17 +118,17 @@ public abstract class BatchController {
 	}
 
 	public void execute() throws Exception {
-		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		ExecuteUtil executeUtil = new OriginalExecuteArrangement();
 		executeUtil.executeArrangement(input, output, logger, components, header, footer);
 	}
 
 	public BigDecimal sum(Function<String, String> function) throws Exception {
-		SumUtil originSumArranement = new OriginSumArrangement();
+		SumUtil originSumArranement = new OriginalSumArrangement();
 		return originSumArranement.arrangeSum(function, components, logger, input, output, header, footer);
 	}
 
 	public Integer count() throws Exception {
-		OriginCountArrangement count = new OriginCountArrangement();
+		OriginalCountArrangement count = new OriginalCountArrangement();
 		return count.arrangeCount(components, logger, input, output, header, footer);
 	}
 

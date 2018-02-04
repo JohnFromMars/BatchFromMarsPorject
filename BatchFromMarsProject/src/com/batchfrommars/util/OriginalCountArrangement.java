@@ -8,7 +8,7 @@ import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
-public class OriginCountArrangement {
+public class OriginalCountArrangement {
 
 	private Integer count = new Integer(0);
 
@@ -22,7 +22,7 @@ public class OriginCountArrangement {
 		components.add(batchComponentII);
 
 		//execute the batch controller
-		ExecuteUtil executeUtil = new OriginExecuteArrangement();
+		ExecuteUtil executeUtil = new OriginalExecuteArrangement();
 		executeUtil.executeArrangement(input, output, log, components, header, footer);
 
 		return count;

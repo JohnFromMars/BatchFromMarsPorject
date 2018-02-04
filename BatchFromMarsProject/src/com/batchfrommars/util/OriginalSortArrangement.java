@@ -9,7 +9,7 @@ import com.batchfrommars.component.SortComponent;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
-public class OringinSortArrangement implements SortUtil {
+public class OriginalSortArrangement implements SortUtil {
 
 	@Override
 	public void sortArrangement(List<ComponentII> components, Logger log, String sortText) {
