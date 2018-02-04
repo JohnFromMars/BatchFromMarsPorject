@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
-import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.LogLevel;
 
 public class OriginalMapArrangementTest {
 	
@@ -31,7 +31,7 @@ public class OriginalMapArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("MapTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .map((s)->s.substring(0, 3))
 				       .execute();
 
@@ -63,7 +63,7 @@ public class OriginalMapArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("MapTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("MapTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .map((s)->s + "," + date)
 				       .execute();
 

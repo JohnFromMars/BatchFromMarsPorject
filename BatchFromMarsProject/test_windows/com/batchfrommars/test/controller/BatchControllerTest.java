@@ -3,7 +3,7 @@
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
-import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.LogLevel;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
@@ -14,7 +14,7 @@ public class BatchControllerTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TTEESST1.txt", "BIG5", false)
 				       .sort("4,6,1,3,d")
@@ -26,7 +26,7 @@ public class BatchControllerTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TTEESST2.txt", "BIG5", false)
 				       .sort("4,6,1,3,e")

@@ -7,13 +7,13 @@ import com.batchfrommars.file.LogUtil;
 
 public class OriginalLoggerArrangement {
 
-	public Logger arrangeLoggerTask(String logName, String filePath, LogeLevel logLevel) {
+	public Logger arrangeLoggerTask(String logName, String filePath, LogLevel logLevel) {
 
 		return getLoggerWithLevel(logName, filePath, logLevel);
 
 	}
 
-	private Logger getLoggerWithLevel(String logName, String filePath, LogeLevel logLevel) {
+	private Logger getLoggerWithLevel(String logName, String filePath, LogLevel logLevel) {
 
 		switch (logLevel) {
 

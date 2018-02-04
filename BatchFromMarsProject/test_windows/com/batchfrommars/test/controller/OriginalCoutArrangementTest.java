@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
-import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.LogLevel;
 
 public class OriginalCoutArrangementTest {
 	@Test
@@ -26,7 +26,7 @@ public class OriginalCoutArrangementTest {
 
 		Integer count = batchController.input(testInput)
 				                       .output(testOutput)
-				                       .logger("TestSum2", "D:/BatchFromMars", LogeLevel.FINEST)
+				                       .logger("TestSum2", "D:/BatchFromMars", LogLevel.FINEST)
 				                       .filter((s)->s.substring(0, 4).equals("0001"))
 				                       .count();
 

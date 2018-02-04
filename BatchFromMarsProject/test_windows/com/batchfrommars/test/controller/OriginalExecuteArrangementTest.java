@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
-import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.LogLevel;
 
 public class OriginalExecuteArrangementTest {
 
@@ -32,7 +32,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput)
-				.logger("MultipleTasksTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				.logger("MultipleTasksTest", "D:/BatchFromMars", LogLevel.FINEST)
 				.filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0).sort("1,4,A").map((String s) -> s + ".txt")
 				.execute();
 
@@ -62,7 +62,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput)
-				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST).map((String s) -> s + ".txt")
+				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogLevel.FINEST).map((String s) -> s + ".txt")
 				.sort("1,4,A").filter((s) -> s.substring(4, 6).equals("DD")).execute();
 
 		assertFalse(testOutput.isEmpty());
@@ -90,7 +90,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput).header(header)
-				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST).map((String s) -> s + ".txt")
+				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogLevel.FINEST).map((String s) -> s + ".txt")
 				.sort("1,4,A").filter((s) -> s.substring(4, 6).equals("DD")).execute();
 
 		assertFalse(testOutput.isEmpty());
@@ -119,7 +119,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput).footer(footer)
-				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST).map((String s) -> s + ".txt")
+				.logger("MultipleTasksTest2", "D:/BatchFromMars", LogLevel.FINEST).map((String s) -> s + ".txt")
 				.sort("1,4,A").filter((s) -> s.substring(4, 6).equals("DD")).execute();
 
 		assertFalse(testOutput.isEmpty());
@@ -153,7 +153,7 @@ public class OriginalExecuteArrangementTest {
 		               .output(testOutput)
 		               .footer(footer)
 		               .header(header)
-				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("MultipleTasksTest2", "D:/BatchFromMars", LogLevel.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6)
@@ -174,7 +174,7 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 		//@formatter:off
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
 				       .header("header...")
@@ -190,7 +190,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TestHeader.txt", "BIG5", false)
 				       .header("header...")
@@ -205,7 +205,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 			           .output("D:/BatchFromMars/TestFooter.txt", "BIG5", false)
 			           .footer("footer...")
@@ -220,7 +220,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .output("D:/BatchFromMars/TestNoInput.txt", "BIG5", false).sort("4,6,1,3").header("header...")
 				       .footer("footer...")
 				       .map((s) -> s.substring(0, 4))
@@ -240,7 +240,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:on
 
 		//@formatter:off
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
 			 	       .output("D:/BatchFromMars/TestNoInput2.txt", "BIG5", false)
 			 	       .sort("4,6,1,3")
 			 	       .header(header)
@@ -269,7 +269,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput)
-				.logger("MultipleTasksTest3", "D:/BatchFromMars", LogeLevel.FINEST)
+				.logger("MultipleTasksTest3", "D:/BatchFromMars", LogLevel.FINEST)
 				.filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0).sort("1,4,A").map((String s) -> s + ".txt")
 				.filter((s) -> s.substring(0, 4).equals("0003")).map((s) -> s + ".cc").execute();
 
@@ -297,7 +297,7 @@ public class OriginalExecuteArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		batchController.input(testInput).output(testOutput)
-				.logger("MultipleTasksTest3", "D:/BatchFromMars", LogeLevel.FINEST)
+				.logger("MultipleTasksTest3", "D:/BatchFromMars", LogLevel.FINEST)
 				.filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0).sort("1,4,A").map((String s) -> s + ".txt")
 				.filter((s) -> s.substring(0, 4).equals("0003")).map((s) -> s + ".cc").execute();
 

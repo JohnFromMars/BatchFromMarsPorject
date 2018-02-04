@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
-import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.LogLevel;
 
 public class OriginalFilterArrangementTest {
 
@@ -31,7 +31,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .execute();
 
@@ -63,7 +63,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .filter((s) -> s.length() > 8)
 				       .execute();
 
@@ -92,7 +92,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogeLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
 				       .execute();
 

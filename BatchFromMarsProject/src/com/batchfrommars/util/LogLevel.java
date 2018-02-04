@@ -1,5 +1,5 @@
 package com.batchfrommars.util;
 
-public enum LogeLevel {
+public enum LogLevel {
 	FINE, FINEST, INFO, WARNING
 }
