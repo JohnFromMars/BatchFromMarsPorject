@@ -5,10 +5,9 @@ import java.util.logging.Logger;
 
 import com.batchfrommars.file.LogUtil;
 
-public class OriginalLoggerArrangement implements LoggerUtil {
+public class OriginalLoggerArrangement {
 
-	@Override
-	public Logger loggerArrangement(String logName, String filePath, LogeLevel logLevel) {
+	public Logger arrangeLoggerTask(String logName, String filePath, LogeLevel logLevel) {
 
 		return getLoggerWithLevel(logName, filePath, logLevel);
 

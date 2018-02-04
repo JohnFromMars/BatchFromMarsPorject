@@ -12,7 +12,7 @@ public class OriginalCountArrangement {
 
 	private Integer count = new Integer(0);
 
-	public Integer arrangeCount(List<ComponentII> components, Logger log, List<FileInformation> input, FileInformation output,
+	public Integer arrangeCountTask(List<ComponentII> components, Logger log, List<FileInformation> input, FileInformation output,
 			String header, String footer) throws Exception {
 
 		//create count task
@@ -23,7 +23,7 @@ public class OriginalCountArrangement {
 
 		//execute the batch controller
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.executeArrangement(input, output, log, components, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, log, components, header, footer);
 
 		return count;
 	}

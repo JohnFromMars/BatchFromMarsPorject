@@ -9,10 +9,10 @@ import com.batchfrommars.component.SortComponent;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
-public class OriginalSortArrangement implements SortUtil {
+public class OriginalSortArrangement {
 
-	@Override
-	public void sortArrangement(List<ComponentII> components, Logger log, String sortText) {
+	
+	public void arrangeSortTask(List<ComponentII> components, Logger log, String sortText) {
 
 		log.finest("sortArrangement start, sort text=" + sortText);
 		ArrayList<SortObject> result = analyseSortText(sortText, log);

@@ -10,7 +10,7 @@ import com.batchfrommars.component.ComponentII;
 
 public class OriginalFilterArrangement {
 
-	public void mapArrangement(List<ComponentII> components, Logger log, Predicate<String> predicate) {
+	public void arrangeMapTask(List<ComponentII> components, Logger log, Predicate<String> predicate) {
 		log.finest("predicate=" + predicate.toString());
 		// create filter task
 		BatchComponentII batchComponentII = createFilterComponent(log, predicate);

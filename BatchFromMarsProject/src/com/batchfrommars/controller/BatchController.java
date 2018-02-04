@@ -13,15 +13,14 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.LogeLevel;
-import com.batchfrommars.util.LoggerUtil;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
 import com.batchfrommars.util.OriginalLoggerArrangement;
 import com.batchfrommars.util.OriginalMapArangement;
+import com.batchfrommars.util.OriginalMergeArrangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
-import com.batchfrommars.util.SortUtil;
 
 public class BatchController {
 
@@ -46,9 +45,6 @@ public class BatchController {
 	protected List<FileInformation> input;
 	protected FileInformation output;
 
-	private SortUtil sortUtil;
-	private LoggerUtil loggerUtil;
-
 	public BatchController() {
 		components = new ArrayList<>();
 		tempFile = new ArrayList<>();
@@ -57,28 +53,28 @@ public class BatchController {
 
 	public BatchController filter(Predicate<String> predicate) {
 		OriginalFilterArrangement mapUtil = new OriginalFilterArrangement();
-		mapUtil.mapArrangement(components, logger, predicate);
+		mapUtil.arrangeMapTask(components, logger, predicate);
 
 		return this;
 	}
 
 	public BatchController sort(String sortText) {
-		sortUtil = new OriginalSortArrangement();
-		sortUtil.sortArrangement(components, logger, sortText);
+		OriginalSortArrangement sortUtil = new OriginalSortArrangement();
+		sortUtil.arrangeSortTask(components, logger, sortText);
 
 		return this;
 	}
 
 	public BatchController map(Function<String, String> function) {
 		OriginalMapArangement mapUtil = new OriginalMapArangement();
-		mapUtil.mapArrangement(components, logger, function);
+		mapUtil.arrangeMapTask(components, logger, function);
 
 		return this;
 	}
 
 	public BatchController logger(String logName, String filePath, LogeLevel level) {
-		loggerUtil = new OriginalLoggerArrangement();
-		this.logger = loggerUtil.loggerArrangement(logName, filePath, level);
+		OriginalLoggerArrangement loggerArrangement = new OriginalLoggerArrangement();
+		this.logger = loggerArrangement.arrangeLoggerTask(logName, filePath, level);
 		return this;
 	}
 
@@ -116,17 +112,17 @@ public class BatchController {
 
 	public void execute() throws Exception {
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.executeArrangement(input, output, logger, components, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, logger, components, header, footer);
 	}
 
 	public BigDecimal sum(Function<String, String> function) throws Exception {
 		OriginalSumArrangement originSumArranement = new OriginalSumArrangement();
-		return originSumArranement.arrangeSum(function, components, logger, input, output, header, footer);
+		return originSumArranement.arrangeSumTask(function, components, logger, input, output, header, footer);
 	}
 
 	public Integer count() throws Exception {
 		OriginalCountArrangement count = new OriginalCountArrangement();
-		return count.arrangeCount(components, logger, input, output, header, footer);
+		return count.arrangeCountTask(components, logger, input, output, header, footer);
 	}
 
 	public BatchController header(String header) {
@@ -136,6 +132,10 @@ public class BatchController {
 
 	public BatchController footer(String footer) {
 		this.footer = footer;
+		return this;
+	}
+	public BatchController merge(){
+		OriginalMergeArrangement mergeArrangement = new OriginalMergeArrangement();
 		return this;
 	}
 

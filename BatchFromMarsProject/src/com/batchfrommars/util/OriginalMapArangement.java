@@ -10,7 +10,7 @@ import com.batchfrommars.component.ComponentII;
 
 public class OriginalMapArangement {
 
-	public void mapArrangement(List<ComponentII> components, Logger log, Function<String, String> function) {
+	public void arrangeMapTask(List<ComponentII> components, Logger log, Function<String, String> function) {
 
 		// create map task
 		BatchComponentII batchComponentII = createMapComponent(log, function);

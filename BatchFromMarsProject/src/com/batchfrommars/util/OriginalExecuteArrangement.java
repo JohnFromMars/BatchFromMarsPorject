@@ -9,7 +9,7 @@ import com.batchfrommars.file.TemporaryFile;
 
 public class OriginalExecuteArrangement {
 
-	public void executeArrangement(List<FileInformation> input, FileInformation output, Logger log,
+	public void arrangeExecuteTask(List<FileInformation> input, FileInformation output, Logger log,
 			List<ComponentII> components, String header, String footer) throws Exception {
 
 		log.finest("components size = " + components.size());
