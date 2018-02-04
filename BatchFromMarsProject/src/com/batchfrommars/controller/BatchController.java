@@ -26,7 +26,9 @@ import com.batchfrommars.util.OriginalSumArrangement;
 public class BatchController {
 
 	// list of components to execute
-	protected List<ComponentII> components;
+	protected List<ComponentII> tasks;
+	// list of hidden component
+	protected List<ComponentII> hiddenTasks;
 
 	// logger
 	protected Logger logger;
@@ -47,7 +49,8 @@ public class BatchController {
 	protected FileInformation output;
 
 	public BatchController() {
-		components = new ArrayList<>();
+		tasks = new ArrayList<>();
+		hiddenTasks = new ArrayList<>();
 		tempFile = new ArrayList<>();
 		input = new ArrayList<>();
 		logger = Logger.getAnonymousLogger();
@@ -55,21 +58,21 @@ public class BatchController {
 
 	public BatchController filter(Predicate<String> predicate) {
 		OriginalFilterArrangement mapUtil = new OriginalFilterArrangement();
-		mapUtil.arrangeMapTask(components, logger, predicate);
+		mapUtil.arrangeMapTask(tasks, logger, predicate);
 
 		return this;
 	}
 
 	public BatchController sort(String sortText) {
 		OriginalSortArrangement sortUtil = new OriginalSortArrangement();
-		sortUtil.arrangeSortTask(components, logger, sortText);
+		sortUtil.arrangeSortTask(tasks, logger, sortText);
 
 		return this;
 	}
 
 	public BatchController map(Function<String, String> function) {
 		OriginalMapArangement mapUtil = new OriginalMapArangement();
-		mapUtil.arrangeMapTask(components, logger, function);
+		mapUtil.arrangeMapTask(tasks, logger, function);
 
 		return this;
 	}
@@ -114,17 +117,17 @@ public class BatchController {
 
 	public void execute() throws Exception {
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, logger, components, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, logger, tasks, header, footer);
 	}
 
 	public BigDecimal sum(Function<String, String> function) throws Exception {
 		OriginalSumArrangement originSumArranement = new OriginalSumArrangement();
-		return originSumArranement.arrangeSumTask(function, components, logger, input, output, header, footer);
+		return originSumArranement.arrangeSumTask(function, tasks, logger, input, output, header, footer);
 	}
 
 	public Integer count() throws Exception {
 		OriginalCountArrangement count = new OriginalCountArrangement();
-		return count.arrangeCountTask(components, logger, input, output, header, footer);
+		return count.arrangeCountTask(tasks, logger, input, output, header, footer);
 	}
 
 	public BatchController header(String header) {
@@ -140,7 +143,7 @@ public class BatchController {
 	public BatchController compare(Function<String, String> firstInputKey, Function<String, String> secondInputKey,
 			BiFunction<String, String, String> resultForm) {
 		OriginalCompareArrangement compareArrangement = new OriginalCompareArrangement();
-		compareArrangement.arrangeCompareTask(components, logger, firstInputKey, secondInputKey, resultForm);
+		compareArrangement.arrangeCompareTask(tasks, logger, firstInputKey, secondInputKey, resultForm);
 		return this;
 	}
 
