@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
+import com.batchfrommars.file.FileList;
 import com.batchfrommars.file.TemporaryFile;
 
 public class OriginalExecuteArrangement {
@@ -53,8 +54,10 @@ public class OriginalExecuteArrangement {
 
 	private void setInput(List<FileInformation> input, Logger log, List<ComponentII> components) {
 		if (input.size() != 0) {
-			components.get(0).addInputFileInformation(input.get(0));
-			log.finest("start component(0)+input");
+			FileList fileList = new FileList();
+			fileList.setFileInformationsList(input);
+			components.get(0).setInputFileList(fileList);
+			log.finest("start components.get(0).setInputFileList(fileList)");
 		}
 
 	}

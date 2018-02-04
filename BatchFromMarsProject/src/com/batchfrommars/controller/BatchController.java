@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -13,12 +14,12 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.LogeLevel;
+import com.batchfrommars.util.OriginalCompareArrangement;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
 import com.batchfrommars.util.OriginalLoggerArrangement;
 import com.batchfrommars.util.OriginalMapArangement;
-import com.batchfrommars.util.OriginalMergeArrangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
 
@@ -49,6 +50,7 @@ public class BatchController {
 		components = new ArrayList<>();
 		tempFile = new ArrayList<>();
 		input = new ArrayList<>();
+		logger = Logger.getAnonymousLogger();
 	}
 
 	public BatchController filter(Predicate<String> predicate) {
@@ -134,9 +136,18 @@ public class BatchController {
 		this.footer = footer;
 		return this;
 	}
-	public BatchController merge(){
-		OriginalMergeArrangement mergeArrangement = new OriginalMergeArrangement();
+
+	public BatchController compare(Function<String, String> firstInputKey, Function<String, String> secondInputKey,
+			BiFunction<String, String, String> resultForm) {
+		OriginalCompareArrangement compareArrangement = new OriginalCompareArrangement();
+		compareArrangement.arrangeCompareTask(components, logger, firstInputKey, secondInputKey, resultForm);
 		return this;
 	}
+
+	// public BatchController merge() {
+	// OriginalMergeArrangement mergeArrangement = new
+	// OriginalMergeArrangement();
+	// return this;
+	// }
 
 }

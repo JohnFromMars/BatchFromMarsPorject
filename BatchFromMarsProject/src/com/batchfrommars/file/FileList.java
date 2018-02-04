@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class FileList {
 	// member area
-	private ArrayList<FileInformation> fileInformationsList;
+	private List<FileInformation> fileInformationsList;
 	// constant area
 	private static String OUTPUT_NUMBER_MISMATCH_ERROR_MSG = "FileInformationList.writeFile.Output size is not equal to outputList";
 
@@ -211,11 +211,11 @@ public class FileList {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
 
-	public ArrayList<FileInformation> getFileInformationsList() {
+	public List<FileInformation> getFileInformationsList() {
 		return fileInformationsList;
 	}
 
-	public void setFileInformationsList(ArrayList<FileInformation> fileInformationsList) {
+	public void setFileInformationsList(List<FileInformation> fileInformationsList) {
 		this.fileInformationsList = fileInformationsList;
 	}
 
