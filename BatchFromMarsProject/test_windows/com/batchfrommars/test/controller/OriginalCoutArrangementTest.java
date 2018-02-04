@@ -10,7 +10,7 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 import com.batchfrommars.util.LogeLevel;
 
-public class OriginCoutArrangement {
+public class OriginalCoutArrangementTest {
 	@Test
 	public void testCount() throws Exception {
 		BatchController batchController = new BatchController() {

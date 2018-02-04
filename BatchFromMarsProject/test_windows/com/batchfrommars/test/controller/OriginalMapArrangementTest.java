@@ -10,7 +10,7 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 import com.batchfrommars.util.LogeLevel;
 
-public class OringinMapArrangement {
+public class OriginalMapArrangementTest {
 	
 	@Test
 	public void testMap() throws Exception {

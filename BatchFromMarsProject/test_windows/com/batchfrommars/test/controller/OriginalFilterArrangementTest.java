@@ -10,7 +10,7 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 import com.batchfrommars.util.LogeLevel;
 
-public class OringinFilterArrangement {
+public class OriginalFilterArrangementTest {
 
 	@Test
 	public void testFilter() throws Exception {

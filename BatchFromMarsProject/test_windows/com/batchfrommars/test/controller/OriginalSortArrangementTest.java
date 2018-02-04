@@ -13,7 +13,7 @@ import com.batchfrommars.util.LogeLevel;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
-public class OriginSortArrangementTest {
+public class OriginalSortArrangementTest {
 
 	@Test(expected = SyntaxException.class)
 	public void testSyntax() throws Exception {
