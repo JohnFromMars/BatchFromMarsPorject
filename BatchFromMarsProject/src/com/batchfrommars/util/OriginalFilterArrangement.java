@@ -8,9 +8,8 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 
-public class OriginalFilterArrangement implements FilterUtil {
+public class OriginalFilterArrangement {
 
-	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Predicate<String> predicate) {
 		log.finest("predicate=" + predicate.toString());
 		// create filter task

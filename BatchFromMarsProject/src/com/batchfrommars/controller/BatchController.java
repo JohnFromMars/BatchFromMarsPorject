@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
-import com.batchfrommars.util.FilterUtil;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
 import com.batchfrommars.util.MapUtil;
@@ -58,7 +57,7 @@ public abstract class BatchController {
 	}
 
 	public BatchController filter(Predicate<String> predicate) {
-		FilterUtil mapUtil = new OriginalFilterArrangement();
+		OriginalFilterArrangement mapUtil = new OriginalFilterArrangement();
 		mapUtil.mapArrangement(components, logger, predicate);
 
 		return this;
