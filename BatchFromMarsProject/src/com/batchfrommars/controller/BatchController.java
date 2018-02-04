@@ -14,7 +14,6 @@ import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.LogeLevel;
 import com.batchfrommars.util.LoggerUtil;
-import com.batchfrommars.util.MapUtil;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
@@ -71,7 +70,7 @@ public abstract class BatchController {
 	}
 
 	public BatchController map(Function<String, String> function) {
-		MapUtil mapUtil = new OriginalMapArangement();
+		OriginalMapArangement mapUtil = new OriginalMapArangement();
 		mapUtil.mapArrangement(components, logger, function);
 
 		return this;

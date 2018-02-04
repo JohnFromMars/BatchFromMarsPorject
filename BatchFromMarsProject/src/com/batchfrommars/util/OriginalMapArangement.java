@@ -8,12 +8,11 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 
-public class OriginalMapArangement implements MapUtil {
+public class OriginalMapArangement {
 
-	@Override
 	public void mapArrangement(List<ComponentII> components, Logger log, Function<String, String> function) {
 
-		//create map task
+		// create map task
 		BatchComponentII batchComponentII = createMapComponent(log, function);
 
 		log.finest("add map component to list");
