@@ -22,7 +22,7 @@ public class OriginalCountArrangement {
 		components.add(batchComponentII);
 
 		//execute the batch controller
-		ExecuteUtil executeUtil = new OriginalExecuteArrangement();
+		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
 		executeUtil.executeArrangement(input, output, log, components, header, footer);
 
 		return count;

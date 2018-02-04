@@ -32,7 +32,7 @@ public class OriginalSumArrangement implements SumUtil {
 		// add the task into list
 		components.add(batchComponentII);
 		//execute the batch controller
-		ExecuteUtil executeUtil = new OriginalExecuteArrangement();
+		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
 		executeUtil.executeArrangement(input, output, log, components, header, footer);
 
 		//return the sum finally

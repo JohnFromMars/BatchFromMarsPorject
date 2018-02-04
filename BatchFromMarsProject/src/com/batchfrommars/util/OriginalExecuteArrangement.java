@@ -7,9 +7,9 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 
-public class OriginalExecuteArrangement implements ExecuteUtil {
+public class OriginalExecuteArrangement  {
 
-	@Override
+	
 	public void executeArrangement(FileInformation input, FileInformation output, Logger log,
 			List<ComponentII> components, String header, String footer) throws Exception {
 
