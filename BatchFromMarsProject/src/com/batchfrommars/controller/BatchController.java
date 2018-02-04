@@ -23,7 +23,7 @@ import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
 import com.batchfrommars.util.SortUtil;
 
-public abstract class BatchController {
+public class BatchController {
 
 	// list of components to execute
 	protected List<ComponentII> components;
