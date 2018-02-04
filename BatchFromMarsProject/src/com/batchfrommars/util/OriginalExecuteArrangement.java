@@ -7,10 +7,9 @@ import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.TemporaryFile;
 
-public class OriginalExecuteArrangement  {
+public class OriginalExecuteArrangement {
 
-	
-	public void executeArrangement(FileInformation input, FileInformation output, Logger log,
+	public void executeArrangement(List<FileInformation> input, FileInformation output, Logger log,
 			List<ComponentII> components, String header, String footer) throws Exception {
 
 		log.finest("components size = " + components.size());
@@ -41,18 +40,20 @@ public class OriginalExecuteArrangement  {
 
 	}
 
-	private void closeInputAndOutput(FileInformation input, FileInformation output) throws Exception {
+	private void closeInputAndOutput(List<FileInformation> input, FileInformation output) throws Exception {
 		if (input != null) {
-			input.closeFile();
+			for (FileInformation fileInformation : input) {
+				fileInformation.closeFile();
+			}
 		}
 		if (output != null) {
 			output.closeFile();
 		}
 	}
 
-	private void setInput(FileInformation input, Logger log, List<ComponentII> components) {
-		if (input != null) {
-			components.get(0).addInputFileInformation(input);
+	private void setInput(List<FileInformation> input, Logger log, List<ComponentII> components) {
+		if (input.size() != 0) {
+			components.get(0).addInputFileInformation(input.get(0));
 			log.finest("start component(0)+input");
 		}
 

@@ -22,7 +22,6 @@ import com.batchfrommars.util.OriginalMapArangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
 import com.batchfrommars.util.SortUtil;
-import com.batchfrommars.util.SumUtil;
 
 public abstract class BatchController {
 
@@ -44,7 +43,7 @@ public abstract class BatchController {
 
 	// file area
 	protected List<FileInformation> tempFile;
-	protected FileInformation input;
+	protected List<FileInformation> input;
 	protected FileInformation output;
 
 	private SortUtil sortUtil;
@@ -53,6 +52,7 @@ public abstract class BatchController {
 	public BatchController() {
 		components = new ArrayList<>();
 		tempFile = new ArrayList<>();
+		input = new ArrayList<>();
 	}
 
 	public BatchController filter(Predicate<String> predicate) {
@@ -90,14 +90,14 @@ public abstract class BatchController {
 	public BatchController input(String filePath, String encodeing)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
-		FileInformation input = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
-		this.input = input;
+		FileInformation fileInformation = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
+		this.input.add(fileInformation);
 
 		return this;
 	}
 
 	public BatchController input(FileInformation fileInformation) {
-		this.input = fileInformation;
+		this.input.add(fileInformation);
 		return this;
 	}
 
@@ -120,7 +120,7 @@ public abstract class BatchController {
 	}
 
 	public BigDecimal sum(Function<String, String> function) throws Exception {
-		SumUtil originSumArranement = new OriginalSumArrangement();
+		OriginalSumArrangement originSumArranement = new OriginalSumArrangement();
 		return originSumArranement.arrangeSum(function, components, logger, input, output, header, footer);
 	}
 

@@ -12,7 +12,7 @@ public class OriginalCountArrangement {
 
 	private Integer count = new Integer(0);
 
-	public Integer arrangeCount(List<ComponentII> components, Logger log, FileInformation input, FileInformation output,
+	public Integer arrangeCount(List<ComponentII> components, Logger log, List<FileInformation> input, FileInformation output,
 			String header, String footer) throws Exception {
 
 		//create count task

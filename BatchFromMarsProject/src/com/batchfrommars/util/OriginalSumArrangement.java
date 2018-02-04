@@ -10,7 +10,7 @@ import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
-public class OriginalSumArrangement implements SumUtil {
+public class OriginalSumArrangement{
 
 	private BigDecimal decimal = new BigDecimal(0);
 
@@ -23,9 +23,9 @@ public class OriginalSumArrangement implements SumUtil {
 	 * com.batchfrommars.file.FileInformation,
 	 * com.batchfrommars.file.FileInformation)
 	 */
-	@Override
+
 	public BigDecimal arrangeSum(Function<String, String> function, List<ComponentII> components, Logger log,
-			FileInformation input, FileInformation output, String header, String footer) throws Exception {
+			List<FileInformation> input, FileInformation output, String header, String footer) throws Exception {
 
 		// create the sum task
 		BatchComponentII batchComponentII = createSumComponent(function, log);
