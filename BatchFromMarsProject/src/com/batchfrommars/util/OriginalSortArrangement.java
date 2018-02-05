@@ -31,11 +31,11 @@ public class OriginalSortArrangement {
 	/**
 	 * this function is for compare task
 	 * 
-	 * @param tasks
+	 * @param hiddenTasks
 	 * @param log
 	 * @param sortKey
 	 */
-	public void arrangeHiddenSortTask(List<Task> tasks, Logger log, Function<String, String> sortKey) {
+	public void arrangeHiddenSortTask(List<Task> hiddenTasks, Logger log, Function<String, String> sortKey) {
 		SortComponent sortComponent = new SortComponent() {
 
 			@Override
@@ -59,7 +59,7 @@ public class OriginalSortArrangement {
 			}
 		};
 		
-		tasks.add(new Task(sortComponent, TaskName.SORT, tasks.size()));
+		hiddenTasks.add(new Task(sortComponent, TaskName.SORT, hiddenTasks.size()));
 		
 	}
 
