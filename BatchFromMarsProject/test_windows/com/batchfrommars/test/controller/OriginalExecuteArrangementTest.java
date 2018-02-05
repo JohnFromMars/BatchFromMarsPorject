@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.util.LogLevel;
 
 public class OriginalExecuteArrangementTest {
@@ -19,8 +19,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 
@@ -49,8 +49,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 
@@ -76,8 +76,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		String header = "hello this is header !";
 
 		// Set input
@@ -105,8 +105,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		String footer = "hello this is footer !";
 
 		// Set input
@@ -134,8 +134,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		String footer = "hello this is footer !";
 		String header = "hello this is header !";
 
@@ -256,8 +256,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 
@@ -284,8 +284,8 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 

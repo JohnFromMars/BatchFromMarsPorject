@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * @author JohnFromMars
  * @date 2016-09-17
  */
-public class TemporaryFile implements FileInformation {
+public class QueueFile implements FileInformation {
 	// queue buffer
 	private BlockingQueue<String> buffer;
 
@@ -18,12 +18,12 @@ public class TemporaryFile implements FileInformation {
 	private static int DEFAULT_ALLOCATE = 300;
 	private static int DEFAULT_WAITING_TIME = 5;
 
-	public TemporaryFile(int allocate) {
+	public QueueFile(int allocate) {
 		buffer = new ArrayBlockingQueue<String>(allocate);
 		tempFileName = this.getClass().getGenericInterfaces().getClass().getSimpleName();
 	}
 
-	public TemporaryFile() {
+	public QueueFile() {
 		buffer = new ArrayBlockingQueue<String>(DEFAULT_ALLOCATE);
 		tempFileName = String.valueOf(this.getClass().getSimpleName() + " " + this.hashCode());
 	}

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.test.component.StepMerge;
 import com.batchfrommars.test.component.StepMergeAscending;
 import com.batchfrommars.test.component.TestBatchComponentII1;
@@ -19,9 +19,9 @@ public class MergeSortComponentTest {
 	@Test
 	public void testSingleMergeSortComponentDescending() throws Exception {
 		StepMerge merge = new StepMerge();
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		merge.addInputFileInformation(testInput1, testInput2);
 		merge.addOutputFileInformation(testOutput);
 
@@ -61,9 +61,9 @@ public class MergeSortComponentTest {
 	@Test
 	public void testSingleMergeSortComponentAscending() throws Exception {
 		StepMergeAscending merge = new StepMergeAscending();
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		merge.addInputFileInformation(testInput1, testInput2);
 		merge.addOutputFileInformation(testOutput);
@@ -105,12 +105,12 @@ public class MergeSortComponentTest {
 		TestBatchComponentII1 batch1 = new TestBatchComponentII1();
 		TestBatchComponentII2 batch2 = new TestBatchComponentII2();
 
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		FileInformation temp1 = new TemporaryFile();
-		FileInformation temp2 = new TemporaryFile();
+		FileInformation temp1 = new QueueFile();
+		FileInformation temp2 = new QueueFile();
 
 		// set batch1
 		batch1.addInputFileInformation(testInput1);
@@ -178,12 +178,12 @@ public class MergeSortComponentTest {
 		StepMerge merge = new StepMerge();
 		TwoWayBatchComponenet componenet = new TwoWayBatchComponenet();
 
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		FileInformation temp1 = new TemporaryFile();
-		FileInformation temp2 = new TemporaryFile();
+		FileInformation temp1 = new QueueFile();
+		FileInformation temp2 = new QueueFile();
 
 		// set component
 		componenet.addInputFileInformation(testInput1, testInput2);

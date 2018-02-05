@@ -143,7 +143,7 @@ public class BatchController {
 	public BatchController compare(Function<String, String> firstInputKey, Function<String, String> secondInputKey,
 			BiFunction<String, String, String> resultForm) {
 		OriginalCompareArrangement compareArrangement = new OriginalCompareArrangement();
-		compareArrangement.arrangeCompareTask(tasks, logger, firstInputKey, secondInputKey, resultForm);
+		compareArrangement.arrangeCompareTask(tasks, hiddenTasks, logger, firstInputKey, secondInputKey, resultForm);
 		return this;
 	}
 

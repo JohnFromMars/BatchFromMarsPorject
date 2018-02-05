@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.test.component.StepTestBatchComponent;
 import com.batchfrommars.test.component.TestBatchComponentII1;
 import com.batchfrommars.test.component.TestBatchComponentII2;
@@ -19,10 +19,10 @@ public class BatchComponentIITest {
 	@Test
 	public void testStepBatchComponent() throws Exception {
 		StepTestBatchComponent component = new StepTestBatchComponent();
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOuputDev = new TemporaryFile();
-		FileInformation testOuputUat = new TemporaryFile();
-		FileInformation testOuputPrd = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOuputDev = new QueueFile();
+		FileInformation testOuputUat = new QueueFile();
+		FileInformation testOuputPrd = new QueueFile();
 
 		testInput.writeFile("prd.xxxxxxxxx1");
 		testInput.writeFile("uat.xxxxxxxxx2");
@@ -73,14 +73,14 @@ public class BatchComponentIITest {
 		TestBatchComponentII2 componentUat = new TestBatchComponentII2();
 		TestBatchComponentII3 componentPrd = new TestBatchComponentII3();
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOuputDev = new TemporaryFile(1);
-		FileInformation testOuputUat = new TemporaryFile(1);
-		FileInformation testOuputPrd = new TemporaryFile(1);
+		FileInformation testInput = new QueueFile();
+		FileInformation testOuputDev = new QueueFile(1);
+		FileInformation testOuputUat = new QueueFile(1);
+		FileInformation testOuputPrd = new QueueFile(1);
 
-		FileInformation testDev = new TemporaryFile();
-		FileInformation testUat = new TemporaryFile();
-		FileInformation testPrd = new TemporaryFile();
+		FileInformation testDev = new QueueFile();
+		FileInformation testUat = new QueueFile();
+		FileInformation testPrd = new QueueFile();
 
 		testInput.writeFile("prd.xxxxxxxxx1");
 		testInput.writeFile("uat.xxxxxxxxx2");

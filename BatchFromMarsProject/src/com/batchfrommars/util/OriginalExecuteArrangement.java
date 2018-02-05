@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 
 public class OriginalExecuteArrangement {
 
@@ -73,7 +73,7 @@ public class OriginalExecuteArrangement {
 	private void setTempFiles(Logger log, List<ComponentII> components) {
 
 		for (int i = 0; i < components.size(); i++) {
-			FileInformation fileInformation = new TemporaryFile();
+			FileInformation fileInformation = new QueueFile();
 
 			if (i < components.size() - 1) {
 				components.get(i).addOutputFileInformation(fileInformation);

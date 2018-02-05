@@ -7,15 +7,16 @@ import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
+import com.batchfrommars.util.LogLevel;
 
 public class OriginalCompareArrangementTest {
 	@Test
 	public void testCompareTaskWithOrder() throws Exception {
 		BatchController batchController = new BatchController();
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		testInput1.writeFile("000011111");
 		testInput1.writeFile("000002222");
@@ -30,6 +31,7 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
+		               .logger("testCompareTaskWithOrder", "D:/BatchFromMars", LogLevel.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
 

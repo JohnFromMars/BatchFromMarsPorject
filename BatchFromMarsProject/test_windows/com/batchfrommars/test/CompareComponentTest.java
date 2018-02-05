@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.test.component.StepCompare;
 import com.batchfrommars.test.component.TestBatchComponentII1;
 import com.batchfrommars.test.component.TestBatchComponentII2;
@@ -18,9 +18,9 @@ public class CompareComponentTest {
 	@Test
 	public void testSingleCompareComponent() throws Exception {
 		StepCompare compare = new StepCompare();
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// setting input1 data
 		testInput1.writeFile("0000xxxx01");
@@ -59,12 +59,12 @@ public class CompareComponentTest {
 		StepCompare compare = new StepCompare();
 		TwoWayBatchComponenet batchComponenet = new TwoWayBatchComponenet();
 
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		// temp
-		FileInformation testInputA = new TemporaryFile();
-		FileInformation testInputB = new TemporaryFile();
+		FileInformation testInputA = new QueueFile();
+		FileInformation testInputB = new QueueFile();
 		// setting input1 data
 		testInput1.writeFile("0000xxxx01");
 		testInput1.writeFile("0011xxxx02");
@@ -118,11 +118,11 @@ public class CompareComponentTest {
 		TestBatchComponentII1 componentII1 = new TestBatchComponentII1();
 		TestBatchComponentII2 componentII2 = new TestBatchComponentII2();
 
-		FileInformation testInput1 = new TemporaryFile();
-		FileInformation testInput2 = new TemporaryFile();
-		FileInformation testInputA = new TemporaryFile(1);
-		FileInformation testInputB = new TemporaryFile(1);
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testInputA = new QueueFile(1);
+		FileInformation testInputB = new QueueFile(1);
+		FileInformation testOutput = new QueueFile();
 
 		// setting input1 data
 		testInput1.writeFile("0000xxxx01");

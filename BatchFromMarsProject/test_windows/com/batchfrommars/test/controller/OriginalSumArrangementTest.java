@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.util.LogLevel;
 
 public class OriginalSumArrangementTest {
@@ -19,7 +19,7 @@ public class OriginalSumArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
 
 		// Set input
 
@@ -43,8 +43,8 @@ public class OriginalSumArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 		// Set input
 
 		testInput.writeFile("0001.35DD00");

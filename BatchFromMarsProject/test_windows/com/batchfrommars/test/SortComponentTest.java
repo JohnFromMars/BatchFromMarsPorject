@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
-import com.batchfrommars.file.TemporaryFile;
+import com.batchfrommars.file.QueueFile;
 import com.batchfrommars.test.component.StepDelayBatch;
 import com.batchfrommars.test.component.StepSort;
 import com.batchfrommars.test.component.StepSortManyRound;
@@ -23,8 +23,8 @@ public class SortComponentTest {
 	@Test
 	public void testNoInput() {
 		StepSort sort = new StepSort();
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		sort.addInputFileInformation(testInput);
 		sort.addOutputFileInformation(testOutput);
@@ -37,8 +37,8 @@ public class SortComponentTest {
 	@Test
 	public void testGetRunTimeMemoryUsage() throws Exception {
 		StepSort sort = new StepSort();
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 		testInput.writeFile("0000xxxx");
@@ -85,9 +85,9 @@ public class SortComponentTest {
 		StepSort sort = new StepSort();
 		StepDelayBatch batch = new StepDelayBatch();
 
-		FileInformation testInput = new TemporaryFile();
-		FileInformation temp = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation temp = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 		testInput.writeFile("0000xxxx");
@@ -140,7 +140,7 @@ public class SortComponentTest {
 	@Test
 	public void testPhysicalFile() throws Exception {
 		StepSort sort = new StepSort();
-		FileInformation testInput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
 		FileInformation testOutput = new PhysicalFile(PhysicalFile.OUTPUT, "d:/test.txt", "UTF8", false);
 
 		// Set input
@@ -195,8 +195,8 @@ public class SortComponentTest {
 	@Test
 	public void testTwoRoundSort() throws Exception {
 		StepSortManyRound sort = new StepSortManyRound();
-		FileInformation testInput = new TemporaryFile();
-		FileInformation testOutput = new TemporaryFile();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
 		// Set input
 		testInput.writeFile("0000AA00");

@@ -10,13 +10,19 @@ import com.batchfrommars.component.ComponentII;
 
 public class OriginalCompareArrangement {
 
-	public void arrangeCompareTask(List<ComponentII> components, Logger log, Function<String, String> firstInputKey,
-			Function<String, String> secondInputKey, BiFunction<String, String, String> resultForm) {
+	public void arrangeCompareTask(List<ComponentII> components, List<ComponentII> hiddenTasks, Logger log,
+			Function<String, String> firstInputKey, Function<String, String> secondInputKey,
+			BiFunction<String, String, String> resultForm) {
+
+		OriginalSortArrangement sortArrangement = new OriginalSortArrangement();
 
 		CompareComponent compareComponent = createCompareComponent(log, firstInputKey, secondInputKey, resultForm);
+		// before comparing data , the datas need to get sorted
+		sortArrangement.arrangeHiddenSortTask(hiddenTasks, log, firstInputKey);
+		sortArrangement.arrangeHiddenSortTask(hiddenTasks, log, secondInputKey);
 
 		log.finest("add compare component to list");
-
+		log.finest("Hidden task size = " + hiddenTasks.size());
 		components.add(compareComponent);
 
 		log.finest("add compare component finish");
