@@ -10,7 +10,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.LogLevel;
@@ -22,13 +21,14 @@ import com.batchfrommars.util.OriginalLoggerArrangement;
 import com.batchfrommars.util.OriginalMapArangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
+import com.batchfrommars.util.Task;
 
 public class BatchController {
 
 	// list of components to execute
-	protected List<ComponentII> tasks;
+	protected List<Task> tasks;
 	// list of hidden component
-	protected List<ComponentII> hiddenTasks;
+	protected List<Task> hiddenTasks;
 
 	// logger
 	protected Logger logger;
@@ -58,7 +58,7 @@ public class BatchController {
 
 	public BatchController filter(Predicate<String> predicate) {
 		OriginalFilterArrangement mapUtil = new OriginalFilterArrangement();
-		mapUtil.arrangeMapTask(tasks, logger, predicate);
+		mapUtil.arrangeFilterTask(tasks, logger, predicate);
 
 		return this;
 	}

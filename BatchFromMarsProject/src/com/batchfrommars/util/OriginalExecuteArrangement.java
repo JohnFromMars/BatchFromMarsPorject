@@ -3,7 +3,6 @@ package com.batchfrommars.util;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.FileList;
 import com.batchfrommars.file.QueueFile;
@@ -11,27 +10,27 @@ import com.batchfrommars.file.QueueFile;
 public class OriginalExecuteArrangement {
 
 	public void arrangeExecuteTask(List<FileInformation> input, FileInformation output, Logger log,
-			List<ComponentII> components, String header, String footer) throws Exception {
+			List<Task> tasks, String header, String footer) throws Exception {
 
-		log.finest("components size = " + components.size());
+		log.finest("components size = " + tasks.size());
 
 		// set input
-		setInput(input, log, components);
+		setInput(input, log, tasks);
 
 		// set output
-		setOutput(output, log, components);
+		setOutput(output, log, tasks);
 
 		// set temp file
-		setTempFiles(log, components);
+		setTempFiles(log, tasks);
 
 		// write header
 		writeHeader(header, output);
 
 		// start the batch
-		startAllComponents(components);
+		startAllComponents(tasks);
 
 		// wait the unfinished components
-		waitUnfinishedComponents(components);
+		waitUnfinishedComponents(tasks);
 
 		// write footer
 		writeFooter(footer, output);
@@ -52,54 +51,62 @@ public class OriginalExecuteArrangement {
 		}
 	}
 
-	private void setInput(List<FileInformation> input, Logger log, List<ComponentII> components) {
+	/*
+	 * connect the inputs to the first task
+	 */
+	private void setInput(List<FileInformation> input, Logger log, List<Task> tasks) {
 		if (input.size() != 0) {
 			FileList fileList = new FileList();
 			fileList.setFileInformationsList(input);
-			components.get(0).setInputFileList(fileList);
+			tasks.get(0).getComponent().setInputFileList(fileList);
 			log.finest("start components.get(0).setInputFileList(fileList)");
 		}
 
 	}
 
-	private void setOutput(FileInformation output, Logger log, List<ComponentII> components) {
+	private void setOutput(FileInformation output, Logger log, List<Task> tasks) {
 		if (output != null) {
-			components.get(components.size() - 1).addOutputFileInformation(output);
-			log.finest("start component(" + (components.size() - 1) + ")+output");
-
+			tasks.get(tasks.size() - 1).getComponent().addOutputFileInformation(output);
+			log.finest("start component(" + (tasks.size() - 1) + ")+output");
 		}
 	}
 
-	private void setTempFiles(Logger log, List<ComponentII> components) {
+	/**
+	 * connect all the components with queue file
+	 * and set the last step
+	 * @param log
+	 * @param tasks
+	 */
+	private void setTempFiles(Logger log, List<Task> tasks) {
 
-		for (int i = 0; i < components.size(); i++) {
+		for (int i = 0; i < tasks.size(); i++) {
 			FileInformation fileInformation = new QueueFile();
 
-			if (i < components.size() - 1) {
-				components.get(i).addOutputFileInformation(fileInformation);
+			if (i < tasks.size() - 1) {
+				tasks.get(i).getComponent().addOutputFileInformation(fileInformation);
 				log.finest("in loop component(" + i + ")+output");
 
 			}
 
-			if ((i + 1) < components.size()) {
-				components.get(i + 1).addInputFileInformation(fileInformation);
-				components.get(i + 1).addLastComponent(components.get(i));
+			if ((i + 1) < tasks.size()) {
+				tasks.get(i + 1).getComponent().addInputFileInformation(fileInformation);
+				tasks.get(i + 1).getComponent().addLastComponent(tasks.get(i).getComponent());
 				log.finest("in loop component(" + (i + 1) + ")+output");
 				log.finest("in loop, add component(" + i + ") to component(" + i + 1 + ")'s last component list");
 			}
 		}
 	}
 
-	private void startAllComponents(List<ComponentII> components) {
+	private void startAllComponents(List<Task> tasks) {
 
-		for (ComponentII componentII : components) {
-			componentII.start();
+		for (Task task : tasks) {
+			task.getComponent().start();
 		}
 	}
 
-	private void waitUnfinishedComponents(List<ComponentII> components) throws InterruptedException {
-		for (ComponentII componentII : components) {
-			componentII.join();
+	private void waitUnfinishedComponents(List<Task> tasks) throws InterruptedException {
+		for (Task task : tasks) {
+			task.getComponent().join();
 		}
 	}
 

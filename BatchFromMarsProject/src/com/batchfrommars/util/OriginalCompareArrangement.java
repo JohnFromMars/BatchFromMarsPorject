@@ -6,11 +6,10 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.CompareComponent;
-import com.batchfrommars.component.ComponentII;
 
 public class OriginalCompareArrangement {
 
-	public void arrangeCompareTask(List<ComponentII> components, List<ComponentII> hiddenTasks, Logger log,
+	public void arrangeCompareTask(List<Task> tasks, List<Task> hiddenTasks, Logger log,
 			Function<String, String> firstInputKey, Function<String, String> secondInputKey,
 			BiFunction<String, String, String> resultForm) {
 
@@ -23,7 +22,7 @@ public class OriginalCompareArrangement {
 
 		log.finest("add compare component to list");
 		log.finest("Hidden task size = " + hiddenTasks.size());
-		components.add(compareComponent);
+		tasks.add(new Task(compareComponent, TaskName.COMPARE, tasks.size()));
 
 		log.finest("add compare component finish");
 

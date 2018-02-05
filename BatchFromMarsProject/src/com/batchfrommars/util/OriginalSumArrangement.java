@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.BatchComponentII;
-import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
 public class OriginalSumArrangement{
@@ -24,16 +23,16 @@ public class OriginalSumArrangement{
 	 * com.batchfrommars.file.FileInformation)
 	 */
 
-	public BigDecimal arrangeSumTask(Function<String, String> function, List<ComponentII> components, Logger log,
+	public BigDecimal arrangeSumTask(Function<String, String> function, List<Task> tasks, Logger log,
 			List<FileInformation> input, FileInformation output, String header, String footer) throws Exception {
 
 		// create the sum task
 		BatchComponentII batchComponentII = createSumComponent(function, log);
 		// add the task into list
-		components.add(batchComponentII);
+		tasks.add(new Task(batchComponentII, TaskName.SUM, tasks.size()));
 		//execute the batch controller
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, log, components, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, log, tasks, header, footer);
 
 		//return the sum finally
 		return decimal;

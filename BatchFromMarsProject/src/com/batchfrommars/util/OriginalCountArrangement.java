@@ -5,25 +5,24 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.BatchComponentII;
-import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.file.FileInformation;
 
 public class OriginalCountArrangement {
 
 	private Integer count = new Integer(0);
 
-	public Integer arrangeCountTask(List<ComponentII> components, Logger log, List<FileInformation> input, FileInformation output,
+	public Integer arrangeCountTask(List<Task> tasks, Logger log, List<FileInformation> input, FileInformation output,
 			String header, String footer) throws Exception {
 
 		//create count task
 		BatchComponentII batchComponentII = createCountComponent(log);
 
 		//add it into task list
-		components.add(batchComponentII);
+		tasks.add(new Task(batchComponentII, TaskName.COUNT, tasks.size()));
 
 		//execute the batch controller
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, log, components, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, log, tasks, header, footer);
 
 		return count;
 	}

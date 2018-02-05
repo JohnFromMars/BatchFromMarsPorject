@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
-import com.batchfrommars.component.ComponentII;
 import com.batchfrommars.component.SortComponent;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
 public class OriginalSortArrangement {
 
-	public void arrangeSortTask(List<ComponentII> components, Logger log, String sortText) {
+	public void arrangeSortTask(List<Task> tasks, Logger log, String sortText) {
 
 		log.finest("sortArrangement start, sort text=" + sortText);
 		ArrayList<SortObject> result = analyseSortText(sortText, log);
@@ -23,7 +22,7 @@ public class OriginalSortArrangement {
 
 		log.finest("add sort component to list");
 		// add to list
-		components.add(sortComponent);
+		tasks.add(new Task(sortComponent, TaskName.SORT, tasks.size()));
 
 		log.finest("finish");
 
@@ -32,11 +31,11 @@ public class OriginalSortArrangement {
 	/**
 	 * this function is for compare task
 	 * 
-	 * @param components
+	 * @param tasks
 	 * @param log
 	 * @param sortKey
 	 */
-	public void arrangeHiddenSortTask(List<ComponentII> components, Logger log, Function<String, String> sortKey) {
+	public void arrangeHiddenSortTask(List<Task> tasks, Logger log, Function<String, String> sortKey) {
 		SortComponent sortComponent = new SortComponent() {
 
 			@Override
@@ -60,7 +59,8 @@ public class OriginalSortArrangement {
 			}
 		};
 		
-		components.add(sortComponent);
+		tasks.add(new Task(sortComponent, TaskName.SORT, tasks.size()));
+		
 	}
 
 	private SortComponent createSortComponent(Logger log, ArrayList<SortObject> result) {

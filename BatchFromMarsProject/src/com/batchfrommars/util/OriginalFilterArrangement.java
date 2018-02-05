@@ -6,18 +6,17 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.BatchComponentII;
-import com.batchfrommars.component.ComponentII;
 
 public class OriginalFilterArrangement {
 
-	public void arrangeMapTask(List<ComponentII> components, Logger log, Predicate<String> predicate) {
+	public void arrangeFilterTask(List<Task> tasks, Logger log, Predicate<String> predicate) {
 		log.finest("predicate=" + predicate.toString());
 		// create filter task
 		BatchComponentII batchComponentII = createFilterComponent(log, predicate);
 
 		log.finest("add map component to list");
 		// add it into task list
-		components.add(batchComponentII);
+		tasks.add(new Task(batchComponentII, TaskName.FILTER, tasks.size()));
 
 		log.finest("finish");
 	}

@@ -6,18 +6,17 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import com.batchfrommars.component.BatchComponentII;
-import com.batchfrommars.component.ComponentII;
 
 public class OriginalMapArangement {
 
-	public void arrangeMapTask(List<ComponentII> components, Logger log, Function<String, String> function) {
+	public void arrangeMapTask(List<Task> tasks, Logger log, Function<String, String> function) {
 
 		// create map task
 		BatchComponentII batchComponentII = createMapComponent(log, function);
 
 		log.finest("add map component to list");
 		// add to list
-		components.add(batchComponentII);
+		tasks.add(new Task(batchComponentII, TaskName.MAP, tasks.size()));
 
 		log.finest("mapArrangement finish");
 	}
