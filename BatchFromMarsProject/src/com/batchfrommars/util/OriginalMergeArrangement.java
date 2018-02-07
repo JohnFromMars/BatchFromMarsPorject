@@ -1,38 +1,28 @@
 package com.batchfrommars.util;
 
+import java.util.List;
 import java.util.logging.Logger;
 
-import com.batchfrommars.component.MergeSortComponent;
+import com.batchfrommars.component.MergeComponent;
 
 public class OriginalMergeArrangement {
 
-	public void arrangeMergeTask() {
-		MergeSortComponent mergeSortComponent = createMergeSortComponent();
+	public void arrangeMergeTask(List<Task> tasks, Logger log) {
+		MergeComponent mergeComponent = createMergeComponent(log);
+		tasks.add(new Task(mergeComponent, TaskName.MERGE, tasks.size()));
+		
 	}
 
-	private MergeSortComponent createMergeSortComponent() {
-		MergeSortComponent mergeSortComponent = new MergeSortComponent() {
+	private MergeComponent createMergeComponent(Logger log) {
+		MergeComponent mergeComponent = new MergeComponent() {
 
 			@Override
 			protected Logger getLoggger() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			protected int getMergeSortMethod() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			@Override
-			protected Object getKey(String data) {
-				// TODO Auto-generated method stub
-				return null;
+				return log;
 			}
 		};
 
-		return mergeSortComponent;
+		return mergeComponent;
 	}
 
 }

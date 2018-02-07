@@ -19,6 +19,7 @@ import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
 import com.batchfrommars.util.OriginalLoggerArrangement;
 import com.batchfrommars.util.OriginalMapArangement;
+import com.batchfrommars.util.OriginalMergeArrangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
 import com.batchfrommars.util.Task;
@@ -147,10 +148,10 @@ public class BatchController {
 		return this;
 	}
 
-	// public BatchController merge() {
-	// OriginalMergeArrangement mergeArrangement = new
-	// OriginalMergeArrangement();
-	// return this;
-	// }
+	public BatchController merge() {
+		OriginalMergeArrangement originalMergeArrangement = new OriginalMergeArrangement();
+		originalMergeArrangement.arrangeMergeTask(tasks, logger);
+		return this;
+	}
 
 }
