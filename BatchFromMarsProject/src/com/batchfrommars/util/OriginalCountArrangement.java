@@ -11,18 +11,18 @@ public class OriginalCountArrangement {
 
 	private Integer count = new Integer(0);
 
-	public Integer arrangeCountTask(List<Task> tasks, Logger log, List<FileInformation> input, FileInformation output,
-			String header, String footer) throws Exception {
+	public Integer arrangeCountTask(List<Task> tasks, List<Task> hiddenTasks, Logger log, List<FileInformation> input,
+			FileInformation output, String header, String footer) throws Exception {
 
-		//create count task
+		// create count task
 		BatchComponentII batchComponentII = createCountComponent(log);
 
-		//add it into task list
+		// add it into task list
 		tasks.add(new Task(batchComponentII, TaskName.COUNT, tasks.size()));
 
-		//execute the batch controller
+		// execute the batch controller
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, log, tasks, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, log, tasks, hiddenTasks, header, footer);
 
 		return count;
 	}

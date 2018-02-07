@@ -242,7 +242,7 @@ public abstract class CompareComponent extends ComponentII {
 		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
 				+ inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()=" + isSomeLastComponentsRunning());
 
-		while (inputFileList.size() == INPUT_SIZE && !inputFileList.isAllEmpty() || isSomeLastComponentsRunning()) {
+		while (inputFileList.size() == INPUT_SIZE && (!inputFileList.isAllEmpty() || isSomeLastComponentsRunning())) {
 			if (input1 == null && input2 == null) {
 				input1 = inputFileList.readFile(INPUT_1);
 				input2 = inputFileList.readFile(INPUT_2);
@@ -251,12 +251,12 @@ public abstract class CompareComponent extends ComponentII {
 			} else if (input1 != null && input2 == null) {
 				logger.finest("input1 != null, input2 == null, cheching isLastComponentRunning...");
 
-				if (isLastComponentRunning(INPUT_2)) {
+				if (isLastComponentRunning(INPUT_2) || !inputFileList.isEmpty(INPUT_2)) {
 					logger.finest("Checking input2 component " + getLastComponentList().get(INPUT_2).toString()
 							+ " is still running, read input2 next data...");
 					input2 = inputFileList.readFile(INPUT_2);
 
-				} else if (!isLastComponentRunning(INPUT_2)) {
+				} else if (!isLastComponentRunning(INPUT_2) && inputFileList.isEmpty(INPUT_2)) {
 					logger.finest("Checking input2 component " + getLastComponentList().get(INPUT_2).toString()
 							+ " is not running, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
@@ -265,14 +265,15 @@ public abstract class CompareComponent extends ComponentII {
 			} else if (input1 == null && input2 != null) {
 				logger.finest("input1 == null, input2 != null, cheching isLastComponentRunning...");
 
-				if (isLastComponentRunning(INPUT_1)) {
+				if (isLastComponentRunning(INPUT_1) || !inputFileList.isEmpty(INPUT_1)) {
 					logger.finest("Checking input1 component " + getLastComponentList().get(INPUT_1).toString()
 							+ " is still running, read input1 next data...");
 					input1 = inputFileList.readFile(INPUT_1);
 
-				} else if (!isLastComponentRunning(INPUT_1)) {
+				} else if (!isLastComponentRunning(INPUT_1) && inputFileList.isEmpty(INPUT_1)) {
 					logger.finest("Checking input1 component " + getLastComponentList().get(INPUT_1).toString()
 							+ " is not running, read input2 next data...");
+					logger.finest("Checking input1 inputFileList.isEmpty(INPUT_1)=" + inputFileList.isEmpty(INPUT_1));
 					input2 = inputFileList.readFile(INPUT_2);
 				}
 

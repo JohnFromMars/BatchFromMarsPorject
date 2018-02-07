@@ -30,13 +30,14 @@ public abstract class SortComponent extends ComponentII {
 
 	protected abstract ArrayList<Integer> getOrders();
 
-//	public SortComponent(Logger logger, ArrayList<Integer> orders, ArrayList<Object> keys) {
-//		super();
-//	}
-//
-//	public SortComponent() {
-//		super();
-//	}
+	// public SortComponent(Logger logger, ArrayList<Integer> orders,
+	// ArrayList<Object> keys) {
+	// super();
+	// }
+	//
+	// public SortComponent() {
+	// super();
+	// }
 
 	@Override
 	protected void act() throws Exception {
@@ -328,6 +329,8 @@ public abstract class SortComponent extends ComponentII {
 	 * @throws Exception
 	 */
 	public void doOutput(File file, FileList fileList) throws Exception {
+		logger.finest("doOutput start...fileList=" + fileList.toString());
+
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String s = null;
 
@@ -335,10 +338,12 @@ public abstract class SortComponent extends ComponentII {
 			while (reader.ready()) {
 				s = reader.readLine();
 				fileList.writeToAllFile(s);
+				logger.finest("doOutput write out string=" + s + " to fileList");
 			}
 
 		} finally {
 			reader.close();
+			logger.finest("doOutput finish...");
 		}
 	}
 

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import com.batchfrommars.component.BatchComponentII;
 import com.batchfrommars.file.FileInformation;
 
-public class OriginalSumArrangement{
+public class OriginalSumArrangement {
 
 	private BigDecimal decimal = new BigDecimal(0);
 
@@ -23,18 +23,19 @@ public class OriginalSumArrangement{
 	 * com.batchfrommars.file.FileInformation)
 	 */
 
-	public BigDecimal arrangeSumTask(Function<String, String> function, List<Task> tasks, Logger log,
-			List<FileInformation> input, FileInformation output, String header, String footer) throws Exception {
+	public BigDecimal arrangeSumTask(Function<String, String> function, List<Task> tasks, List<Task> hiddenTask,
+			Logger log, List<FileInformation> input, FileInformation output, String header, String footer)
+			throws Exception {
 
 		// create the sum task
 		BatchComponentII batchComponentII = createSumComponent(function, log);
 		// add the task into list
 		tasks.add(new Task(batchComponentII, TaskName.SUM, tasks.size()));
-		//execute the batch controller
+		// execute the batch controller
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, log, tasks, header, footer);
+		executeUtil.arrangeExecuteTask(input, output, log, tasks, hiddenTask, header, footer);
 
-		//return the sum finally
+		// return the sum finally
 		return decimal;
 	}
 

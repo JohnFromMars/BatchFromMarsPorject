@@ -46,4 +46,8 @@ public class Task {
 		this.taskId = taskId;
 	}
 
+	public String toString() {
+		return "Task [taskName=" + taskName + ", taskId=" + taskId + "]";
+	}
+
 }

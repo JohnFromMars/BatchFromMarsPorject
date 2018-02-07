@@ -44,15 +44,15 @@ public class BatchController {
 	protected String footer;
 
 	// file area
-	protected List<FileInformation> tempFile;
-	protected List<FileInformation> input;
+	protected List<FileInformation> tempFiles;
+	protected List<FileInformation> inputs;
 	protected FileInformation output;
 
 	public BatchController() {
 		tasks = new ArrayList<>();
 		hiddenTasks = new ArrayList<>();
-		tempFile = new ArrayList<>();
-		input = new ArrayList<>();
+		tempFiles = new ArrayList<>();
+		inputs = new ArrayList<>();
 		logger = Logger.getAnonymousLogger();
 	}
 
@@ -92,13 +92,13 @@ public class BatchController {
 			throws UnsupportedEncodingException, FileNotFoundException {
 
 		FileInformation fileInformation = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
-		this.input.add(fileInformation);
+		this.inputs.add(fileInformation);
 
 		return this;
 	}
 
 	public BatchController input(FileInformation fileInformation) {
-		this.input.add(fileInformation);
+		this.inputs.add(fileInformation);
 		return this;
 	}
 
@@ -117,17 +117,17 @@ public class BatchController {
 
 	public void execute() throws Exception {
 		OriginalExecuteArrangement executeUtil = new OriginalExecuteArrangement();
-		executeUtil.arrangeExecuteTask(input, output, logger, tasks, header, footer);
+		executeUtil.arrangeExecuteTask(inputs, output, logger, tasks, hiddenTasks, header, footer);
 	}
 
 	public BigDecimal sum(Function<String, String> function) throws Exception {
 		OriginalSumArrangement originSumArranement = new OriginalSumArrangement();
-		return originSumArranement.arrangeSumTask(function, tasks, logger, input, output, header, footer);
+		return originSumArranement.arrangeSumTask(function, tasks, hiddenTasks, logger, inputs, output, header, footer);
 	}
 
 	public Integer count() throws Exception {
 		OriginalCountArrangement count = new OriginalCountArrangement();
-		return count.arrangeCountTask(tasks, logger, input, output, header, footer);
+		return count.arrangeCountTask(tasks, hiddenTasks, logger, inputs, output, header, footer);
 	}
 
 	public BatchController header(String header) {
@@ -141,7 +141,7 @@ public class BatchController {
 	}
 
 	public BatchController compare(Function<String, String> firstInputKey, Function<String, String> secondInputKey,
-			BiFunction<String, String, String> resultForm) {
+			BiFunction<String, String, String> resultForm) throws Exception {
 		OriginalCompareArrangement compareArrangement = new OriginalCompareArrangement();
 		compareArrangement.arrangeCompareTask(tasks, hiddenTasks, logger, firstInputKey, secondInputKey, resultForm);
 		return this;
