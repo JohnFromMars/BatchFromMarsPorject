@@ -21,7 +21,7 @@ public class OriginalExecuteArrangementTest {
 
 	@Parameterized.Parameters
 	public static List<Object[]> data() {
-		return Arrays.asList(new Object[20][0]);
+		return Arrays.asList(new Object[2][0]);
 	}
 
 	@Test
@@ -451,6 +451,50 @@ public class OriginalExecuteArrangementTest {
 		assertEquals("0002EE02,0000HH0002.cc", testOutput.readFile());
 		assertEquals("0003EE03,0008HH0003.cc", testOutput.readFile());
 		assertEquals("0004EE02,0001HH0004.cc", testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+
+	}
+	
+	@Test
+	public void testMergeMultipleTasks1() throws Exception {
+
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		// Set input
+
+		testInput1.writeFile("0004EE02aa");
+		testInput1.writeFile("0001DD00aa");
+		testInput1.writeFile("0003EE0dd3");
+		testInput1.writeFile("0000HH000d");
+		testInput1.writeFile("0002EE02dd");
+
+		testInput2.writeFile("0008HH0003");
+		testInput2.writeFile("0000HH0002");
+		testInput2.writeFile("0001HH0004");
+		testInput2.writeFile("0004HH0006");
+		testInput2.writeFile("0002HH0001");
+		testInput2.writeFile("0009HH0005");
+
+		//@formatter:off
+		batchController.input(testInput1)
+		               .input(testInput2)
+		               .output(testOutput)
+				       .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				       .merge()
+				       .filter((s)->s.substring(4, 6).equals("EE"))
+				       .map((s) -> s + ".cc")
+				       .execute();
+		//@formatter:on
+		
+		assertFalse(testOutput.isEmpty());
+		assertEquals("0004EE02aa.cc", testOutput.readFile());
+		assertEquals("0003EE0dd3.cc", testOutput.readFile());
+		assertEquals("0002EE02dd.cc", testOutput.readFile());
 		assertFalse(!testOutput.isEmpty());
 
 	}

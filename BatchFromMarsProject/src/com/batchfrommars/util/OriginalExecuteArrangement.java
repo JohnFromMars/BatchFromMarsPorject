@@ -16,7 +16,11 @@ public class OriginalExecuteArrangement {
 
 		log.finest("components size = " + tasks.size());
 
+		// check legal compare
 		compareTaskCheck(input, log, tasks);
+
+		//check legal merge
+		mergeTaskCheck(input, log, tasks);
 
 		// set input
 		setInput(input, log, tasks, hiddenTasks);
@@ -41,6 +45,51 @@ public class OriginalExecuteArrangement {
 
 		// close input and output
 		closeInputAndOutput(log, input, output);
+
+	}
+
+	private void mergeTaskCheck(List<FileInformation> input, Logger log, List<Task> tasks)
+			throws InputMismatchException, UnsupportedOperationException {
+		int mergeNumber = 0;
+
+		// navigate all task to confirm the number of merge task
+		for (Task task : tasks) {
+			if (task.getTaskName().equals(TaskName.MERGE)) {
+				mergeNumber++;
+			}
+		}
+
+		// There can only be 1 merge task
+		if (mergeNumber > 1) {
+			UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
+					"There can only be 1 merge task.");
+			log.warning(unsupportedOperationException.getMessage());
+			throw unsupportedOperationException;
+		}
+
+		// merge task and compare task can not co-exist
+		if (mergeNumber > 0 && compareTaskCkecked) {
+			UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
+					"The comapre task and merge task can not co-exist.");
+			log.warning(unsupportedOperationException.getMessage());
+			throw unsupportedOperationException;
+		}
+
+		// Merge task requires at least 1 input
+		if (mergeNumber > 0 && input.size() < 1) {
+			InputMismatchException inputMismatchException = new InputMismatchException(
+					"Merge task requires at least 1 input.");
+			log.warning(inputMismatchException.getMessage());
+			throw inputMismatchException;
+		}
+
+		//Merge task must be the first first task 
+		if (mergeNumber == 1 && !tasks.get(0).getTaskName().equals(TaskName.MERGE)) {
+			UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException(
+					"Merge task must be the first first task.");
+			log.warning(unsupportedOperationException.getMessage());
+			throw unsupportedOperationException;
+		}
 
 	}
 
@@ -161,7 +210,7 @@ public class OriginalExecuteArrangement {
 			tasks.get(0).getComponent().addInputFileInformation(fileInformation1, fileInformation2);
 			log.finest("add" + fileInformation1.toString() + " and " + fileInformation2.toString() + " to task"
 					+ tasks.get(0).toString());
-			
+
 			tasks.get(0).getComponent().addLastComponent(hiddenTasks.get(0).getComponent(),
 					hiddenTasks.get(1).getComponent());
 		}
