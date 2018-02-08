@@ -3,7 +3,10 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -20,7 +23,7 @@ import com.batchfrommars.util.LogLevel;
 public class OriginalCompareArrangementTest {
 	@Parameterized.Parameters
     public static List<Object[]> data() {
-        return Arrays.asList(new Object[10][0]);
+        return Arrays.asList(new Object[1][0]);
     }
 	
 	@Test
@@ -206,5 +209,21 @@ public class OriginalCompareArrangementTest {
 		assertEquals("000011111000011111", testOutput.readFile());
 		assertEquals("4444sxdcf4444sxdcf", testOutput.readFile());
 		assertFalse(!testOutput.isEmpty());
+	}
+	
+	@Test
+	public void testCompareWithRealFile() throws UnsupportedEncodingException, FileNotFoundException, Exception{
+		BatchController batchController=new BatchController();
+		
+		//@formatter:off
+		batchController.input("D:/BatchFromMars/TestCompareComponent/compare1.txt", "BIG5")
+		               .input("D:/BatchFromMars/TestCompareComponent/compare2.txt", "BIG5")
+		               .output("D:/BatchFromMars/TestCompareComponent/compareResult.txt","UTF8", false)
+		               .logger("testCompareWithRealFile", "D:/BatchFromMars/", LogLevel.FINEST)
+		               .compare((s)->s.substring(0, 4), (s)->s.substring(0, 4), (s1,s2)->s1+"###"+s2)
+		               .map((s) -> s + "###" + new Date().toString())
+		               .execute();
+		               
+		//@formatter:on
 	}
 }
