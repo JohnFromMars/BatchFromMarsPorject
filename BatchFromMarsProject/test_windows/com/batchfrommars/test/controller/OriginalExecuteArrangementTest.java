@@ -589,6 +589,7 @@ public class OriginalExecuteArrangementTest {
 			                            .sum((s)->s.substring(0,7));
 		//@formatter:on
 		
+		
 		assertFalse(testOutput.isEmpty());
 		assertEquals("test header", testOutput.readFile());
 		assertEquals("0002.11EE02dd.cc", testOutput.readFile());

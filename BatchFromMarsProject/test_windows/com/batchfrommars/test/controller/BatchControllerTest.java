@@ -31,6 +31,20 @@ public class BatchControllerTest {
 				       .output("D:/BatchFromMars/TTEESST2.txt", "BIG5", false)
 				       .sort("4,6,1,3,e")
 				       .execute();
+		
+	}
+	
+	@Test
+	public void testSort3() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		batchController.logger("testSort3", "D:/BatchFromMars", LogLevel.INFO)
+				       .input("D:/BatchFromMars/SortData/sort3.txt", "UTF8")
+				       .output("D:/BatchFromMars/SortData/TTEESST2.txt", "BIG5", false)
+				       .sort("1,10,A")
+				       .execute();
+		
 	}
 
 }
