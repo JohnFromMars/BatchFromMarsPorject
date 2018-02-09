@@ -3,6 +3,7 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -498,5 +499,106 @@ public class OriginalExecuteArrangementTest {
 		assertFalse(!testOutput.isEmpty());
 
 	}
+	
+	@Test
+	public void testMergeMultipleTasks2() throws Exception {
+
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		// Set input
+
+		testInput1.writeFile("0004EE02aa");
+		testInput1.writeFile("0001DD00aa");
+		testInput1.writeFile("0003EE0dd3");
+		testInput1.writeFile("0000HH000d");
+		testInput1.writeFile("0002EE02dd");
+
+		testInput2.writeFile("0008HH0003");
+		testInput2.writeFile("0000HH0002");
+		testInput2.writeFile("0001HH0004");
+		testInput2.writeFile("0004HH0006");
+		testInput2.writeFile("0002HH0001");
+		testInput2.writeFile("0009HH0005");
+
+		//@formatter:off
+		int count = batchController.input(testInput1)
+		                           .input(testInput2)
+		                           .output(testOutput)
+		                           .header("test header")
+		                           .footer("test footer")
+				                   .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				                   .merge()
+				                   .filter((s)->s.substring(4, 6).equals("EE"))
+		                           .map((s) -> s + ".cc")
+		                           .sort("1,4,a")				       
+			                       .count();
+		//@formatter:on
+		
+		assertFalse(testOutput.isEmpty());
+		assertEquals("test header", testOutput.readFile());
+		assertEquals("0002EE02dd.cc", testOutput.readFile());
+		assertEquals("0003EE0dd3.cc", testOutput.readFile());
+		assertEquals("0004EE02aa.cc", testOutput.readFile());
+		assertEquals("test footer", testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+		assertEquals(3, count);
+		
+	}
+	
+	@Test
+	public void testMergeMultipleTasks3() throws Exception {
+
+		BatchController batchController = new BatchController() {
+		};
+
+		FileInformation testInput1 = new QueueFile();
+		FileInformation testInput2 = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		// Set input
+
+		testInput1.writeFile("0004.50EE02aa");
+		testInput1.writeFile("0001.33DD00aa");
+		testInput1.writeFile("0003.40EE0dd3");
+		testInput1.writeFile("0000.20HH000d");
+		testInput1.writeFile("0002.11EE02dd");
+
+		testInput2.writeFile("0008.33HH0003");
+		testInput2.writeFile("0000.44HH0002");
+		testInput2.writeFile("0001.55HH0004");
+		testInput2.writeFile("0004.66HH0006");
+		testInput2.writeFile("0002.77HH0001");
+		testInput2.writeFile("0009.00HH0005");
+
+		//@formatter:off
+		BigDecimal sum = batchController.input(testInput1)
+		                                .input(testInput2)
+		                                .output(testOutput)
+		                                .header("test header")
+		                                .footer("test footer")
+				                        .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				                        .merge()
+				                        .filter((s)->s.substring(7, 9).equals("EE"))
+		                                .map((s) -> s + ".cc")
+		                                .sort("1,4,a")				       
+			                            .sum((s)->s.substring(0,7));
+		//@formatter:on
+		
+		assertFalse(testOutput.isEmpty());
+		assertEquals("test header", testOutput.readFile());
+		assertEquals("0002.11EE02dd.cc", testOutput.readFile());
+		assertEquals("0003.40EE0dd3.cc", testOutput.readFile());
+		assertEquals("0004.50EE02aa.cc", testOutput.readFile());
+		assertEquals("test footer", testOutput.readFile());
+		assertFalse(!testOutput.isEmpty());
+		assertEquals(new BigDecimal("10.01"), sum);
+		
+	}
+
 
 }
