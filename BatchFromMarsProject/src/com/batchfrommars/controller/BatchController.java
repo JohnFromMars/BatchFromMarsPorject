@@ -1,7 +1,6 @@
 package com.batchfrommars.controller;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +88,7 @@ public class BatchController {
 		return this;
 	}
 
-	public BatchController input(String filePath, String encodeing)
-			throws UnsupportedEncodingException, FileNotFoundException {
+	public BatchController input(String filePath, String encodeing) throws IOException {
 
 		FileInformation fileInformation = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
 		this.inputs.add(fileInformation);
@@ -103,8 +101,7 @@ public class BatchController {
 		return this;
 	}
 
-	public BatchController output(String filePath, String encodeing, boolean appdening)
-			throws UnsupportedEncodingException, FileNotFoundException {
+	public BatchController output(String filePath, String encodeing, boolean appdening) throws IOException {
 
 		FileInformation output = new PhysicalFile(PhysicalFile.OUTPUT, filePath, encodeing, appdening);
 		this.output = output;

@@ -2,13 +2,12 @@ package com.batchfrommars.file;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,8 +32,7 @@ public class PhysicalFile implements FileInformation {
 	public static final String INPUT = "INPUT";
 	public static final String OPERATE = "OPERATE";
 
-	public PhysicalFile(String ioType, String filePath, String encoding, boolean append)
-			throws UnsupportedEncodingException, FileNotFoundException {
+	public PhysicalFile(String ioType, String filePath, String encoding, boolean append) throws IOException {
 
 		this.ioType = ioType;
 		this.filePath = filePath;
@@ -46,6 +44,14 @@ public class PhysicalFile implements FileInformation {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), encoding));
 
 		} else if (ioType.equals(OUTPUT)) {
+			// check directory exist
+			File file = new File(filePath);
+			File parent = new File(file.getParent());
+
+			if (!parent.exists()) {
+				parent.mkdirs();
+			}
+
 			this.bufferedWriter = new BufferedWriter(
 					new OutputStreamWriter(new FileOutputStream(filePath, append), encoding));
 		}
