@@ -1,8 +1,10 @@
 package com.batchfrommars.util;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.batchfrommars.file.FileInformation;
+import com.batchfrommars.file.ListFile;
 import com.batchfrommars.file.PhysicalFile;
 
 public class OriginalOutputArrangement {
@@ -16,6 +18,12 @@ public class OriginalOutputArrangement {
 
 	//for file information output
 	public FileInformation arrangeFileInformationOutput(FileInformation fileInformation) {
+		return fileInformation;
+	}
+	
+	//for the list data output
+	public FileInformation arrangeListFileOutput(List<String> strings) {
+		FileInformation fileInformation = new ListFile(strings);
 		return fileInformation;
 	}
 

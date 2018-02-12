@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.batchfrommars.file.FileInformation;
+import com.batchfrommars.file.ListFile;
 import com.batchfrommars.file.PhysicalFile;
 
 public class OriginalInputArrangement {
@@ -15,8 +16,14 @@ public class OriginalInputArrangement {
 		inputs.add(fileInformation);
 	}
 
-	//for file information input
+	// for file information input
 	public void arrangeFileInformationInput(List<FileInformation> inputs, FileInformation fileInformation) {
+		inputs.add(fileInformation);
+	}
+
+	// for List input
+	public void arrangeListFileInput(List<String> strings, List<FileInformation> inputs) {
+		FileInformation fileInformation = new ListFile(strings);
 		inputs.add(fileInformation);
 	}
 

@@ -94,6 +94,12 @@ public class BatchController {
 		originalInputArrangement.arrangePhysicalFileInput(filePath, encodeing, inputs);
 		return this;
 	}
+	
+	public BatchController input(List<String> strings){
+		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
+		originalInputArrangement.arrangeListFileInput(strings, inputs);
+		return this;
+	}
 
 	public BatchController input(FileInformation fileInformation) {
 		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
@@ -108,9 +114,14 @@ public class BatchController {
 	}
 
 	public BatchController output(FileInformation fileInformation) {
-		// this.output = fileInformation;
 		OriginalOutputArrangement originalOutputArrangement = new OriginalOutputArrangement();
 		output = originalOutputArrangement.arrangeFileInformationOutput(fileInformation);
+		return this;
+	}
+	
+	public BatchController output(List<String> strings) {
+		OriginalOutputArrangement originalOutputArrangement = new OriginalOutputArrangement();
+		output = originalOutputArrangement.arrangeListFileOutput(strings);
 		return this;
 	}
 
