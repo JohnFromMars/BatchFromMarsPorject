@@ -11,14 +11,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.batchfrommars.file.FileInformation;
-import com.batchfrommars.file.PhysicalFile;
 import com.batchfrommars.util.OriginalCompareArrangement;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
+import com.batchfrommars.util.OriginalInputArrangement;
 import com.batchfrommars.util.OriginalLoggerArrangement;
 import com.batchfrommars.util.OriginalMapArangement;
 import com.batchfrommars.util.OriginalMergeArrangement;
+import com.batchfrommars.util.OriginalOutputArrangement;
 import com.batchfrommars.util.OriginalSortArrangement;
 import com.batchfrommars.util.OriginalSumArrangement;
 import com.batchfrommars.util.Task;
@@ -89,27 +90,27 @@ public class BatchController {
 	}
 
 	public BatchController input(String filePath, String encodeing) throws IOException {
-
-		FileInformation fileInformation = new PhysicalFile(PhysicalFile.INPUT, filePath, encodeing, false);
-		this.inputs.add(fileInformation);
-
+		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
+		originalInputArrangement.arrangePhysicalFileInput(filePath, encodeing, inputs);
 		return this;
 	}
 
 	public BatchController input(FileInformation fileInformation) {
-		this.inputs.add(fileInformation);
+		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
+		originalInputArrangement.arrangeFileInformationInput(inputs, fileInformation);
 		return this;
 	}
 
 	public BatchController output(String filePath, String encodeing, boolean appdening) throws IOException {
-
-		FileInformation output = new PhysicalFile(PhysicalFile.OUTPUT, filePath, encodeing, appdening);
-		this.output = output;
+		OriginalOutputArrangement originalOutputArrangement = new OriginalOutputArrangement();
+		output = originalOutputArrangement.arrangePhysicalFileOutput(filePath, encodeing, appdening);
 		return this;
 	}
 
 	public BatchController output(FileInformation fileInformation) {
-		this.output = fileInformation;
+		// this.output = fileInformation;
+		OriginalOutputArrangement originalOutputArrangement = new OriginalOutputArrangement();
+		output = originalOutputArrangement.arrangeFileInformationOutput(fileInformation);
 		return this;
 	}
 
