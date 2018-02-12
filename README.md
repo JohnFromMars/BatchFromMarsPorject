@@ -1,4 +1,4 @@
-# BatchFromMarsPorject 1.2.0
+# BatchFromMarsPorject 1.2.1
 >This libarary provides some models of data processing that shoud make it easy to develop batch programs. Currently, it provides some simple models like sorting, file reading, and writing to help you reach the specific data processing purposes. The idea of this library is making business logic and progress clear and maintainable like the code below. Please check the javadoc to get a complete overview of this library and to get an idea of which models you should use in your programs.
 
         batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogeLevel.FINEST)
