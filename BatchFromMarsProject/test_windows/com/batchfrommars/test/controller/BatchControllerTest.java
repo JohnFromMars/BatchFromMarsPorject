@@ -1,11 +1,15 @@
  package com.batchfrommars.test.controller;
 
+import java.util.logging.Level;
+
+import java.util.logging.Logger;
+
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
+import com.batchfrommars.file.LogUtil;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
@@ -16,7 +20,7 @@ public class BatchControllerTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TTEESST1.txt", "BIG5", false)
 				       .sort("4,6,1,3,d")
@@ -28,7 +32,7 @@ public class BatchControllerTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TTEESST2.txt", "BIG5", false)
 				       .sort("4,6,1,3,e")
@@ -41,7 +45,7 @@ public class BatchControllerTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("testSort3", "D:/BatchFromMars", LogLevel.INFO)
+		batchController.logger("testSort3", "D:/BatchFromMars", Level.INFO)
 				       .input("D:/BatchFromMars/SortData/sort3.txt", "UTF8")
 				       .output("D:/BatchFromMars/SortData/TTEESST2.txt", "BIG5", false)
 				       .sort("1,10,A")
@@ -51,6 +55,8 @@ public class BatchControllerTest {
 	
 	@Test
 	public void testMultiController() throws Exception {
+		
+		Logger logger = LogUtil.getLogger("testMultiController", "D:/BatchFromMars", Level.INFO);
 		BatchController step1 = new BatchController();
 		BatchController step2 = new BatchController();
 		BatchController step3 = new BatchController();
@@ -70,19 +76,19 @@ public class BatchControllerTest {
 		testInput2.writeFile("4444sxdcf");
 
 		
-		step1.logger("testMultiController", "D:/BatchFromMars", LogLevel.INFO)
+		step1.logger(logger)
 		     .input(testInput1)
 		     .output("D:/BatchFromMars/multiController/multiCom1.txt", "UTF8", false)
 		     .map(s->s+"###001")
 	         .execute();
 		
-		step2.logger("testMultiController", "D:/BatchFromMars", LogLevel.INFO)
+		step2.logger(logger)
 		     .input(testInput2)
 		     .output("D:/BatchFromMars/multiController/multiCom2.txt", "UTF8", false)
 		     .map(s->s+"###002")
 		     .execute();
 		
-		step3.logger("testMultiController", "D:/BatchFromMars", LogLevel.INFO)
+		step3.logger(logger)
 		     .input("D:/BatchFromMars/multiController/multiCom1.txt", "UTF8")
 		     .input("D:/BatchFromMars/multiController/multiCom2.txt", "UTF8")
 		     .output("D:/BatchFromMars/multiController/multiCom3.txt", "UTF8",false)

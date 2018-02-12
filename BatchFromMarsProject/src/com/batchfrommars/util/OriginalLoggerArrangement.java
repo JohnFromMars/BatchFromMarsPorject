@@ -7,34 +7,15 @@ import com.batchfrommars.file.LogUtil;
 
 public class OriginalLoggerArrangement {
 
-	public Logger arrangeLoggerTask(String logName, String filePath, LogLevel logLevel) {
+	public Logger arrangeLoggerTask(String logName, String filePath, Level logLevel) {
 
 		return getLoggerWithLevel(logName, filePath, logLevel);
 
 	}
 
-	private Logger getLoggerWithLevel(String logName, String filePath, LogLevel logLevel) {
+	private Logger getLoggerWithLevel(String logName, String filePath, Level logLevel) {
 
-		switch (logLevel) {
-
-		case FINEST:
-			return LogUtil.getLogger(logName, filePath, Logger.getLogger(logName), Level.FINEST);
-
-		case FINE:
-
-			return LogUtil.getLogger(logName, filePath, Logger.getLogger(logName), Level.FINE);
-
-		case INFO:
-
-			return LogUtil.getLogger(logName, filePath, Logger.getLogger(logName), Level.INFO);
-
-		case WARNING:
-			return LogUtil.getLogger(logName, filePath, Logger.getLogger(logName), Level.SEVERE);
-
-		default:
-			return LogUtil.getLogger(logName, filePath);
-
-		}
+		return LogUtil.getLogger(logName, filePath, Logger.getLogger(logName), logLevel);
 
 	}
 

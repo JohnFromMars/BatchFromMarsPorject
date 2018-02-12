@@ -4,12 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.logging.Level;
+
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
@@ -20,7 +21,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,3,e").execute();
 	}
@@ -30,7 +31,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,a").execute();
 	}
@@ -40,7 +41,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,a,1").execute();
 	}
@@ -50,7 +51,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("a,2,1").execute();
 	}
@@ -60,7 +61,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("1,2").execute();
 	}
@@ -70,7 +71,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,1").execute();
 	}
@@ -80,7 +81,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2").execute();
 	}
@@ -90,7 +91,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2,3,3").execute();
 	}
@@ -120,7 +121,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input(testInput)
 				.output(testOutput)
 				.sort("1,4,D")
@@ -185,7 +186,7 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
 				.input(testInput)
 				.output(testOutput)
 				.sort("7,8,D,5,6,A,1,4,D")

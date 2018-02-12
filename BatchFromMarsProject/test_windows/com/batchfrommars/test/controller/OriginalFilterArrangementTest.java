@@ -3,12 +3,13 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.logging.Level;
+
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 public class OriginalFilterArrangementTest {
 
@@ -31,7 +32,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .execute();
 
@@ -63,7 +64,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> s.length() > 8)
 				       .execute();
 
@@ -92,7 +93,7 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
 				       .execute();
 

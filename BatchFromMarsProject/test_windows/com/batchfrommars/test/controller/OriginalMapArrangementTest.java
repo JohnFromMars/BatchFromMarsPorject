@@ -3,12 +3,13 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.logging.Level;
+
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 public class OriginalMapArrangementTest {
 	
@@ -31,7 +32,7 @@ public class OriginalMapArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("MapTest", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("MapTest", "D:/BatchFromMars", Level.FINEST)
 				       .map((s)->s.substring(0, 3))
 				       .execute();
 
@@ -63,7 +64,7 @@ public class OriginalMapArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("MapTest", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("MapTest", "D:/BatchFromMars", Level.FINEST)
 				       .map((s)->s + "," + date)
 				       .execute();
 

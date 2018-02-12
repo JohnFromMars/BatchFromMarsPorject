@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,6 @@ import org.junit.runners.Parameterized;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 @RunWith(Parameterized.class)
 public class OriginalExecuteArrangementTest {
@@ -45,7 +45,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:off
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("testMultipleTasks", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testMultipleTasks", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .sort("1,4,A")
 				       .map((String s) -> s + ".txt")
@@ -80,7 +80,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:off
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("testMultipleTasks2", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testMultipleTasks2", "D:/BatchFromMars", Level.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
@@ -114,7 +114,7 @@ public class OriginalExecuteArrangementTest {
 		batchController.input(testInput)
 		               .output(testOutput)
 		               .header(header)
-				       .logger("testHeader", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testHeader", "D:/BatchFromMars", Level.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
@@ -150,7 +150,7 @@ public class OriginalExecuteArrangementTest {
 		batchController.input(testInput)
 		               .output(testOutput)
 		               .footer(footer)
-				       .logger("testFooter", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testFooter", "D:/BatchFromMars", Level.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
@@ -187,7 +187,7 @@ public class OriginalExecuteArrangementTest {
 		               .output(testOutput)
 		               .footer(footer)
 		               .header(header)
-				       .logger("testHeaderAndFooter", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testHeaderAndFooter", "D:/BatchFromMars", Level.FINEST)
 				       .map((String s) -> s + ".txt")
 				       .sort("1,4,A")
 				       .filter((s) -> s.substring(4, 6)
@@ -208,7 +208,7 @@ public class OriginalExecuteArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 		//@formatter:off
-		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", Level.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
 				       .header("header...")
@@ -224,7 +224,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", Level.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 				       .output("D:/BatchFromMars/TestHeader.txt", "BIG5", false)
 				       .header("header...")
@@ -239,7 +239,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("testPhysicalFileWithfooter", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("testPhysicalFileWithfooter", "D:/BatchFromMars", Level.FINEST)
 				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
 			           .output("D:/BatchFromMars/TestFooter.txt", "BIG5", false)
 			           .footer("footer...")
@@ -254,7 +254,7 @@ public class OriginalExecuteArrangementTest {
 		};
 
 		//@formatter:off
-		batchController.logger("testNoInput", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("testNoInput", "D:/BatchFromMars", Level.FINEST)
 				       .output("D:/BatchFromMars/TestNoInput.txt", "BIG5", false).sort("4,6,1,3").header("header...")
 				       .footer("footer...")
 				       .map((s) -> s.substring(0, 4))
@@ -274,7 +274,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:on
 
 		//@formatter:off
-		batchController.logger("testNoInput2", "D:/BatchFromMars", LogLevel.FINEST)
+		batchController.logger("testNoInput2", "D:/BatchFromMars", Level.FINEST)
 			 	       .output("D:/BatchFromMars/TestNoInput2.txt", "BIG5", false)
 			 	       .sort("4,6,1,3")
 			 	       .header(header)
@@ -311,7 +311,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:off
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("testMultipleTasks3", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testMultipleTasks3", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .sort("1,4,A")
 				       .map((String s) -> s + ".txt")
@@ -352,7 +352,7 @@ public class OriginalExecuteArrangementTest {
 		//@formatter:off
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("testMultipleTasks4", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testMultipleTasks4", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .sort("1,4,A")
 				       .map((String s) -> s + ".txt")
@@ -396,7 +396,7 @@ public class OriginalExecuteArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-				       .logger("testCompareMultipleTasks", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testCompareMultipleTasks", "D:/BatchFromMars", Level.FINEST)
 				       .compare((s)->s.substring(0, 4), (s) -> s.substring(6, 10), (s1,s2) -> s1 + "," + s2)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .map((String s) -> s + ".txt")
@@ -441,7 +441,7 @@ public class OriginalExecuteArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-				       .logger("testCompareMultipleTasks2", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testCompareMultipleTasks2", "D:/BatchFromMars", Level.FINEST)
 				       .compare((s)->s.substring(0, 4), (s) -> s.substring(6, 10), (s1,s2) -> s1 + "," + s2)
 				       .map((s) -> s + ".cc")
 				       .execute();
@@ -485,7 +485,7 @@ public class OriginalExecuteArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-				       .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				       .logger("testMergeMultipleTasks1", "D:/BatchFromMars", Level.FINEST)
 				       .merge()
 				       .filter((s)->s.substring(4, 6).equals("EE"))
 				       .map((s) -> s + ".cc")
@@ -531,7 +531,7 @@ public class OriginalExecuteArrangementTest {
 		                           .output(testOutput)
 		                           .header("test header")
 		                           .footer("test footer")
-				                   .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				                   .logger("testMergeMultipleTasks1", "D:/BatchFromMars", Level.FINEST)
 				                   .merge()
 				                   .filter((s)->s.substring(4, 6).equals("EE"))
 		                           .map((s) -> s + ".cc")
@@ -581,7 +581,7 @@ public class OriginalExecuteArrangementTest {
 		                                .output(testOutput)
 		                                .header("test header")
 		                                .footer("test footer")
-				                        .logger("testMergeMultipleTasks1", "D:/BatchFromMars", LogLevel.FINEST)
+				                        .logger("testMergeMultipleTasks1", "D:/BatchFromMars", Level.FINEST)
 				                        .merge()
 				                        .filter((s)->s.substring(7, 9).equals("EE"))
 		                                .map((s) -> s + ".cc")

@@ -21,6 +21,27 @@ public class LogUtil {
 		);
 	}
 
+	public static Logger getLogger(String logName, String logPath, Level level) {
+
+		Logger logger = Logger.getLogger(logName);
+
+		FileHandler fileHandler = null;
+		try {
+
+			fileHandler = new FileHandler(getLogFilePath(logName, logPath), true);
+			fileHandler.setFormatter(new BatchLogFormatter());
+			logger.addHandler(fileHandler);
+			logger.setLevel(level);
+
+		} catch (IOException e) {
+			logger.severe(e.getMessage());
+		} catch (SecurityException e) {
+			logger.severe(e.getMessage());
+		}
+
+		return logger;
+	}
+
 	public static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
 
 		FileHandler fileHandler = null;

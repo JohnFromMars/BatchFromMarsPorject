@@ -3,12 +3,13 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.logging.Level;
+
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
-import com.batchfrommars.util.LogLevel;
 
 public class OriginalCoutArrangementTest {
 	@Test
@@ -26,7 +27,7 @@ public class OriginalCoutArrangementTest {
 
 		Integer count = batchController.input(testInput)
 				                       .output(testOutput)
-				                       .logger("TestSum2", "D:/BatchFromMars", LogLevel.FINEST)
+				                       .logger("TestSum2", "D:/BatchFromMars", Level.FINEST)
 				                       .filter((s)->s.substring(0, 4).equals("0001"))
 				                       .count();
 

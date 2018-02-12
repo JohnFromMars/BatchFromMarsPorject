@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.PhysicalFile;
-import com.batchfrommars.util.LogLevel;
 import com.batchfrommars.util.OriginalCompareArrangement;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
@@ -77,7 +77,7 @@ public class BatchController {
 		return this;
 	}
 
-	public BatchController logger(String logName, String filePath, LogLevel level) {
+	public BatchController logger(String logName, String filePath, Level level) {
 		OriginalLoggerArrangement loggerArrangement = new OriginalLoggerArrangement();
 		this.logger = loggerArrangement.arrangeLoggerTask(logName, filePath, level);
 		return this;
