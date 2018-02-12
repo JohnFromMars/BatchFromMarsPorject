@@ -29,16 +29,16 @@ public class OriginalExecuteArrangement {
 		setOutput(output, log, tasks);
 
 		// set temp file
-		setTempFiles(log, tasks, hiddenTasks);
+		setQueueFiles(log, tasks, hiddenTasks);
 
 		// write header
 		writeHeader(log, header, output);
 
 		// start the batch
-		startAllComponents(log, tasks, hiddenTasks);
+		startAllTasks(log, tasks, hiddenTasks);
 
 		// wait the unfinished components
-		waitUnfinishedComponents(log, tasks, hiddenTasks);
+		waitUnfinishedTasks(log, tasks, hiddenTasks);
 
 		// write footer
 		writeFooter(log, footer, output);
@@ -190,7 +190,7 @@ public class OriginalExecuteArrangement {
 	 * @param log
 	 * @param tasks
 	 */
-	private void setTempFiles(Logger log, List<Task> tasks, List<Task> hiddenTasks) {
+	private void setQueueFiles(Logger log, List<Task> tasks, List<Task> hiddenTasks) {
 		// compare task need to connect sort task in the hidden task first
 		if (compareTaskCkecked) {
 			FileInformation fileInformation1 = new QueueFile();
@@ -234,7 +234,7 @@ public class OriginalExecuteArrangement {
 
 	}
 
-	private void startAllComponents(Logger log, List<Task> tasks, List<Task> hiddenTasks) {
+	private void startAllTasks(Logger log, List<Task> tasks, List<Task> hiddenTasks) {
 
 		if (compareTaskCkecked) {
 			for (Task task : hiddenTasks) {
@@ -250,7 +250,7 @@ public class OriginalExecuteArrangement {
 
 	}
 
-	private void waitUnfinishedComponents(Logger log, List<Task> tasks, List<Task> hiddenTasks)
+	private void waitUnfinishedTasks(Logger log, List<Task> tasks, List<Task> hiddenTasks)
 			throws InterruptedException {
 
 		if (compareTaskCkecked) {
