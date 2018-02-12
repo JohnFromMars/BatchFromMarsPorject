@@ -11,7 +11,7 @@ import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.QueueFile;
 
-public class OriginalCoutArrangementTest {
+public class OriginalCountArrangementTest {
 	@Test
 	public void testCount() throws Exception {
 		BatchController batchController = new BatchController() {
