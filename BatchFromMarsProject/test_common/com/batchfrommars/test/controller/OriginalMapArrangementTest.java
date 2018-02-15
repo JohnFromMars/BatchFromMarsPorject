@@ -32,7 +32,6 @@ public class OriginalMapArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("MapTest", "D:/BatchFromMars", Level.FINEST)
 				       .map((s)->s.substring(0, 3))
 				       .execute();
 

@@ -18,32 +18,47 @@ public class OriginalSortArrangementTest {
 
 	@Test(expected = SyntaxException.class)
 	public void testSyntax() throws Exception {
-		BatchController batchController = new BatchController() {
-		};
-
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,3,e").execute();
+		BatchController batchController = new BatchController();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+		
+        //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("4,6,1,3,e")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test(expected = SyntaxException.class)
 	public void testSyntax2() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,6,1,a").execute();
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("4,6,1,a")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test(expected = SyntaxException.class)
 	public void testSyntax3() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
+		
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("4,a,1").execute();
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("4,a,1")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test(expected = SyntaxException.class)
@@ -51,19 +66,31 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("a,2,1").execute();
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("a,2,1")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test
 	public void testSyntax5() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
+		
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("1,2").execute();
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("1,2")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test(expected = SyntaxException.class)
@@ -71,19 +98,33 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,1").execute();
+		
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("2,1")
+				       .execute();
+		//@formatter:on
+		
 	}
 
 	@Test
 	public void testSyntax7() throws Exception {
 		BatchController batchController = new BatchController() {
 		};
+		
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2").execute();
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("2,2")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test
@@ -91,9 +132,16 @@ public class OriginalSortArrangementTest {
 		BatchController batchController = new BatchController() {
 		};
 
-		batchController.logger("BatchControllerTest", "D:/BatchFromMars", Level.FINEST)
-				.input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
-				.output("D:/BatchFromMars/TTEESST.txt", "BIG5", false).sort("2,2,3,3").execute();
+		
+		FileInformation testInput = new QueueFile();
+		FileInformation testOutput = new QueueFile();
+
+		 //@formatter:off
+		batchController.input(testInput)
+				       .output(testOutput)
+				       .sort("2,2,3,3")
+				       .execute();
+		//@formatter:on
 	}
 
 	@Test

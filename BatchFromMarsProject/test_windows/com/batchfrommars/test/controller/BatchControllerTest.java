@@ -1,5 +1,8 @@
  package com.batchfrommars.test.controller;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.logging.Level;
 
 import java.util.logging.Logger;
@@ -96,6 +99,105 @@ public class BatchControllerTest {
 		     .execute();
 		
 		
+	}
+	
+	
+	@Test
+	public void testCompareWithRealFile() throws UnsupportedEncodingException, FileNotFoundException, Exception{
+		BatchController batchController=new BatchController();
+		
+		//@formatter:off
+		batchController.input("D:/BatchFromMars/TestCompareComponent/compare1.txt", "BIG5")
+		               .input("D:/BatchFromMars/TestCompareComponent/compare2.txt", "BIG5")
+		               .output("D:/BatchFromMars/TestCompareComponent/compareResult.txt","UTF8", false)
+		               .logger("testCompareWithRealFile", "D:/BatchFromMars/", Level.FINEST)
+		               .compare((s)->s.substring(0, 4), (s)->s.substring(0, 4), (s1,s2)->s1+"###"+s2)
+		               .map((s) -> s + "###" + new Date().toString())
+		               .execute();
+		               
+		//@formatter:on
+	}
+	
+	@Test
+	public void testPhysicalFileWithHeaderAndFooter() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+		//@formatter:off
+		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", Level.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				       .output("D:/BatchFromMars/TestFooterAndHeader.txt", "BIG5", false)
+				       .header("header...")
+				       .footer("footer...")
+				       .sort("4,6,1,3")
+				       .execute();
+		//@formatter:on
+	}
+
+	@Test
+	public void testPhysicalFileWithHeader() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		//@formatter:off
+		batchController.logger("testPhysicalFileWithHeaderAndFooter", "D:/BatchFromMars", Level.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+				       .output("D:/BatchFromMars/TestHeader.txt", "BIG5", false)
+				       .header("header...")
+				       .sort("4,6,1,3")
+				       .execute();
+		//@formatter:on
+	}
+	
+	@Test
+	public void testPhysicalFileWithfooter() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		//@formatter:off
+		batchController.logger("testPhysicalFileWithfooter", "D:/BatchFromMars", Level.FINEST)
+				       .input("D:/BatchFromMars/SortData/sort1.txt", "UTF8")
+			           .output("D:/BatchFromMars/TestFooter.txt", "BIG5", false)
+			           .footer("footer...")
+			           .sort("4,6,1,3")
+			           .execute();
+		//@formatter:on
+	}
+
+	@Test
+	public void testNoInput() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		//@formatter:off
+		batchController.logger("testNoInput", "D:/BatchFromMars", Level.FINEST)
+				       .output("D:/BatchFromMars/TestNoInput.txt", "BIG5", false).sort("4,6,1,3").header("header...")
+				       .footer("footer...")
+				       .map((s) -> s.substring(0, 4))
+				       .filter((s) -> s.equals("0000"))
+				       .execute();
+		//@formatter:on
+	}
+	
+	@Test
+	public void testNoInput2() throws Exception {
+		BatchController batchController = new BatchController() {
+		};
+
+		//@formatter:off
+		String header = "出表日期:" + new Date().toString() + "\r\n"
+		              + "出表單位:資訊處";
+		//@formatter:on
+
+		//@formatter:off
+		batchController.logger("testNoInput2", "D:/BatchFromMars", Level.FINEST)
+			 	       .output("D:/BatchFromMars/TestNoInput2.txt", "BIG5", false)
+			 	       .sort("4,6,1,3")
+			 	       .header(header)
+				       .footer("footer...\r\noh oh oh!")
+				       .map((s) -> s + "cc")
+				       .filter((s) -> s.equals("0000"))
+				       .execute();
+		//@formatter:on
 	}
 
 }

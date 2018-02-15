@@ -31,7 +31,6 @@ public class OriginalSumArrangementTest {
 		testInput.writeFile("0000HH000");
 
 		BigDecimal decimal = batchController.input(testInput)
-				                            .logger("TestSum", "D:/BatchFromMars", Level.FINEST)
 				                            .sum((s) -> s.substring(0, 4));
 
 		assertEquals(new BigDecimal(9), decimal);
@@ -54,7 +53,6 @@ public class OriginalSumArrangementTest {
 
 		BigDecimal decimal = batchController.input(testInput)
 				                            .output(testOutput)
-				                            .logger("TestSum2", "D:/BatchFromMars", Level.FINEST)
 				                            .sum((s) -> s.substring(0, 7));
 
 		assertEquals(new BigDecimal(6.75), decimal);

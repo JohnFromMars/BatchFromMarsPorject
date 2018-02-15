@@ -46,7 +46,6 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-		               .logger("testCompareTaskWithOrder", "D:/BatchFromMars", Level.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
 
@@ -78,7 +77,6 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-		               .logger("testTwoCompareTask", "D:/BatchFromMars", Level.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
@@ -106,7 +104,6 @@ public class OriginalCompareArrangementTest {
 		//@formatter:off
 		batchController.input(testInput1)
 		               .output(testOutput)
-		               .logger("testOneInput", "D:/BatchFromMars", Level.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
 
@@ -134,7 +131,6 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-		               .logger("testCompareNotTheFirstTask", "D:/BatchFromMars", Level.FINEST)
 		               .filter((s)->s.substring(0, 4).equals("0000"))
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
@@ -162,7 +158,6 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-		               .logger("testCompareIsTheFirstTask", "D:/BatchFromMars", Level.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .filter((s)->s.substring(0, 4).equals("0000"))
 		               .map((s)->s+"TEST")
@@ -199,7 +194,6 @@ public class OriginalCompareArrangementTest {
 		batchController.input(testInput1)
 		               .input(testInput2)
 		               .output(testOutput)
-		               .logger("testCompareTaskWithoutOrder", "D:/BatchFromMars", Level.FINEST)
 		               .compare((s) -> s, (s) -> s, (s1, s2) -> s1 + s2)
 		               .execute();
 
@@ -210,20 +204,5 @@ public class OriginalCompareArrangementTest {
 		assertEquals("4444sxdcf4444sxdcf", testOutput.readFile());
 		assertFalse(!testOutput.isEmpty());
 	}
-	
-	@Test
-	public void testCompareWithRealFile() throws UnsupportedEncodingException, FileNotFoundException, Exception{
-		BatchController batchController=new BatchController();
-		
-		//@formatter:off
-		batchController.input("D:/BatchFromMars/TestCompareComponent/compare1.txt", "BIG5")
-		               .input("D:/BatchFromMars/TestCompareComponent/compare2.txt", "BIG5")
-		               .output("D:/BatchFromMars/TestCompareComponent/compareResult.txt","UTF8", false)
-		               .logger("testCompareWithRealFile", "D:/BatchFromMars/", Level.FINEST)
-		               .compare((s)->s.substring(0, 4), (s)->s.substring(0, 4), (s1,s2)->s1+"###"+s2)
-		               .map((s) -> s + "###" + new Date().toString())
-		               .execute();
-		               
-		//@formatter:on
-	}
+
 }

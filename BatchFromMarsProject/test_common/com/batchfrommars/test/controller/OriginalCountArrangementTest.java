@@ -27,7 +27,6 @@ public class OriginalCountArrangementTest {
 
 		Integer count = batchController.input(testInput)
 				                       .output(testOutput)
-				                       .logger("TestSum2", "D:/BatchFromMars", Level.FINEST)
 				                       .filter((s)->s.substring(0, 4).equals("0001"))
 				                       .count();
 

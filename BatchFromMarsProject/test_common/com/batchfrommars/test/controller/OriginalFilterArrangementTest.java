@@ -32,7 +32,6 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> Integer.valueOf(s.substring(0, 4)) > 0)
 				       .execute();
 
@@ -64,7 +63,6 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> s.length() > 8)
 				       .execute();
 
@@ -93,7 +91,6 @@ public class OriginalFilterArrangementTest {
 
 		batchController.input(testInput)
 		               .output(testOutput)
-				       .logger("FilterTest", "D:/BatchFromMars", Level.FINEST)
 				       .filter((s) -> s.substring(4, 6).equals("DD"))
 				       .execute();
 
