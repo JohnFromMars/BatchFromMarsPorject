@@ -3,8 +3,6 @@ package com.batchfrommars.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.logging.Level;
-
 import org.junit.Test;
 
 import com.batchfrommars.controller.BatchController;
