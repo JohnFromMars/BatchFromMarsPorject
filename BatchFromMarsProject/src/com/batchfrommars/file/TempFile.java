@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.omg.CORBA.ORBPackage.InconsistentTypeCode;
-
 public class TempFile implements FileInformation {
 
 	// File file = File.createTempFile(String.valueOf(this.hashCode()),

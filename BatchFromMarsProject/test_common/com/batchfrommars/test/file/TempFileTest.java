@@ -1,10 +1,6 @@
 package com.batchfrommars.test.file;
 
-import java.io.IOException;
-
 import com.batchfrommars.file.TempFile;
-
-import junit.framework.Test;
 
 public class TempFileTest {
 	@org.junit.Test
