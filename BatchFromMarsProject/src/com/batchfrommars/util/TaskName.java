@@ -7,5 +7,5 @@ package com.batchfrommars.util;
  *
  */
 public enum TaskName {
-	SORT, MAP, FILTER, COMPARE, MERGE, SUM, COUNT
+	SORT, MAP, FILTER, COMPARE, MERGE, SUM, COUNT, COPY
 }

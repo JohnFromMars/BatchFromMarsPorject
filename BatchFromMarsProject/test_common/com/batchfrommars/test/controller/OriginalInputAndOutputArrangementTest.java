@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.batchfrommars.controller.BatchController;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.ListFile;
+import com.batchfrommars.file.TempFile;
 
 public class OriginalInputAndOutputArrangementTest {
 	@Test
@@ -116,7 +117,19 @@ public class OriginalInputAndOutputArrangementTest {
 		assertEquals("111111111", testOutput.get(5));
 		assertEquals("4444sxdcf", testOutput.get(6));
 	
-	
 
+	}
+	
+	@Test
+	public void testTempInput() throws Exception {
+		FileInformation tempFile = new TempFile("OUTPUT", "aaa");
+		List<String> testOutput= new ArrayList<>();
+		tempFile.writeFile("111");
+		tempFile.writeFile("222");
+		tempFile.closeFile();
+		BatchController batchController = new BatchController();
+		batchController.input("aaa").output(testOutput).filter(s -> s.equals("111")).execute();
+		assertEquals("111", testOutput.get(0));
+		assertEquals(1, testOutput.size());
 	}
 }

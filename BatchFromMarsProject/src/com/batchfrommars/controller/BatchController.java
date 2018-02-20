@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.util.OriginalCompareArrangement;
+import com.batchfrommars.util.OriginalCopyArrangement;
 import com.batchfrommars.util.OriginalCountArrangement;
 import com.batchfrommars.util.OriginalExecuteArrangement;
 import com.batchfrommars.util.OriginalFilterArrangement;
@@ -95,6 +96,12 @@ public class BatchController {
 		return this;
 	}
 	
+	public BatchController input(String tempFileName) throws IOException {
+		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
+		originalInputArrangement.arrangeTempFileInput(tempFileName, inputs);
+		return this;
+	}
+	
 	public BatchController input(List<String> strings){
 		OriginalInputArrangement originalInputArrangement = new OriginalInputArrangement();
 		originalInputArrangement.arrangeListFileInput(strings, inputs);
@@ -160,6 +167,12 @@ public class BatchController {
 	public BatchController merge() {
 		OriginalMergeArrangement originalMergeArrangement = new OriginalMergeArrangement();
 		originalMergeArrangement.arrangeMergeTask(tasks, logger);
+		return this;
+	}
+//			回傳值			function
+	public BatchController copy() {
+		OriginalCopyArrangement originalCopyArrangement = new OriginalCopyArrangement();
+		originalCopyArrangement.arrangeCopyTask(tasks, logger);
 		return this;
 	}
 

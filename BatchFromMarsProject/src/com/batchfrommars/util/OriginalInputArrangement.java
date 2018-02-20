@@ -6,6 +6,7 @@ import java.util.List;
 import com.batchfrommars.file.FileInformation;
 import com.batchfrommars.file.ListFile;
 import com.batchfrommars.file.PhysicalFile;
+import com.batchfrommars.file.TempFile;
 
 public class OriginalInputArrangement {
 
@@ -25,6 +26,13 @@ public class OriginalInputArrangement {
 	public void arrangeListFileInput(List<String> strings, List<FileInformation> inputs) {
 		FileInformation fileInformation = new ListFile(strings);
 		inputs.add(fileInformation);
+	}
+
+	public void arrangeTempFileInput(String tempFileName, List<FileInformation> inputs) throws IOException {
+		// TODO Auto-generated method stub
+		FileInformation fileInformation = new TempFile("INPUT", tempFileName);
+		inputs.add(fileInformation);
+		
 	}
 
 }

@@ -19,7 +19,7 @@ public abstract class BatchComponentII extends ComponentII {
 	protected final static int INPUT_1 = 0;
 	protected final static int INPUT_2 = 1;
 	protected final static int INPUT_3 = 2;
-	protected final static int INPUT_4 = 4;
+	protected final static int INPUT_4 = 3;
 	protected final static int INPUT_5 = 4;
 
 	/**
@@ -48,9 +48,7 @@ public abstract class BatchComponentII extends ComponentII {
 		logger.finest("In act method, cheching while loop condition...");
 		logger.finest("inputFileList.isAllEmpty()=" + inputFileList.isAllEmpty() + ", isSomeLastComponentsRunning()="
 				+ isSomeLastComponentsRunning());
-
 		while (!inputFileList.isAllEmpty() || this.isSomeLastComponentsRunning()) {
-
 			LinkedList<String> inputList = inputFileList.readFile();
 
 			if (!isNull(inputList)) {

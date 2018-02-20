@@ -20,7 +20,7 @@ public class TempFile implements FileInformation {
 	public TempFile(String ioType, String fileName) throws IOException {
 		this.ioType = ioType;
 		this.file = new File(System.getProperty("java.io.tmpdir") + "/" + fileName + ".tmp");
-		file.deleteOnExit();
+//		file.deleteOnExit();
 		System.out.println(file.getPath());
 		if (ioType.equals("INPUT")) {
 			// this.file = File.
