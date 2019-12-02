@@ -5,6 +5,12 @@ import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
+/**
+ * Log formatter of BatchFromMars
+ * 
+ * @author user
+ *
+ */
 public class BatchLogFormatter extends Formatter {
 	private final SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private final String OOUTE = " : ";
