@@ -3,6 +3,11 @@ package com.batchfrommars.util;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Compare task 
+ * @author user
+ *
+ */
 public class CompareUtil {
 
 	public static int compare(Object input1, Object input2) {
