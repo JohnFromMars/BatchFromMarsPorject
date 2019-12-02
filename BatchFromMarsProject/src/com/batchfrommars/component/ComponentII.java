@@ -52,7 +52,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * 
+	 * Run the perform act method
 	 */
 	public void run() {
 		logger.fine(this.getClass().getSimpleName() + " Runing...");
@@ -60,7 +60,7 @@ public abstract class ComponentII extends Thread {
 		init();
 		performAct();
 		finish();
-//		closeFileLists();
+		// closeFileLists();
 		logComplete();
 
 	}
@@ -78,7 +78,7 @@ public abstract class ComponentII extends Thread {
 		init();
 		performAct();
 		finish();
-//		closeFileLists();
+		// closeFileLists();
 		logComplete();
 
 	}
@@ -119,12 +119,21 @@ public abstract class ComponentII extends Thread {
 		}
 	}
 
+	/**
+	 * This method is performed before the act
+	 */
 	protected void onInit() {
 	}
 
+	/**
+	 * This method is performed after the act
+	 */
 	protected void onFinish() {
 	}
 
+	/**
+	 * This method initial the logging message when the act start
+	 */
 	protected void logStart() {
 		logger.info("#### " + this.getClass().getSimpleName() + " started...");
 		logger.info("#### Started at " + FORM.format(new Date()));
@@ -133,11 +142,17 @@ public abstract class ComponentII extends Thread {
 		logger.info("#### OutputFileList=" + outputFileList);
 	}
 
+	/**
+	 * This method log the message when the act is over
+	 */
 	protected void logComplete() {
 		logger.info("#### Completed at " + FORM.format(new Date()));
 		logger.info("#### " + this.getClass().getSimpleName() + " completed...");
 	}
 
+	/**
+	 * This method close and release the input and output file buffer
+	 */
 	public void closeFileLists() {
 
 		try {
@@ -153,7 +168,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
-	 * setLastComponentList aloud you set the property lastComponentList
+	 * This method allows you to set the last component of the current one
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -164,6 +179,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method return the running state of the some previous components, If
+	 * there are at least one previous component running , it will return true.
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -181,6 +198,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method return the running state of all previous components, If all
+	 * previous components are running, it will return true.
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -200,10 +219,12 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method return the running state of specified previous component
 	 * 
 	 * @date 2016-09-17
 	 * @remark
 	 * @param last
+	 *            number of the component
 	 * @return
 	 */
 	public boolean isLastComponentRunning(int last) {
@@ -211,6 +232,8 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method return the number of the previous component the current
+	 * component has.
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -221,6 +244,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method add last component
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -234,6 +258,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * Getter of inputFilelist
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -244,6 +269,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * Setter of inputFileList
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -254,6 +280,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * Getter of output file list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -264,6 +291,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * Setter of output file list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -274,6 +302,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * this method adds file information into input file list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -288,6 +317,7 @@ public abstract class ComponentII extends Thread {
 	}
 
 	/**
+	 * This method adds file information into output file list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
