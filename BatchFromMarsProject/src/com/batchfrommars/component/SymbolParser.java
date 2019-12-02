@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
+ * This class parse the symbol such as comma and period 
  * 
  * @author JohnFromMars
  * @date 2016-09-17
