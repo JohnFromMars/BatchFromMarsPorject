@@ -8,6 +8,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Log utility for BatchFromMars project
+ * 
+ * @author user
+ *
+ */
 public class LogUtil {
 	private static final SimpleDateFormat form = new SimpleDateFormat("yyyyMMdd");
 	private static final String LOG_POSTFIX = ".txt";
@@ -15,12 +21,28 @@ public class LogUtil {
 	private static final String FRONT = String.format("%1$-130s", " ");
 	private static final String NEW_LINE = "\r\n";
 
+	/**
+	 * Get a logger
+	 * 
+	 * @param logName
+	 * @param logPath
+	 * @return
+	 */
 	public static Logger getLogger(String logName, String logPath) {
 		return getLogger(logName, logPath, Logger.getLogger(logName), Level.INFO
 
 		);
 	}
 
+	/**
+	 * Get a logger by name, log path and logging level
+	 * 
+	 * @param logName
+	 * @param logPath
+	 * @param logger
+	 * @param level
+	 * @return
+	 */
 	public static Logger getLogger(String logName, String logPath, Logger logger, Level level) {
 
 		FileHandler fileHandler = null;
@@ -40,6 +62,13 @@ public class LogUtil {
 		return logger;
 	}
 
+	/**
+	 * Return a log file name and path
+	 * 
+	 * @param logName
+	 * @param logPath
+	 * @return
+	 */
 	private static String getLogFilePath(String logName, String logPath) {
 		StringBuffer logFilePath = new StringBuffer();
 		logFilePath.append(logPath);
@@ -58,6 +87,12 @@ public class LogUtil {
 		return logFilePath.toString();
 	}
 
+	/**
+	 * Log the exception message in a nice way
+	 * 
+	 * @param e
+	 * @return
+	 */
 	public static String getExMsg(Exception e) {
 
 		String msg = FRONT + e.getClass() + NEW_LINE + e.getMessage() + NEW_LINE;
