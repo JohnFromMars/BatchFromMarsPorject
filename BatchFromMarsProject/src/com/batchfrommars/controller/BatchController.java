@@ -27,6 +27,13 @@ import com.batchfrommars.util.OringinSortArrangement;
 import com.batchfrommars.util.SortUtil;
 import com.batchfrommars.util.SumUtil;
 
+/**
+ * Main controller of the batch program. It can be set to have multiple tasks,
+ * input, out put and logging level
+ * 
+ * @author user
+ *
+ */
 public abstract class BatchController {
 
 	// list of components to execute
@@ -50,6 +57,7 @@ public abstract class BatchController {
 	protected FileInformation input;
 	protected FileInformation output;
 
+	// Utility area
 	private SortUtil sortUtil;
 	private LoggerUtil loggerUtil;
 
@@ -58,6 +66,13 @@ public abstract class BatchController {
 		tempFile = new ArrayList<>();
 	}
 
+	/**
+	 * This method add a filter task into the controller based on the given
+	 * lamba function
+	 * 
+	 * @param predicate
+	 * @return
+	 */
 	public BatchController filter(Predicate<String> predicate) {
 		FilterUtil mapUtil = new OringinFilterArrangement();
 		mapUtil.mapArrangement(components, logger, predicate);
@@ -65,6 +80,13 @@ public abstract class BatchController {
 		return this;
 	}
 
+	/**
+	 * This method adds a sort task into the controller based on the given sort
+	 * text
+	 * 
+	 * @param sortText
+	 * @return
+	 */
 	public BatchController sort(String sortText) {
 		sortUtil = new OringinSortArrangement();
 		sortUtil.sortArrangement(components, logger, sortText);
@@ -72,6 +94,13 @@ public abstract class BatchController {
 		return this;
 	}
 
+	/**
+	 * This method ads a map task into the controller base on the given lamba
+	 * function
+	 * 
+	 * @param function
+	 * @return
+	 */
 	public BatchController map(Function<String, String> function) {
 		MapUtil mapUtil = new OringinMapArangement();
 		mapUtil.mapArrangement(components, logger, function);
@@ -79,17 +108,40 @@ public abstract class BatchController {
 		return this;
 	}
 
+	/**
+	 * This method add the logger into the controller
+	 * 
+	 * @param logName
+	 * @param filePath
+	 * @param level
+	 * @return
+	 */
 	public BatchController logger(String logName, String filePath, LogeLevel level) {
 		loggerUtil = new OriginLoggerArrangement();
 		this.logger = loggerUtil.loggerArrangement(logName, filePath, level);
 		return this;
 	}
 
+	/**
+	 * This method set the logger
+	 * 
+	 * @param logger
+	 * @return
+	 */
 	public BatchController logger(Logger logger) {
 		this.logger = logger;
 		return this;
 	}
 
+	/**
+	 * this method add a input into the controller
+	 * 
+	 * @param filePath
+	 * @param encodeing
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 */
 	public BatchController input(String filePath, String encodeing)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
@@ -99,11 +151,27 @@ public abstract class BatchController {
 		return this;
 	}
 
+	/**
+	 * This method add an input information into the controller
+	 * 
+	 * @param fileInformation
+	 * @return
+	 */
 	public BatchController input(FileInformation fileInformation) {
 		this.input = fileInformation;
 		return this;
 	}
 
+	/**
+	 * This method adds a output into the controller.
+	 * 
+	 * @param filePath
+	 * @param encodeing
+	 * @param appdening
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 */
 	public BatchController output(String filePath, String encodeing, boolean appdening)
 			throws UnsupportedEncodingException, FileNotFoundException {
 
@@ -112,31 +180,70 @@ public abstract class BatchController {
 		return this;
 	}
 
+	/**
+	 * This method adds a file information into output of the controller
+	 * 
+	 * @param fileInformation
+	 * @return
+	 */
 	public BatchController output(FileInformation fileInformation) {
 		this.output = fileInformation;
 		return this;
 	}
 
+	/**
+	 * This method starts the controller, which executes all the tasks of the
+	 * controller
+	 * 
+	 * @throws Exception
+	 */
 	public void execute() throws Exception {
 		ExecuteUtil executeUtil = new OriginExecuteArrangement();
 		executeUtil.executeArrangement(input, output, logger, components, header, footer);
 	}
 
+	/**
+	 * This method not only executes the controller but also returns the sum of
+	 * certain area of data based on the given lamba function
+	 * 
+	 * @param function
+	 * @return
+	 * @throws Exception
+	 */
 	public BigDecimal sum(Function<String, String> function) throws Exception {
 		SumUtil originSumArranement = new OriginSumArrangement();
 		return originSumArranement.arrangeSum(function, components, logger, input, output, header, footer);
 	}
 
+	/**
+	 * This method not only executes the controller, but also return the count
+	 * number of data
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public Integer count() throws Exception {
 		OriginCountArrangement count = new OriginCountArrangement();
 		return count.arrangeCount(components, logger, input, output, header, footer);
 	}
 
+	/**
+	 * Set the header of the controller
+	 * 
+	 * @param header
+	 * @return
+	 */
 	public BatchController header(String header) {
 		this.header = header;
 		return this;
 	}
 
+	/**
+	 * Set the footer of the controller
+	 * 
+	 * @param footer
+	 * @return
+	 */
 	public BatchController footer(String footer) {
 		this.footer = footer;
 		return this;
