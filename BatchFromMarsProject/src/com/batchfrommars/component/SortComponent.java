@@ -17,7 +17,8 @@ import com.batchfrommars.util.CompareUtil;
 
 /**
  * Extend SortComponent and implement getKeys() and getOrders(), then this class
- * can be able to work.
+ * is be able to sort the data from input list or previous component. This
+ * component adopt external sort method to sort the data
  * 
  * @author user
  *
@@ -30,14 +31,18 @@ public abstract class SortComponent extends ComponentII {
 
 	protected abstract ArrayList<Integer> getOrders();
 
-//	public SortComponent(Logger logger, ArrayList<Integer> orders, ArrayList<Object> keys) {
-//		super();
-//	}
-//
-//	public SortComponent() {
-//		super();
-//	}
+	// public SortComponent(Logger logger, ArrayList<Integer> orders,
+	// ArrayList<Object> keys) {
+	// super();
+	// }
+	//
+	// public SortComponent() {
+	// super();
+	// }
 
+	/**
+	 * The sort behavior
+	 */
 	@Override
 	protected void act() throws Exception {
 		File tempFile = null;
@@ -109,6 +114,7 @@ public abstract class SortComponent extends ComponentII {
 	}
 
 	/**
+	 * read the data into memory and sort it, save the result as file at the end
 	 * 
 	 * @param sortList
 	 * @param comparator
@@ -145,6 +151,7 @@ public abstract class SortComponent extends ComponentII {
 	}
 
 	/**
+	 * Merge sorted files recursively
 	 * 
 	 * @param files
 	 * @param x
@@ -179,6 +186,7 @@ public abstract class SortComponent extends ComponentII {
 	}
 
 	/**
+	 * Merge to sorted files into one bigger sorted file
 	 * 
 	 * @param file1
 	 * @param file2
@@ -245,6 +253,7 @@ public abstract class SortComponent extends ComponentII {
 	}
 
 	/**
+	 * This method estimates the size of memory that can be used to store data
 	 * 
 	 * @return
 	 */
@@ -274,7 +283,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 * @throws IOException
 	 */
-	public boolean isEmpty(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
+	private boolean isEmpty(int i, FileList fileList, BufferedReader bufferedReader) throws IOException {
 
 		if (i == 0) {
 			return fileList.get(0).isEmpty();
@@ -293,7 +302,7 @@ public abstract class SortComponent extends ComponentII {
 	 * @return
 	 * @throws Exception
 	 */
-	public String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws Exception {
+	private String readFile(int i, FileList fileList, BufferedReader bufferedReader) throws Exception {
 
 		if (i == 0) {
 			return fileList.get(0).readFile();
