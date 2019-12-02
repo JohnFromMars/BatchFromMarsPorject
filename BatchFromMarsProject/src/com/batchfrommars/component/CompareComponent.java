@@ -37,6 +37,10 @@ public abstract class CompareComponent extends ComponentII {
 		outputFileList = new FileList();
 	}
 
+	/**
+	 * This method compare the data in input list then output it with certain
+	 * order
+	 */
 	protected void act() throws Exception {
 
 		String input1 = null;
@@ -66,6 +70,13 @@ public abstract class CompareComponent extends ComponentII {
 
 	}
 
+	/**
+	 * No last input condition
+	 * 
+	 * @param input1
+	 * @param input2
+	 * @throws Exception
+	 */
 	private void compareNoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In compareNoLastComponent, checking while loop condition...");
 		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
@@ -142,6 +153,13 @@ public abstract class CompareComponent extends ComponentII {
 		}
 	}
 
+	/**
+	 * The condition of only one input last component
+	 * 
+	 * @param input1
+	 * @param input2
+	 * @throws Exception
+	 */
 	private void compareOneLastComponent(String input1, String input2) throws Exception {
 
 		int emptyCount = ZERO;
@@ -237,6 +255,13 @@ public abstract class CompareComponent extends ComponentII {
 
 	}
 
+	/**
+	 * The condition of having two component
+	 * 
+	 * @param input1
+	 * @param input2
+	 * @throws Exception
+	 */
 	private void compareTwoLastComponent(String input1, String input2) throws Exception {
 		logger.finest("In compareTwoLastComponent, checking while loop condition...");
 		logger.finest("inputFileList.size()=" + inputFileList.size() + ", inputFileList.isAllEmpty()="
