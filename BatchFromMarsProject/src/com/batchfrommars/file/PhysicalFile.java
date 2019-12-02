@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
+ * The file store in the hard disk, implements the FileInformation interface
  * 
  * @author JohnFromMars
  * @date 2016-09-17
@@ -33,6 +34,16 @@ public class PhysicalFile implements FileInformation {
 	public static final String INPUT = "INPUT";
 	public static final String OPERATE = "OPERATE";
 
+	/**
+	 * Constructor
+	 * 
+	 * @param ioType
+	 * @param filePath
+	 * @param encoding
+	 * @param append
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 */
 	public PhysicalFile(String ioType, String filePath, String encoding, boolean append)
 			throws UnsupportedEncodingException, FileNotFoundException {
 

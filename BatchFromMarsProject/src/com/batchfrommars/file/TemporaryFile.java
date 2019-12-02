@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * The file stored in the memory
  * 
  * @author JohnFromMars
  * @date 2016-09-17
@@ -18,6 +19,11 @@ public class TemporaryFile implements FileInformation {
 	private static int DEFAULT_ALLOCATE = 300;
 	private static int DEFAULT_WAITING_TIME = 5;
 
+	/**
+	 * Constructor based on the given size
+	 * 
+	 * @param allocate
+	 */
 	public TemporaryFile(int allocate) {
 		buffer = new ArrayBlockingQueue<String>(allocate);
 		tempFileName = this.getClass().getGenericInterfaces().getClass().getSimpleName();
