@@ -22,6 +22,10 @@ public abstract class MergeSortComponent extends ComponentII {
 
 	protected abstract int getMergeSortMethod();
 
+	/**
+	 * The action of this component is to compare data form two previous
+	 * components and sort them
+	 */
 	@Override
 	protected void act() throws Exception {
 		String input1 = null;
@@ -289,12 +293,12 @@ public abstract class MergeSortComponent extends ComponentII {
 
 			} else if (input1 == null && input2 != null) {
 				logger.finest("input1 == null && input2 != null, checking emptyCount...");
-				
+
 				if (emptyCount < 50) {
 					logger.finest("EmptyCount=" + emptyCount + " less then 50, read input1 next data");
 					input1 = inputFileList.readFile(INPUT_1);
 					emptyCount++;
-					
+
 				} else if (emptyCount >= 50) {
 					logger.finest("EmptyCount=" + emptyCount + " more then 50, write out input2=" + input2);
 					logger.finest("Read input2 next data");
@@ -314,14 +318,13 @@ public abstract class MergeSortComponent extends ComponentII {
 			int compare = CompareUtil.compare(getKey(input1), getKey(input2)) * getMergeSortMethod();
 			logger.finest("Last round compare, input1 != null && input2 != null");
 			logger.finest("Compare result=" + compare + ", which getKey(input1)=" + getKey(input1)
-			+ ",  getKey(input2)=" + getKey(input2) + ", getMergeSortMethod()=" + getMergeSortMethod());
-			
+					+ ",  getKey(input2)=" + getKey(input2) + ", getMergeSortMethod()=" + getMergeSortMethod());
+
 			if (compare == EQUAL) {
 				logger.finest("Write out input1");
 				logger.finest("Write out input2");
 				outputFileList.writeToAllFile(input1);
 				outputFileList.writeToAllFile(input2);
-			
 
 			} else if (compare > EQUAL) {
 				logger.finest("Write out input2");
