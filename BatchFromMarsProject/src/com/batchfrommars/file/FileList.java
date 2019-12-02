@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * A list of File information, this class provide methods to manage multiple
+ * FileInformations
  * 
  * @author JohnFromMars
  * @date 2016-09-17
@@ -24,6 +26,7 @@ public class FileList {
 	}
 
 	/**
+	 * Add a file information into the list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -34,11 +37,12 @@ public class FileList {
 	}
 
 	/**
+	 * read the data form the file information list
 	 * 
 	 * @date 2016-09-17
 	 * @remark
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public LinkedList<String> readFile() throws Exception {
 		LinkedList<String> inputList = new LinkedList<>();
@@ -49,12 +53,13 @@ public class FileList {
 	}
 
 	/**
+	 * read the data from file information based on the given index
 	 * 
 	 * @date 2016-09-17
 	 * @remark
 	 * @param i
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public String readFile(int i) throws Exception {
 		String output = null;
@@ -68,7 +73,7 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param outputList
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void writeFile(List<String> outputList) throws Exception {
 		if (outputList.size() == fileInformationsList.size()) {
@@ -88,7 +93,7 @@ public class FileList {
 	 * @remark
 	 * @param i
 	 * @param outputData
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void writeFile(int i, String outputData) throws Exception {
 		fileInformationsList.get(i).writeFile(outputData);
@@ -100,7 +105,7 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param outputData
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void writeToAllFile(String outputData) throws Exception {
 		for (FileInformation item : fileInformationsList) {
@@ -110,7 +115,8 @@ public class FileList {
 
 	/**
 	 * all element in file list close file
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 * 
 	 * @date 2016-09-17
 	 * @remark
@@ -127,7 +133,7 @@ public class FileList {
 	 * @date 2016-09-17
 	 * @remark
 	 * @param i
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void closeFile(int i) throws Exception {
 		fileInformationsList.get(i).closeFile();
@@ -187,26 +193,38 @@ public class FileList {
 		return fileInformationsList.size();
 	}
 
-	
 	public FileInformation get(int fileInformation) {
 		return this.fileInformationsList.get(fileInformation);
 	}
 
-	
 	public FileInformation getLast() {
 		return fileInformationsList.get(fileInformationsList.size() - 1);
 	}
 
+	/**
+	 * clear the elements in file information list
+	 */
 	public void clear() {
 		this.fileInformationsList.clear();
 	}
 
+	/**
+	 * Delete all FileInformation in the list
+	 * 
+	 * @throws Exception
+	 */
 	public void deleteAllFile() throws Exception {
 		for (FileInformation item : this.fileInformationsList) {
 			item.deleteFile();
 		}
 	}
 
+	/**
+	 * Delete a fileInformatio based on the given index
+	 * 
+	 * @param fileInformation
+	 * @throws Exception
+	 */
 	public void deleteFile(int fileInformation) throws Exception {
 		this.fileInformationsList.get(fileInformation).deleteFile();
 	}
